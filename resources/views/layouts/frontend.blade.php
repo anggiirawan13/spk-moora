@@ -11,9 +11,9 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend') }}/imgs/logo/logo.png">
-    <link rel="stylesheet" href="{{ asset('frontend') }}/css/main.css">
-    <link rel="stylesheet" href="{{ asset('frontend') }}/css/custom.css">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend/imgs/logo/logo.png') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                                     <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i>
                                         Indonesia <i class="fi-rs-angle-small-down"></i></a>
                                     <ul class="language-dropdown">
-                                        <li><a href="#"><img src="assets/imgs/theme/flag-en.png"
+                                        <li><a href="#"><img src="{{ asset('frontend/imgs/theme/flag-en.png') }}"
                                                     alt="">Inggris</a></li>
                                     </ul>
                                 </li>
@@ -73,7 +73,7 @@
                 <div class="container">
                     <div class="header-wrap">
                         <div class="logo logo-width-1">
-                            <a href="{{route('homepage')}}"><img src="frontend/imgs/logo/logo.png" width="65px" height="60px"
+                            <a href="{{route('homepage')}}"><img src="{{ asset('frontend/imgs/logo/logo.png') }}" width="65px" height="60px"
                                     alt="logo"></a>
                         </div>
                         <div class="header-right">
@@ -118,11 +118,11 @@
                     </div>
                     <div class="mobile-social-icon">
                         <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                        <a href="#"><img src="frontend/imgs/theme/icons/icon-facebook.svg" alt=""></a>
-                        <a href="#"><img src="frontend/imgs/theme/icons/icon-twitter.svg" alt=""></a>
-                        <a href="#"><img src="frontend/imgs/theme/icons/icon-instagram.svg" alt=""></a>
-                        <a href="#"><img src="frontend/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
-                        <a href="#"><img src="frontend/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                        <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-facebook.svg') }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-twitter.svg') }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-instagram.svg') }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-pinterest.svg') }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-youtube.svg') }}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -139,14 +139,14 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="widget-about font-md mb-md-5 mb-lg-0">
                                 <div class="logo logo-width-1 wow fadeIn animated">
-                                    <a href="index.html"><img src="frontend/imgs/logo/logo.png" alt="logo" width="65" height="60"></a>
+                                    <a href="index.html"><img src="{{ asset('frontend/imgs/logo/logo.png') }}" alt="logo" width="65" height="60"></a>
                                 </div>
                                 <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
                                 <p class="wow fadeIn animated">
-                                    <strong>Address: </strong>jl.AR Hakim no 99, Kota Tegal.
+                                    <strong>Address: </strong>Pasar Baru, Kota Tangerang
                                 </p>
                                 <p class="wow fadeIn animated">
-                                    <strong>Phone: </strong>0856-8796-0972
+                                    <strong>Phone: </strong>0812-3456-7890
                                 </p>
                                 <p class="wow fadeIn animated">
                                     <strong>Email: </strong>contact@spkmoora.com
@@ -160,8 +160,8 @@
                                     <p class="wow fadeIn animated">From App Store or Google Play</p>
                                     <div class="download-app wow fadeIn animated mob-app">
                                         <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img
-                                                src="frontend/imgs/theme/app-store.jpg" alt=""></a>
-                                        <a href="#" class="hover-up"><img src="frontend/imgs/theme/google-play.jpg"
+                                                src="{{ asset('frontend/imgs/theme/app-store.jpg') }}" alt=""></a>
+                                        <a href="#" class="hover-up"><img src="{{ asset('frontend/imgs/theme/google-play.jpg') }}"
                                                 alt=""></a>
                                     </div>
                                 </div>
@@ -170,19 +170,19 @@
                         <div class="col-lg-2  col-md-3">
                             <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
                             <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                <a href="#"><img src="frontend/imgs/theme/icons/icon-facebook.svg"
+                                <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-facebook.svg') }}"
                                         alt=""></a>
-                                <a href="#"><img src="frontend/imgs/theme/icons/icon-twitter.svg"
+                                <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-twitter.svg') }}"
                                         alt=""></a>
-                                <a href="#"><img src="frontend/imgs/theme/icons/icon-instagram.svg"
+                                <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-instagram.svg') }}"
                                         alt=""></a>
-                                <a href="#"><img src="frontend/imgs/theme/icons/icon-pinterest.svg"
+                                <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-pinterest.svg') }}"
                                         alt=""></a>
-                                <a href="#"><img src="frontend/imgs/theme/icons/icon-youtube.svg"
+                                <a href="#"><img src="{{ asset('frontend/imgs/theme/icons/icon-youtube.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
-                            <img class="wow fadeIn animated" src="frontend/imgs/theme/payment-method.png" alt="">
+                            <img class="wow fadeIn animated" src="{{ asset('frontend/imgs/theme/payment-method.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -203,7 +203,7 @@
                             &copy; <strong class="text-brand">SPK Moora</strong> All rights reserved
                         </p>
                         <p class="text-lg-end text-start font-sm text-muted mb-0">
-                            Aldi Adam Fanrian Crated with Love.
+                            Aldi Adam Fanrian Created with &#10084;
                         </p>
                     </div>
                 </div>

@@ -18,13 +18,10 @@
         </style>
         <div class="col-md">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3>Daftar Pesan</h3>
-                 </div>
+                <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary">Daftar Mobil</h5>
+                </div>
                 <div class="card-body">
-                    {{-- @if (Session::has('message'))
-                            <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-                        @endif --}}
                     <table class="table table-striped">
                         <thead>
                             <tr>

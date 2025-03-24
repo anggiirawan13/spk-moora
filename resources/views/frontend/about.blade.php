@@ -11,7 +11,7 @@
     </div>
 
     <header style="text-align: center;">
-        <img src="frontend/imgs/dila.jpg" width="170" height="170" style="border-radius: 50%;" />
+        <img src="frontend/imgs/aldi.jpg" width="170" height="170" style="border-radius: 50%;" />
         <h1>Aldi Adam Fanrian</h1>
     </header>
 

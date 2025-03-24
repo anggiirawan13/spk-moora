@@ -10,7 +10,7 @@
     </div>
 </div>
 <article style="text-align: center; max-width: 1000px; margin: 3em auto">
-    <h2>SPK Pembelian mobil bekas terbaik menggunakan metode SAW</h2>
+    <h2>SPK Pembelian mobil bekas terbaik menggunakan metode Moora</h2>
     <table width="100%">
     <tr>
         <td>Nama Mobil</td>

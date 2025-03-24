@@ -5,7 +5,6 @@
         <style>
             nav svg {
                 height: 20px;
-                ;
             }
 
             nav.hidden {
@@ -18,14 +17,11 @@
         </style>
         <div class="col-md">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3>Daftar Semua Mobil</h3>
-                    <a href="{{route('mobils.create')}}" class="btn btn-primary">Tambah Data</a>
+                <div class="card-header py-3">
+                    <a href="{{route('mobils.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
+                    <h5 class="m-0 font-weight-bold text-primary">Daftar Pesan</h5>
                 </div>
                 <div class="card-body">
-                    {{-- @if (Session::has('message'))
-                            <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-                        @endif --}}
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -40,7 +36,7 @@
                                 <th>Seater</th>
                                 <th>Transmisi</th>
                                 <th>Ketersediaan</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,12 +56,12 @@
                                     <td>{{ $mobil->transmisi }}</td>
                                     <td>{{ $mobil->ketersediaan }}</td>
                                     <td>
-                                        <a href="{{route('mobils.edit', $mobil->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{route('mobils.edit', $mobil->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
                                         <form onclick="return confirm('anda yakin data dihapus?');"
                                         class="d-inline" action="{{route('mobils.destroy',$mobil->id)}}" method="POST">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -76,7 +72,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{-- {{ $mobils->links() }} --}}
                 </div>
             </div>
         </div>

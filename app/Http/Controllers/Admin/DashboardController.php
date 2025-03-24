@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alternatif;
+use App\Models\Kriteria;
+use App\Models\Message;
+use App\Models\Mobil;
 use Illuminate\Http\Request;
-use App\Http\Controllers\HomeController;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -13,9 +17,21 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        return view('admin.dashboard');
+        $mobil = Mobil::count();
+        $pesan = Message::count();
+        $kriteria = Kriteria::count();
+        $alternatif = Alternatif::count();
+
+        $data = (object) [
+            'mobil' => $mobil,
+            'pesan' => $pesan,
+            'kriteria' => $kriteria,
+            'alternatif' => $alternatif,
+        ];
+
+        return view('admin.dashboard', compact('data'));
     }
 
     /**

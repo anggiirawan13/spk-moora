@@ -3,7 +3,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-            <a href="{{route('alternatif.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i>Tambah Data</a>
+            <a href="{{route('alternatif.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
         <h5 class="m-0 font-weight-bold text-primary">Alternatif</h5>
     </div>
     <div class="card-body">
@@ -16,7 +16,7 @@
                         @foreach ($kriteria as $item)
                         <th>{{$item->nama}}</th>
                         @endforeach
-                        <th width="100px">Action</th>
+                        <th width="11%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,12 +34,12 @@
                         <td>{{$item->C4}}</td>
                         <td>{{$item->C5}}</td>
                         <td>
-                            <div class="ml-4">
+                            <div>
                                 <form action="{{ route('alternatif.destroy', $item->id )}}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <a href="{{ route('alternatif.edit', $item->id ) }}" class="btn bg-gradient-success btn-sm text-white"><i class="fas fa-fw fa-edit"></i></a>
-                                    <button type="submit" class="btn bg-gradient-danger btn-sm text-white" onclick="return confirm('apa kamu yakin akan menghapus data?')"><i class="fas fa-fw fa-trash"></i></button>
+                                    <a href="{{ route('alternatif.edit', $item->id ) }}" class="btn bg-primary btn-sm text-white"><i class="fas fa-edit"></i> Edit</a>
+                                    <button type="submit" class="btn bg-danger btn-sm text-white" onclick="return confirm('apa kamu yakin akan menghapus data?')"><i class="fas fa-trash"></i> Delete</button>
                                 </form>
                             </div>
                         </td>

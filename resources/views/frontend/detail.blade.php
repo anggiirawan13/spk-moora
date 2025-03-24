@@ -18,7 +18,7 @@
                     <div class="detail-gallery">
                         <div class="product-image-slider">
                             <figure class="border-radius-12">
-                                <img src="{{ url('/storage/'.$mobil->gambar)}}" alt="{{ $mobil->nama }}">
+                                <img src="{{ $mobil->gambar && Storage::exists('public/'.$mobil->gambar) ? url('/storage/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}"  alt="{{ $mobil->nama }}">
                             </figure>
                         </div>
                     </div>

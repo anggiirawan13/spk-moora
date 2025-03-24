@@ -1,12 +1,9 @@
 <?php
-use App\Http\Controllers\Admin\HitungController;
+
 use \App\Http\Controllers\Admin\KriteriaController;
 use \App\Http\Controllers\Admin\AlternatifController;
-use \App\Http\Controllers\Admin\MobilController;
-use \App\Http\Controllers\HomeController;
-use \App\Http\Controllers\Admin\DashboardController;
-use \App\Http\Controllers\Admin\MessageController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
