@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend') }}/imgs/logo/logo.png">
 
-    <title>Admin-TukuMobil</title>
+    <title>Admin-SPK Moora</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -209,8 +209,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">admin-fadila</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('backend') }}/img/fadila.jpg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">admin-aldi</span>
+                                <img class="img-profile rounded-circle" src="{{ asset('backend') }}/img/aldi.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -283,7 +283,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; TukuMobil 2023</span>
+                        <span>Copyright &copy; SPK Moora 2025</span>
                     </div>
                 </div>
             </footer>

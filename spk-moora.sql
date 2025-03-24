@@ -1,32 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jul 09, 2023 at 03:45 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.1.17
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `tukumobil`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `alternatifs`
---
-
 CREATE TABLE `alternatifs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -40,9 +11,6 @@ CREATE TABLE `alternatifs` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `alternatifs`
---
 
 INSERT INTO `alternatifs` (`id`, `nama`, `C1`, `C2`, `C3`, `C4`, `C5`, `kriteria_id`, `created_at`, `updated_at`) VALUES
 (1, 'Daihatsu Great New Xenia', '140', '80', '1200', '7', '25', NULL, '2023-06-21 06:26:16', '2023-06-21 06:26:16'),
@@ -50,11 +18,6 @@ INSERT INTO `alternatifs` (`id`, `nama`, `C1`, `C2`, `C3`, `C4`, `C5`, `kriteria
 (3, 'Honda Brio', '155', '90', '1500', '5', '50', NULL, '2023-06-21 06:27:21', '2023-06-21 06:27:21'),
 (4, 'Toyota Agya', '115', '70', '1000', '5', '50', NULL, '2023-06-21 06:28:16', '2023-06-21 06:28:16');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `failed_jobs`
---
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -66,11 +29,6 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `kriterias`
---
 
 CREATE TABLE `kriterias` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -82,9 +40,6 @@ CREATE TABLE `kriterias` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kriterias`
---
 
 INSERT INTO `kriterias` (`id`, `kode`, `nama`, `bobot`, `atribut`, `created_at`, `updated_at`) VALUES
 (1, 'C1', 'Harga', '3', 'cost', '2023-06-21 06:19:41', '2023-06-21 06:19:41'),
@@ -92,12 +47,6 @@ INSERT INTO `kriterias` (`id`, `kode`, `nama`, `bobot`, `atribut`, `created_at`,
 (3, 'C3', 'Kapasitas Mesin(cc)', '2', 'benefit', '2023-06-21 06:20:55', '2023-06-21 06:20:55'),
 (4, 'C4', 'Kapasitas Penumpang', '2', 'benefit', '2023-06-21 06:21:23', '2023-06-21 06:21:23'),
 (5, 'C5', 'Transmisi', '1', 'benefit', '2023-06-21 06:21:42', '2023-06-21 06:21:42');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `messages`
---
 
 CREATE TABLE `messages` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -110,29 +59,15 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `messages`
---
-
 INSERT INTO `messages` (`id`, `name`, `email`, `nomor`, `subjek`, `pesan`, `created_at`, `updated_at`) VALUES
 (1, 'Nurliesia', 'Nurliesia@gmail.com', '089826561721', 'Kesan', 'Website sangat intetraktiv', '2023-06-28 02:33:41', '2023-06-28 02:33:41'),
 (2, 'Aisyatun', 'ais@gmail.com', '088674646543', 'Pesan', 'Bagaimana cara menjual mobil disini?', '2023-06-28 04:07:12', '2023-06-28 04:07:12');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `migrations`
---
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
@@ -143,12 +78,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2023_06_21_122720_create_kriterias_table', 2),
 (7, '2023_06_21_122739_create_alternatifs_table', 2),
 (8, '2023_06_28_090513_create_messages_table', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mobils`
---
 
 CREATE TABLE `mobils` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -174,10 +103,6 @@ CREATE TABLE `mobils` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `mobils`
---
-
 INSERT INTO `mobils` (`id`, `nopol`, `nama`, `slug`, `gambar`, `harga`, `tahun`, `kilometer`, `bahan_bakar`, `kapasitas_mesin`, `tipe_mobil`, `jml_kursi`, `transmisi`, `warna`, `merek`, `pemilik`, `alamat_pemilik`, `deskripsi`, `ketersediaan`, `created_at`, `updated_at`) VALUES
 (25, 'G1693PYQ', 'Daihatsu Xenia', 'daihatsu-xenia', 'assets/mobil/SLyoc5WsNCDkZPFQp9fwXaH6LBCTBeygoqUx79Cq.png', 140, '2018', 129256, 'Bensin', 1200, 'MPV', 7, 'Manual', 'Silver', 'Daihatsu', 'Riky Raharjo', 'Bulakamba, Brebes', 'Kondisi Mobil Sangat baik, AC nyala, mesin mash bagus, tidak ada lecet', 'tersedia', '2023-06-28 03:47:13', '2023-06-28 03:47:13'),
 (26, 'G2725KVE', 'Toyota Innova', 'toyota-innova', 'assets/mobil/tCoLK0KGkYDjDOeEsSpcTlIyel9e3JIwpqx9qFMu.png', 168, '2014', 128575, 'Bensin', 2000, 'MPV', 7, 'Manual', 'Abu-Abu', 'Toyota', 'Kartika Devi', 'Demangharjo', 'Mesin yang sudah maksimal, dijual karena butuh', 'tersedia', '2023-06-28 03:49:44', '2023-06-28 03:49:44'),
@@ -189,23 +114,11 @@ INSERT INTO `mobils` (`id`, `nopol`, `nama`, `slug`, `gambar`, `harga`, `tahun`,
 (32, 'G2770SZE', 'Suzuki Ignis', 'suzuki-ignis', 'assets/mobil/hcn8anOCGPdCstgC7g4qP2MGuYbxlkh9Px6C9YnD.png', 135, '2017', 62227, 'Bensin', 1200, 'SUV', 7, 'Manual', 'Merah', 'Suzuki', 'Putra', 'Pekalongan', 'Semuanya Oke', 'tersedia', '2023-06-28 04:02:44', '2023-06-28 04:02:44'),
 (33, 'G3850YQ', 'Nissan Grand Livina', 'nissan-grand-livina', 'assets/mobil/8KX2mnasgsjU3tzFh3JeDdnPqo20FSsSn7RhLf94.png', 110, '2013', 100789, 'Solar', 1500, 'Hatchback', 7, 'Matic', 'Hitam', 'Nissan', 'Ivan', 'Bojongsana', 'Semuanya Oke kecuali Ac servis dikit', 'tersedia', '2023-06-28 04:06:05', '2023-06-28 04:06:05');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
 CREATE TABLE `password_resets` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `personal_access_tokens`
---
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -219,12 +132,6 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -237,132 +144,65 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `users`
---
-
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `is_admin`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'fadila', 'admin@tukumobil.com', NULL, '$2y$10$iupTK1iS..JJ7jR7/BI.a.3j/MM7MSAWPQDcMKQFyWtfUElOO0Jia', 1, NULL, '2023-06-19 06:05:14', '2023-06-19 06:05:14'),
-(2, 'ayasya', 'ayasya@user.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 0, NULL, '2023-06-19 06:58:41', '2023-06-19 06:58:41'),
-(3, 'Aisyatun', 'ais@user1.com', NULL, '$2y$10$cGAbNwxofF8X.lJICwvIt.slRyUtxR0eqGVIX5tpp8jmwSU84umMe', 0, NULL, '2023-06-26 03:25:41', '2023-06-26 03:25:41');
+(1, 'aldi', 'aldi@admin.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 1, NULL, '2023-06-19 06:05:14', '2023-06-19 06:05:14'),
+(2, 'adam', 'adam@user.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 0, NULL, '2023-06-19 06:58:41', '2023-06-19 06:58:41'),
+(3, 'fanrian', 'fanrian@user1.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 0, NULL, '2023-06-26 03:25:41', '2023-06-26 03:25:41');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `alternatifs`
---
 ALTER TABLE `alternatifs`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `failed_jobs`
---
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
---
--- Indexes for table `kriterias`
---
 ALTER TABLE `kriterias`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `messages`
---
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `migrations`
---
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `mobils`
---
 ALTER TABLE `mobils`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `mobils_name_unique` (`nama`),
   ADD UNIQUE KEY `mobils_slug_unique` (`slug`);
 
---
--- Indexes for table `password_resets`
---
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
---
--- Indexes for table `personal_access_tokens`
---
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
---
--- Indexes for table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `alternatifs`
---
 ALTER TABLE `alternatifs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
--- AUTO_INCREMENT for table `failed_jobs`
---
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `kriterias`
---
 ALTER TABLE `kriterias`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- AUTO_INCREMENT for table `messages`
---
 ALTER TABLE `messages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT for table `migrations`
---
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
---
--- AUTO_INCREMENT for table `mobils`
---
 ALTER TABLE `mobils`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
---
--- AUTO_INCREMENT for table `personal_access_tokens`
---
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `users`
---
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

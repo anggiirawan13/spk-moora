@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon ">
             <i href="{{route('homepage')}}"><img src="{{ asset('backend') }}/img/logo.png" alt="logo"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">TukuMobil</div>
+        <div class="sidebar-brand-text mx-3">SPK Moora</div>
     </a>
 
     <!-- Divider -->

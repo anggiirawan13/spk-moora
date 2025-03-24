@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tuku Mobil</title>
+    <title>SPK Moora</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -149,7 +149,7 @@
                                     <strong>Phone: </strong>0856-8796-0972
                                 </p>
                                 <p class="wow fadeIn animated">
-                                    <strong>Email: </strong>contact@tukumobil.com
+                                    <strong>Email: </strong>contact@spkmoora.com
                                 </p>
                             </div>
                         </div>
@@ -200,10 +200,10 @@
                     </div>
                     <div class="col-lg-6">
                         <p class="text-lg-end text-start font-sm text-muted mb-0">
-                            &copy; <strong class="text-brand">Tuku Mobil</strong> All rights reserved
+                            &copy; <strong class="text-brand">SPK Moora</strong> All rights reserved
                         </p>
                         <p class="text-lg-end text-start font-sm text-muted mb-0">
-                            Designed by SurfideMedia Powered By. Fadila Rizka
+                            Aldi Adam Fanrian Crated with Love.
                         </p>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>TukuMobil</title>
+  <title>SPK Moora</title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Bootstrap icons-->
@@ -285,7 +285,7 @@
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">
-        Copyright &copy; TukuMobil2023
+        Copyright &copy; SPK Moora 2025
       </p>
     </div>
   </footer>
