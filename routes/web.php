@@ -1,7 +1,7 @@
 <?php
 
-use \App\Http\Controllers\Admin\KriteriaController;
-use \App\Http\Controllers\Admin\AlternatifController;
+use \App\Http\Controllers\Admin\CriteriaController;
+use \App\Http\Controllers\Admin\AlternativeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +27,9 @@ Route::get('admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::
 
 Route::get('admin/messages',[\App\Http\Controllers\Admin\MessageController::class,'index'])->name('admin.messages.index');
 
-Route::resource('admin/mobils', \App\Http\Controllers\Admin\MobilController::class);
-Route::resource('admin/kriteria', KriteriaController::class);
-Route::resource('admin/alternatif', AlternatifController::class);
+Route::resource('admin/mobils', \App\Http\Controllers\Admin\CarController::class);
+Route::resource('admin/kriteria', CriteriaController::class);
+Route::resource('admin/alternatif', AlternativeController::class);
 Route::get('admin/hitung', [\App\Http\Controllers\Admin\HitungController::class, 'hitung'])->name('hitung');
 
 Auth::routes();
