@@ -16,7 +16,7 @@
                         <th>Nama</th>
                         <th>Bobot</th>
                         <th>Atribut</th>
-                        <th width="50px">Actions</th>
+                        <th width="11%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                         <td>{{$item->bobot}}</td>
                         <td>{{$item->atribut}}</td>
                         <td>
-                            <div class="ml-4">
+                            <div>
                                 <form action="{{ route('kriteria.destroy', $item->id )}}" method="POST">
                                     @csrf
                                     @method('delete')

@@ -26,7 +26,6 @@
                 <div class="form-group">
                     <label for="gambar">Gambar</label>
                     <input type="file" name="gambar" class="form-control" wire:model="gambar" />
-                    {{-- <img src="{{ Storage::url($mobil->gambar) }}" width="100" alt="" /> --}}
                 </div>
                 <div class="form-group">
                     <label for="harga">Harga</label>
@@ -117,7 +116,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ route('mobil.index') }}" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

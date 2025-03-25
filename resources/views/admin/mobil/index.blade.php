@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header py-3">
                     <a href="{{route('mobil.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
-                    <h5 class="m-0 font-weight-bold text-primary">Daftar Pesan</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Daftar Mobil</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -43,7 +43,9 @@
                             @forelse ($mobils as $mobil)
                                 <tr>
                                     <td>
-                                        <img src="{{ url('/storage/'.$mobil->gambar) }}"  width="60" >
+                                        <img class="default-img" 
+                                                src="{{ $mobil->gambar && Storage::exists('public/'.$mobil->gambar) ? url('/storage/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}" 
+                                                alt="{{ $mobil->nama }}" width="60">
                                     </td>
                                     <td>{{ $mobil->nopol }}</td>
                                     <td>{{ $mobil->nama }}</td>
@@ -67,7 +69,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="14" class="text-center">data kosong</td>
+                                    <td colspan="14" class="text-center">Data Kosong</td>
                                 </tr>
                             @endforelse
                         </tbody>

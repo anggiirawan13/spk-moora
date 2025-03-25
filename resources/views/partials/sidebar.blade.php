@@ -24,7 +24,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Databases
+        Master Data
     </div>
 
 
@@ -43,7 +43,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        SPK
+        Sistem Penunjang Keputusan
     </div>
 
     <!-- Nav Item - Charts -->
