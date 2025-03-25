@@ -10,7 +10,7 @@ class MessageController extends Controller
     public function index(){
         $messages = Message::latest()->get();
 
-        return view('admin.messages.index', compact('messages'));
+        return view('admin.message.index', compact('messages'));
     }
 
 }

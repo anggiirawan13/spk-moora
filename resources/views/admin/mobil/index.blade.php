@@ -18,7 +18,7 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header py-3">
-                    <a href="{{route('mobils.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
+                    <a href="{{route('mobil.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
                     <h5 class="m-0 font-weight-bold text-primary">Daftar Pesan</h5>
                 </div>
                 <div class="card-body">
@@ -56,9 +56,9 @@
                                     <td>{{ $mobil->transmisi }}</td>
                                     <td>{{ $mobil->ketersediaan }}</td>
                                     <td>
-                                        <a href="{{route('mobils.edit', $mobil->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                        <a href="{{route('mobil.edit', $mobil->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
                                         <form onclick="return confirm('anda yakin data dihapus?');"
-                                        class="d-inline" action="{{route('mobils.destroy',$mobil->id)}}" method="POST">
+                                        class="d-inline" action="{{route('mobil.destroy',$mobil->id)}}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button>
