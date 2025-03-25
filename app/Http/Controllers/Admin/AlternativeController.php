@@ -1,22 +1,24 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Kriteria;
-use App\Models\Alternatif;
+use App\Models\Criteria;
+use App\Models\Alternative;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class AlternatifController extends Controller
+class AlternativeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $kriteria = Kriteria::orderby('id', 'asc')->get();
-        $alternatif = Alternatif::orderby('created_at', 'asc')->get();
+        $kriteria = Criteria::orderby('id', 'asc')->get();
+        $alternatif = Alternative::orderby('created_at', 'asc')->get();
         return view('admin.alternatif.index', compact('kriteria','alternatif'));
     }
 
@@ -25,7 +27,7 @@ class AlternatifController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.alternatif.create');
     }
@@ -36,7 +38,7 @@ class AlternatifController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'nama' => 'required',
@@ -47,7 +49,7 @@ class AlternatifController extends Controller
             'C5' => 'required',
         ]);
 
-        $alternatif = Alternatif::create([
+        $alternatif = Alternative::create([
             'nama' => $request->nama,
             'C1' => $request->C1,
             'C2' => $request->C2,
@@ -60,25 +62,14 @@ class AlternatifController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
-        $alternatif = Alternatif::findorfail($id);
+        $alternatif = Alternative::findorfail($id);
         return view('admin.alternatif.edit', compact('alternatif'));
     }
 
@@ -89,7 +80,7 @@ class AlternatifController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
             'nama' => 'required',
@@ -109,7 +100,7 @@ class AlternatifController extends Controller
             'C5' => $request->C5,
         ];
 
-        Alternatif::whereId($id)->update($alternatif);
+        Alternative::whereId($id)->update($alternatif);
 
         return redirect()->route('alternatif.index')->with('success','Data Berhasil di Update');
     }
@@ -120,9 +111,9 @@ class AlternatifController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        $alternatif = Alternatif::findorfail($id);
+        $alternatif = Alternative::findorfail($id);
         $alternatif->delete();
 
         return redirect()->back()->with('success','Data Berhasil Dihapus');

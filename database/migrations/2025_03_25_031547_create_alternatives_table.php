@@ -8,28 +8,27 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('kriterias', function (Blueprint $table) {
+        Schema::create('alternatives', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
             $table->string('nama');
-            $table->string('bobot');
-            $table->string('atribut');
+            $table->string('C1');
+            $table->string('C2');
+            $table->string('C3');
+            $table->string('C4');
+            $table->string('C5');
+            $table->string('kriteria_id');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('kriterias');
+        Schema::dropIfExists('alternatives');
     }
 };

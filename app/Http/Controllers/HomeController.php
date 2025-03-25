@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Message;
-use App\Models\Mobil;
+use App\Models\Car;
 
 class HomeController extends Controller
 {
 
     public function index(){
-        $mobils = Mobil::latest()->get();
+        $mobils = Car::latest()->get();
         return view('frontend.home',compact('mobils'));
     }
 
@@ -25,7 +24,7 @@ class HomeController extends Controller
     public function about(){
         return view('frontend.about');
     }
-    public function detail(Mobil $mobil){
+    public function detail(Car $mobil){
 
         return view('frontend.detail',compact('mobil'));
     }

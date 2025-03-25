@@ -1,4 +1,4 @@
-CREATE TABLE `alternatifs` (
+CREATE TABLE `alternatives` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
   `C1` varchar(255) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `alternatifs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT INTO `alternatifs` (`id`, `nama`, `C1`, `C2`, `C3`, `C4`, `C5`, `kriteria_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `alternatives` (`id`, `nama`, `C1`, `C2`, `C3`, `C4`, `C5`, `kriteria_id`, `created_at`, `updated_at`) VALUES
 (1, 'Daihatsu Great New Xenia', '140', '80', '1200', '7', '25', NULL, '2023-06-21 06:26:16', '2023-06-21 06:26:16'),
 (2, 'Toyota Innova', '168', '60', '2000', '7', '25', NULL, '2023-06-21 06:26:54', '2023-06-21 06:34:06'),
 (3, 'Honda Brio', '155', '90', '1500', '5', '50', NULL, '2023-06-21 06:27:21', '2023-06-21 06:27:21'),
@@ -30,7 +30,7 @@ CREATE TABLE `failed_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-CREATE TABLE `kriterias` (
+CREATE TABLE `criterias` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `kode` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `kriterias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT INTO `kriterias` (`id`, `kode`, `nama`, `bobot`, `atribut`, `created_at`, `updated_at`) VALUES
+INSERT INTO `criterias` (`id`, `kode`, `nama`, `bobot`, `atribut`, `created_at`, `updated_at`) VALUES
 (1, 'C1', 'Harga', '3', 'cost', '2023-06-21 06:19:41', '2023-06-21 06:19:41'),
 (2, 'C2', 'Tahun', '2', 'benefit', '2023-06-21 06:20:10', '2023-06-21 06:20:10'),
 (3, 'C3', 'Kapasitas Mesin(cc)', '2', 'benefit', '2023-06-21 06:20:55', '2023-06-21 06:20:55'),
@@ -70,16 +70,16 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2023_06_18_150042_create_mobils_table', 1),
-(6, '2023_06_21_122720_create_kriterias_table', 2),
-(7, '2023_06_21_122739_create_alternatifs_table', 2),
-(8, '2023_06_28_090513_create_messages_table', 3);
+(1, '2025_03_25_031333_create_users_table', 1),
+(2, '2025_03_25_031433_create_cars_table', 1),
+(3, '2025_03_25_031509_create_criterias_table', 1),
+(4, '2025_03_25_031547_create_alternatives_table', 1),
+(5, '2025_03_25_031654_create_messages_table', 1),
+(6, '2025_03_25_031751_create_personal_access_tokens_table', 2),
+(7, '2025_03_25_031818_create_failed_jobs_table', 2),
+(8, '2025_03_25_031847_create_password_resets_table', 3);
 
-CREATE TABLE `mobils` (
+CREATE TABLE `cars` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nopol` varchar(10) NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `mobils` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `mobils` (`id`, `nopol`, `nama`, `slug`, `gambar`, `harga`, `tahun`, `kilometer`, `bahan_bakar`, `kapasitas_mesin`, `tipe_mobil`, `jml_kursi`, `transmisi`, `warna`, `merek`, `pemilik`, `alamat_pemilik`, `deskripsi`, `ketersediaan`, `created_at`, `updated_at`) VALUES
+INSERT INTO `cars` (`id`, `nopol`, `nama`, `slug`, `gambar`, `harga`, `tahun`, `kilometer`, `bahan_bakar`, `kapasitas_mesin`, `tipe_mobil`, `jml_kursi`, `transmisi`, `warna`, `merek`, `pemilik`, `alamat_pemilik`, `deskripsi`, `ketersediaan`, `created_at`, `updated_at`) VALUES
 (25, 'G1693PYQ', 'Daihatsu Xenia', 'daihatsu-xenia', 'assets/mobil/SLyoc5WsNCDkZPFQp9fwXaH6LBCTBeygoqUx79Cq.png', 140, '2018', 129256, 'Bensin', 1200, 'MPV', 7, 'Manual', 'Silver', 'Daihatsu', 'Riky Raharjo', 'Bulakamba, Brebes', 'Kondisi Mobil Sangat baik, AC nyala, mesin mash bagus, tidak ada lecet', 'tersedia', '2023-06-28 03:47:13', '2023-06-28 03:47:13'),
 (26, 'G2725KVE', 'Toyota Innova', 'toyota-innova', 'assets/mobil/tCoLK0KGkYDjDOeEsSpcTlIyel9e3JIwpqx9qFMu.png', 168, '2014', 128575, 'Bensin', 2000, 'MPV', 7, 'Manual', 'Abu-Abu', 'Toyota', 'Kartika Devi', 'Demangharjo', 'Mesin yang sudah maksimal, dijual karena butuh', 'tersedia', '2023-06-28 03:49:44', '2023-06-28 03:49:44'),
 (27, 'G2113FFK', 'Honda Brio', 'honda-brio', 'assets/mobil/09A6HqLTTLYg2f2BUWSBNV9FEdLCpuGN6B6GXXBH.png', 155, '2020', 32564, 'Bensin', 1500, 'Hatchback', 5, 'Matic', 'Silver', 'Honda', 'Hasnita', 'Limbangan, Brebes', 'Kondisi Mobil sangat oke', 'tersedia', '2023-06-28 03:51:48', '2023-06-28 03:51:48'),
@@ -149,14 +149,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `is
 (2, 'adam', 'adam@user.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 0, NULL, '2023-06-19 06:58:41', '2023-06-19 06:58:41'),
 (3, 'fanrian', 'fanrian@user1.com', NULL, '$2y$10$NlJ6Qoh/d/kGNnzA5nHEyOlNZIs2me09Zy00hew4uUE9IXQjATDcq', 0, NULL, '2023-06-26 03:25:41', '2023-06-26 03:25:41');
 
-ALTER TABLE `alternatifs`
+ALTER TABLE `alternatives`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
-ALTER TABLE `kriterias`
+ALTER TABLE `criterias`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `messages`
@@ -165,7 +165,7 @@ ALTER TABLE `messages`
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `mobils`
+ALTER TABLE `cars`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `mobils_name_unique` (`nama`),
   ADD UNIQUE KEY `mobils_slug_unique` (`slug`);
@@ -182,13 +182,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
-ALTER TABLE `alternatifs`
+ALTER TABLE `alternatives`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `kriterias`
+ALTER TABLE `criterias`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 ALTER TABLE `messages`
@@ -197,7 +197,7 @@ ALTER TABLE `messages`
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
-ALTER TABLE `mobils`
+ALTER TABLE `cars`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 ALTER TABLE `personal_access_tokens`

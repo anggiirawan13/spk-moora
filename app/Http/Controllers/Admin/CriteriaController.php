@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Kriteria;
+use App\Models\Criteria;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
-class KriteriaController extends Controller
+class CriteriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $kriteria = Kriteria::orderby('kode', 'asc')->get();
+        $kriteria = Criteria::orderby('kode', 'asc')->get();
         return view('admin.kriteria.index', compact('kriteria'));
     }
 
@@ -24,7 +26,7 @@ class KriteriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.kriteria.create');
 
@@ -36,7 +38,7 @@ class KriteriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
             'kode' => 'required',
@@ -45,7 +47,7 @@ class KriteriaController extends Controller
             'atribut' => 'required'
         ]);
 
-        $kriteria = Kriteria::create([
+        $kriteria = Criteria::create([
             'kode' => $request->kode,
             'nama' => $request->nama,
             'bobot' => $request->bobot,
@@ -56,25 +58,14 @@ class KriteriaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
-        $kriteria = Kriteria::findorfail($id);
+        $kriteria = Criteria::findorfail($id);
         return view('admin.kriteria.edit', compact('kriteria'));
     }
 
@@ -85,7 +76,7 @@ class KriteriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
             'kode' => 'required',
@@ -99,7 +90,7 @@ class KriteriaController extends Controller
             'bobot' => $request->bobot,
         ];
 
-        Kriteria::whereId($id)->update($kriteria);
+        Criteria::whereId($id)->update($kriteria);
 
         return redirect()->route('kriteria.index')->with('success','Data Berhasil di Update');
     }
@@ -110,9 +101,9 @@ class KriteriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        $kriteria = Kriteria::findorfail($id);
+        $kriteria = Criteria::findorfail($id);
         $kriteria->delete();
 
         return redirect()->back()->with('success','Data Berhasil Dihapus');
