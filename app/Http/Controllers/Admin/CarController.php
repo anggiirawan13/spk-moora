@@ -20,7 +20,7 @@ class CarController extends Controller
     public function index(): View
     {
         $mobils = Car::latest()->get();
-        return view('admin.mobils.index', compact('mobils'));
+        return view('admin.mobil.index', compact('mobils'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CarController extends Controller
      */
     public function create(): View
     {
-        return view('admin.mobils.create');
+        return view('admin.mobil.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class CarController extends Controller
 
             Car::create($request->except('gambar') + ['gambar'=> $gambar, 'slug' => $slug]);
         }
-        return redirect()->route('mobils.index')->with([
+        return redirect()->route('mobil.index')->with([
             'message'=> 'Data Berhasil DiTambahkan',
             'alert-type' => 'success'
         ]);
@@ -61,7 +61,7 @@ class CarController extends Controller
      */
     public function edit(Car $mobil): View
     {
-        return view('admin.mobils.edit', compact('mobil'));
+        return view('admin.mobil.edit', compact('mobil'));
     }
 
     /**
@@ -77,7 +77,7 @@ class CarController extends Controller
             $slug = Str::slug($request->nama,'-');
             $mobil->update($request->validated()+['slug'=> $slug]);
         }
-        return redirect()->route('mobils.index')->with([
+        return redirect()->route('mobil.index')->with([
             'message'=> 'Data Berhasil DiEdit',
             'alert-type' => 'info'
         ]);

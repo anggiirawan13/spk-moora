@@ -48,7 +48,8 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary btn-block"> Tambah Data</button>
+                <a href="{{ route('alternatif.index') }}" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
             </form>
             </div>

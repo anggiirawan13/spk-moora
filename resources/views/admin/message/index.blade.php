@@ -19,7 +19,7 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header py-3">
-                    <h5 class="m-0 font-weight-bold text-primary">Daftar Mobil</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Daftar Pesan</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
