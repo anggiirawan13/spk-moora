@@ -2,29 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Mobil;
-use Illuminate\View\View;
+use App\Models\Car;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Http\Requests\Admin\CarStoreRequest;
+use App\Http\Requests\Admin\CarUpdateRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Http\Requests\Admin\MobilStoreRequest;
-use App\Http\Requests\Admin\MobilUpdateRequest;
-// use Illuminate\Support\Facades\Storage;
-// use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
-
-class MobilController extends Controller
+class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $mobils = Mobil::latest()->get();
+        $mobils = Car::latest()->get();
         return view('admin.mobils.index', compact('mobils'));
     }
 
@@ -33,7 +28,7 @@ class MobilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.mobils.create');
     }
@@ -44,13 +39,13 @@ class MobilController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MobilStoreRequest $request,)
+    public function store(CarStoreRequest $request,): RedirectResponse
     {
         if($request->validated()){
             $gambar = $request->file('gambar')->store('assets/mobil', 'public');
             $slug = Str::slug($request->nama,'-');
 
-            Mobil::create($request->except('gambar') + ['gambar'=> $gambar, 'slug' => $slug]);
+            Car::create($request->except('gambar') + ['gambar'=> $gambar, 'slug' => $slug]);
         }
         return redirect()->route('mobils.index')->with([
             'message'=> 'Data Berhasil DiTambahkan',
@@ -59,23 +54,12 @@ class MobilController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mobil $mobil)
+    public function edit(Car $mobil): View
     {
         return view('admin.mobils.edit', compact('mobil'));
     }
@@ -87,18 +71,11 @@ class MobilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MobilUpdateRequest $request, Mobil $mobil)
+    public function update(CarUpdateRequest $request, Car $mobil): RedirectResponse
     {
         if($request->validated()){
             $slug = Str::slug($request->nama,'-');
             $mobil->update($request->validated()+['slug'=> $slug]);
-            // if($request-> gambar){
-            //     File::delete('storage/' .$mobil->gambar);
-            // }
-            // $mobilGambar = $request->file('gambar')->store(
-            //     'assets/mobil', 'public'
-            // );
-            // $mobil ->update($request->except('gambar')+['gambar'=>$mobilGambar]);
         }
         return redirect()->route('mobils.index')->with([
             'message'=> 'Data Berhasil DiEdit',
@@ -112,7 +89,7 @@ class MobilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mobil $mobil)
+    public function destroy(Car $mobil): RedirectResponse
     {
         if($mobil->gambar){
             unlink('storage/' . $mobil->gambar);
