@@ -3,8 +3,8 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('homepage')}}">
-        <div class="sidebar-brand-icon ">
-            <i href="{{route('homepage')}}"><img src="{{ asset('backend') }}/img/logo.png" alt="logo"></i>
+        <div class="sidebar-brand-icon">
+            <i><img src="{{ asset('backend') }}/img/logo.png" alt="logo"></i>
         </div>
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
     </a>
@@ -27,12 +27,12 @@
         Master Data
     </div>
 
-
     <li class="nav-item">
         <a class="nav-link" href="{{route('mobil.index')}}">
             <i class="fas fa-folder"></i>
             <span>Mobil Bekas</span></a>
     </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -41,14 +41,12 @@
         Sistem Penunjang Keputusan
     </div>
 
-    <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('kriteria.index')}}">
             <i class="fas fa-chart-bar"></i>
             <span>Kriteria</span></a>
     </li>
 
-    <!-- Nav Item - Tables -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('alternatif.index')}}">
             <i class="fas fa-th-list"></i>
@@ -59,6 +57,21 @@
         <a class="nav-link" href="{{route('hitung')}}">
             <i class="fas fa-calculator"></i>
             <span>Hitung</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Manajemen Pengguna
+    </div>
+
+    <!-- Menu Manage User -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('user.index')}}">
+            <i class="fas fa-users"></i>
+            <span>Data User</span></a>
     </li>
 
     <!-- Divider -->
