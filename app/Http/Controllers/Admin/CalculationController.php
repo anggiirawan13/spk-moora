@@ -9,83 +9,65 @@ use App\Models\Alternative;
 
 class CalculationController extends Controller
 {
+    public function hitung(Request $request)
+    {
+        // Ambil data kriteria dan alternatif
+        $kriteria = Criteria::all();
+        $alternatif = Alternative::with('values')->get();
 
-    public function hitung(Request $request){
+        // Ambil total bobot (hindari pembagian nol)
+        $totalBobot = $kriteria->sum('bobot') ?: 1;
 
-        $kriteria = Criteria::sum('bobot');
+        // Normalisasi bobot
+        $bobot = [];
+        foreach ($kriteria as $k) {
+            $bobot[$k->id] = $k->bobot / $totalBobot;
+        }
 
-        $bobot1 = 3/$kriteria;
-        $bobot2 = 2/$kriteria;
-        $bobot3 = 2/$kriteria;
-        $bobot4 = 2/$kriteria;
-        $bobot5 = 1/$kriteria;
-        $widget1 = [
-            'kriterias' => $bobot1,
-        ];
-        $widget2 = [
-            'kriterias' => $bobot2,
-        ];
-        $widget3 = [
-            'kriterias' => $bobot3,
-        ];
-        $widget4 = [
-            'kriterias' => $bobot4,
-        ];
-        $widget5 = [
-            'kriterias' => $bobot5,
-        ];
+        // Normalisasi matriks keputusan
+        $normalisasi = [];
+        $sumSquared = [];
 
+        foreach ($kriteria as $k) {
+            // Hitung jumlah kuadrat nilai kriteria
+            $sumSquared[$k->id] = $alternatif->sum(function ($a) use ($k) {
+                $nilai = optional($a->values->where('criteria_id', $k->id)->first())->nilai ?? 0;
 
-        $alternatif = Alternative::get();
-        $data = Alternative::orderby('nama', 'asc')->get();
+                return pow($nilai, 2);
+            });
 
-        $minC1 = Alternative::min('C1');
-        $maxC1 = Alternative::max('C1');
-        $minC2 = Alternative::min('C2');
-        $maxC2 = Alternative::max('C2');
-        $minC3 = Alternative::min('C3');
-        $maxC3 = Alternative::max('C3');
-        $minC4 = Alternative::min('C4');
-        $maxC4 = Alternative::max('C4');
-        $minC5 = Alternative::min('C5');
-        $maxC5 = Alternative::max('C5');
+            // Ambil akar dari jumlah kuadrat
+            $sqrtSumSquared = sqrt($sumSquared[$k->id]) ?: 1;
 
-        $C1min =[
-            'alternatifs' => $minC1,
-        ];
-        $C1max =[
-            'alternatifs' => $maxC1,
-        ];
-        $C2min =[
-            'alternatifs' => $minC2,
-        ];
-        $C2max =[
-            'alternatifs' => $maxC2,
-        ];
-        $C3min =[
-            'alternatifs' => $minC3,
-        ];
-        $C3max =[
-            'alternatifs' => $maxC3,
-        ];
-        $C4min =[
-            'alternatifs' => $minC4,
-        ];
-        $C4max =[
-            'alternatifs' => $maxC4,
-        ];
-        $C5min =[
-            'alternatifs' => $minC5,
-        ];
-        $C5max =[
-            'alternatifs' => $maxC5,
-        ];
+            // Normalisasi setiap alternatif
+            foreach ($alternatif as $a) {
+                $nilai = optional($a->values->where('criteria_id', $k->id)->first())->nilai ?? 0;
+                $normalisasi[$a->id][$k->id] = $nilai / $sqrtSumSquared;
+            }
+        }
 
-        $hasil = $minC1/$maxC1;
-        $hasil1 =[
-            'alternatifs' => $hasil,
-        ];
+        // Hitung nilai optimasi MOORA
+        $nilaiMoora = [];
+        foreach ($alternatif as $a) {
+            $benefit = 0;
+            $cost = 0;
 
-        return view('admin.saw.hitung', compact('hasil1','data', 'widget1', 'widget2', 'widget3', 'widget4', 'widget5', 'C1min', 'C1max', 'C2min', 'C2max', 'C3min', 'C3max', 'C4min', 'C4max', 'C5min', 'C5max'));
+            foreach ($kriteria as $k) {
+                $normalizedValue = $normalisasi[$a->id][$k->id] ?? 0;
+
+                if (strtolower($k->atribut) == 'benefit') {
+                    $benefit += $bobot[$k->id] * $normalizedValue;
+                } else {
+                    $cost += $bobot[$k->id] * $normalizedValue;
+                }
+            }
+
+            $nilaiMoora[$a->id] = $benefit - $cost;
+        }
+
+        // Urutkan alternatif berdasarkan nilai MOORA tertinggi
+        arsort($nilaiMoora);
+
+        return view('admin.moora.hitung', compact('alternatif', 'kriteria', 'normalisasi', 'bobot', 'nilaiMoora'));
     }
 }

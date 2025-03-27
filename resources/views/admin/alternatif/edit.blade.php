@@ -1,62 +1,54 @@
 @extends('layouts.admin')
 @section('content')
 
-@if(count($errors)>0)
+@if($errors->any())
     @foreach($errors->all() as $error)
     <div class="alert alert-danger" role="alert">
-      {{ $error }}
+        {{ $error }}
     </div>
     @endforeach
-  @endif
+@endif
 
-  @if(Session::has('success'))
+@if(Session::has('success'))
     <div class="alert alert-success" role="alert">
-      {{ Session('success') }}
+        {{ Session('success') }}
     </div>
+@endif
 
-  @endif
 <div class="col-lg-12 order-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Alternatif</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Ubah Data Alternatif</h6>
         </div>
         <div class="card-body">
-            <form action="{{ route('alternatif.update' , $alternatif->id ) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label>Nama</label>
-                <input type="text" class="form-control" name="nama" value="{{ $alternatif->nama }}">
-            </div>
-            <div class="form-group">
-                <label>Harga</label>
-                <input type="number" class="form-control" name="C1" value="{{ $alternatif->C1 }}">
-            </div>
-            <div class="form-group">
-                <label>Tahun</label>
-                <input type="number" class="form-control" name="C2" value="{{ $alternatif->C2 }}">
-            </div>
-            <div class="form-group">
-                <label>Kapasitas Mesin(cc)</label>
-                <input type="number" class="form-control" name="C3" value="{{ $alternatif->C3 }}">
-            </div>
-            <div class="form-group">
-                <label>Kapasitas Penumpang</label>
-                <input type="number" class="form-control" name="C4" value="{{ $alternatif->C4 }}">
-            </div>
-            <div class="form-group">
-                <label>Transmisi</label>
-                <input type="number" class="form-control" name="C5" value="{{ $alternatif->C5 }}">
-            </div>
+            <form action="{{ route('alternatif.update', $alternatif->id ) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-            <div class="form-group">
-                <button class="btn btn-primary btn-block">Update Data</button>
-            </div>
+                <div class="form-group">
+                    <label>Nama Alternatif</label>
+                    <input type="text" class="form-control" name="nama" value="{{ $alternatif->nama }}" required>
+                </div>
+
+                {{-- Looping kriteria untuk mengisi nilai --}}
+                @foreach($kriteria as $k)
+                    @php
+                        $nilai = $alternatif->values->where('criteria_id', $k->id)->first();
+                    @endphp
+                    <div class="form-group">
+                        <label>{{ $k->nama }} ({{ $k->kode }})</label>
+                        <input type="number" class="form-control" name="nilai_{{ $k->id }}" 
+                               value="{{ $nilai ? $nilai->nilai : '' }}" required>
+                    </div>
+                @endforeach
+
+                <div class="form-group">
+                    <a href="{{ route('alternatif.index') }}" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
-
-
 
 @endsection

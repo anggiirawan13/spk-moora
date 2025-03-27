@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            Form Edit Data
+            Ubah Data Mobil
         </div>
         <div class="card-body">
             <form action="{{ route('mobil.update', $mobil->id) }}" method="post" enctype="multipart/form-data">

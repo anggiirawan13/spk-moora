@@ -24,20 +24,24 @@
         <form action="{{ route('kriteria.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label>kode</label>
+            <label>Kode</label>
             <input type="text" class="form-control" name="kode">
         </div>
         <div class="form-group">
-            <label>nama</label>
+            <label>Nama</label>
             <input type="text" class="form-control" name="nama">
         </div>
         <div class="form-group">
-            <label>bobot</label>
+            <label>Bobot</label>
             <input type="text" class="form-control" name="bobot">
         </div>
         <div class="form-group">
-            <label>atribut</label>
-            <input type="text" class="form-control" name="atribut">
+          <label for="atirbut">Atribut</label>
+          <select class="form-control" name="atribut" id="atribut">
+              <option hidden>Pilih atribut</option>
+              <option value="Cost">Cost</option>
+              <option value="Benefit">Benefit</option>
+          </select>
         </div>
 
         <div class="form-group">

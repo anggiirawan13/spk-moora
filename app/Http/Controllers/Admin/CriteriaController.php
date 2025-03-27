@@ -82,12 +82,14 @@ class CriteriaController extends Controller
             'kode' => 'required',
             'nama' => 'required',
             'bobot' => 'required',
+            'atribut' => 'required',
         ]);
 
         $kriteria = [
             'kode' => $request->kode,
             'nama' => $request->nama,
             'bobot' => $request->bobot,
+            'atribut' => $request->atribut,
         ];
 
         Criteria::whereId($id)->update($kriteria);
