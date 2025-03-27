@@ -29,7 +29,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.car_types.index') }}">
-            <i class="fas fa-folder"></i>
+            <i class="fas fa-car-side"></i>
             <span>Jenis Mobil</span></a>
     </li>
     
@@ -41,7 +41,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('mobil.index') }}">
-            <i class="fas fa-folder"></i>
+            <i class="fas fa-car"></i>
             <span>Mobil Bekas</span></a>
     </li>
 
@@ -53,7 +53,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('alternatif.index') }}">
-            <i class="fas fa-th-list"></i>
+            <i class="fas fa-th-large"></i>
             <span>Alternatif</span></a>
     </li>
 

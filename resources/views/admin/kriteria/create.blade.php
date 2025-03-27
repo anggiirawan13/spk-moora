@@ -25,19 +25,19 @@
         @csrf
         <div class="form-group">
             <label>Kode</label>
-            <input type="text" class="form-control" name="kode">
+            <input required type="text" class="form-control" name="kode">
         </div>
         <div class="form-group">
             <label>Nama</label>
-            <input type="text" class="form-control" name="nama">
+            <input required type="text" class="form-control" name="nama">
         </div>
         <div class="form-group">
             <label>Bobot</label>
-            <input type="text" class="form-control" name="bobot">
+            <input required type="text" class="form-control" name="bobot">
         </div>
         <div class="form-group">
           <label for="atirbut">Atribut</label>
-          <select class="form-control" name="atribut" id="atribut">
+          <select required class="form-control" name="atribut" id="atribut">
               <option hidden>Pilih atribut</option>
               <option value="Cost">Cost</option>
               <option value="Benefit">Benefit</option>

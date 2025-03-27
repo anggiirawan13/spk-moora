@@ -79,7 +79,7 @@ class CarController extends Controller
         $mereks = CarBrand::all();
         $jenis_mobils = CarType::all();
 
-        return view('admin.mobil.show', compact('mobil', 'mereks', 'jenis_mobils'));
+        return view('admin.mobil.edit', compact('mobil', 'mereks', 'jenis_mobils'));
     }
 
     /**

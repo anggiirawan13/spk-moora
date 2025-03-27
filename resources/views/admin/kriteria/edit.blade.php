@@ -26,19 +26,19 @@
           @method('PUT')
             <div class="form-group">
               <label>Kode</label>
-              <input type="text" class="form-control" name="kode" value="{{ $kriteria->kode }}">
+              <input required type="text" class="form-control" name="kode" value="{{ $kriteria->kode }}">
             </div>
             <div class="form-group">
               <label>Nama</label>
-              <input type="text" class="form-control" name="nama" value="{{ $kriteria->nama }}">
+              <input required type="text" class="form-control" name="nama" value="{{ $kriteria->nama }}">
             </div>
             <div class="form-group">
               <label>Bobot</label>
-              <input type="text" class="form-control" name="bobot" value="{{ $kriteria->bobot }}">
+              <input required type="text" class="form-control" name="bobot" value="{{ $kriteria->bobot }}">
             </div>
             <div class="form-group">
               <label for="atribut">Atribut</label>
-              <select class="form-control" name="atribut" id="atribut">
+              <select required class="form-control" name="atribut" id="atribut">
                   <option hidden>Pilih atribut</option>
                   <option {{ $kriteria->atribut == "Cost" ? "selected" : "" }} value="Cost">Cost</option>
                   <option {{ $kriteria->atribut == "Benefit" ? "selected" : "" }} value="Benefit">Benefit</option>
