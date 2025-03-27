@@ -12,7 +12,7 @@ class HomeController extends Controller
 
     public function index(){
         $mobils = Car::latest()->get();
-        return view('frontend.home',compact('mobils'));
+        return view('auth.login',compact('mobils'));
     }
 
     public function contact(){
