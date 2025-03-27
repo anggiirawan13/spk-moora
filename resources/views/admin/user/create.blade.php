@@ -6,7 +6,7 @@
             <h5 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('user.store') }}" method="POST">
+            <form action="{{ route('admin.user.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="name">Nama Lengkap</label>
@@ -41,7 +41,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('user.index') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>

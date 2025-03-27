@@ -27,7 +27,7 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header py-3">
-                    <a href="{{ route('user.create') }}" class="btn btn-primary float-right">
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-fw fa-plus-circle"></i> Tambah User
                     </a>
                     <h5 class="m-0 font-weight-bold text-primary">Daftar Pengguna</h5>
@@ -58,11 +58,11 @@
                                     </td>
                                     <td>{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</td>
                                     <td>
-                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm" 
-                                            onclick="confirmDelete('{{ route('user.destroy', $user->id) }}', '{{ $user->name }}')">
+                                            onclick="confirmDelete('{{ route('admin.user.destroy', $user->id) }}', '{{ $user->name }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>

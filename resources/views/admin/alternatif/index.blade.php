@@ -3,14 +3,17 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="{{ route('alternatif.create') }}" class="btn btn-primary float-right">
-            <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
-        </a>
-        <h5 class="m-0 font-weight-bold text-primary">Alternatif</h5>
+        @if(auth()->user()->is_admin == 1)
+            <a href="{{route('alternatif.create')}}" class="btn btn-primary float-right">
+                <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
+            </a>
+        @endif
+        <h5 class="m-0 font-weight-bold text-primary">Daftar Alternatif</h5>
     </div>
+
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+            <table class="table table-striped" id="example" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -23,24 +26,37 @@
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach ($alternatif as $item)
+                    @forelse ($alternatif as $item)
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $item->nama }}</td>
                             @foreach ($kriteria as $k)
                                 <td>{{ $item->values->where('criteria_id', $k->id)->first()->nilai ?? '-' }}</td>
                             @endforeach
-                            <td>
-                                <a href="{{ route('alternatif.edit', $item->id) }}" class="btn btn-sm btn-primary mb-1 mt-1">
-                                    <i class="fas fa-edit"></i>
+                            <td class="d-flex gap-1">
+                                <!-- Tombol View Detail bisa diakses oleh semua user -->
+                                <a href="{{ route('alternatif.show', $item->id) }}" class="btn btn-sm btn-info m-1">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-                                <button type="button" class="btn btn-danger btn-sm mb-1 mt-1" 
-                                    onclick="confirmDelete('{{ route('alternatif.destroy', $item->id) }}', '{{ $item->nama }}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                            
+                                <!-- Tombol Edit & Hapus hanya untuk admin -->
+                                @if(auth()->user()->is_admin == 1)
+                                    <a href="{{ route('alternatif.edit', $item->id) }}" class="btn btn-sm btn-primary m-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger btn-sm m-1" 
+                                        onclick="confirmDelete('{{ route('alternatif.destroy', $item->id) }}', '{{ $item->nama }}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
-                    @endforeach
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="14" class="text-center">Data Kosong</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

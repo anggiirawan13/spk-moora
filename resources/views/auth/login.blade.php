@@ -19,7 +19,13 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    <style>
+        .bg-login-image {
+            background: url("/img/logo.jpeg") no-repeat center;
+            background-size: cover;
+            min-height: 400px;
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-primary">

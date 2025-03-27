@@ -65,7 +65,7 @@ class UserController extends Controller
         ]);
 
         // Redirect ke halaman user dengan pesan sukses
-        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('admin.user.index')->with('success', 'User berhasil ditambahkan.');
     }
     
     public function edit($id)
@@ -101,7 +101,7 @@ class UserController extends Controller
         // Update data user
         $user->update($validatedData);
 
-        return redirect()->route('user.index')->with('success', 'User berhasil diperbarui.');
+        return redirect()->route('admin.user.index')->with('success', 'User berhasil diperbarui.');
     }
 
     /**
@@ -119,4 +119,30 @@ class UserController extends Controller
         ]);
     }
 
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user(); // Pastikan user sedang login
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+        
+        // Periksa apakah password diubah atau tidak
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']); // Jika password kosong, jangan diubah
+        }
+
+        // Update profil user
+        $user->update($validatedData);
+
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+    }
 }

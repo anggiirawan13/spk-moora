@@ -45,8 +45,8 @@
         </div>
 
         <div class="form-group">
-            <a href="{{ route('kriteria.index') }}" class="btn btn-secondary">Batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+          <a href="{{ route('kriteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
         </form>
     </div>

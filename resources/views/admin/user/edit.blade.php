@@ -6,7 +6,7 @@
         <h5 class="m-0 font-weight-bold text-primary">Ubah Data Pengguna</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('user.update', $user->id) }}" method="post">
+        <form action="{{ route('admin.user.update', $user->id) }}" method="post">
             @csrf
             @method('put')
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group">
-                <a href="{{ route('user.index') }}" class="btn btn-secondary">Batal</a>
+                <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">Batal</a>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>

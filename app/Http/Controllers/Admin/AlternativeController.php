@@ -64,6 +64,12 @@ class AlternativeController extends Controller
         return redirect()->route('alternatif.index')->with('success', 'Data berhasil disimpan');
     }
 
+    public function show($id)
+    {
+        $alternatif = Alternative::with('values.criteria')->findOrFail($id);
+        return view('admin.alternatif.show', compact('alternatif'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

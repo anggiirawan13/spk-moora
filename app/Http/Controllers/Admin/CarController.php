@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Http\Requests\Admin\CarStoreRequest;
 use App\Http\Requests\Admin\CarUpdateRequest;
+use App\Models\CarBrand;
+use App\Models\CarType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -31,7 +33,10 @@ class CarController extends Controller
      */
     public function create(): View
     {
-        return view('admin.mobil.create');
+        $mereks = CarBrand::all();
+        $jenis_mobils = CarType::all();
+
+        return view('admin.mobil.create',compact('mereks', 'jenis_mobils'));
     }
 
     /**
@@ -57,6 +62,12 @@ class CarController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $mobil = Car::with(['carBrand', 'carType'])->findOrFail($id);
+        return view('admin.mobil.show', compact('mobil'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,7 +76,10 @@ class CarController extends Controller
      */
     public function edit(Car $mobil): View
     {
-        return view('admin.mobil.edit', compact('mobil'));
+        $mereks = CarBrand::all();
+        $jenis_mobils = CarType::all();
+
+        return view('admin.mobil.show', compact('mobil', 'mereks', 'jenis_mobils'));
     }
 
     /**

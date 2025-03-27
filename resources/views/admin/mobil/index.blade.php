@@ -27,9 +27,14 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header py-3">
-                    <a href="{{route('mobil.create')}}" class="btn btn-primary float-right"><i class="fas fa-fw fa-plus-circle"></i> Tambah Data</a>
+                    @if(auth()->user()->is_admin == 1)
+                        <a href="{{route('mobil.create')}}" class="btn btn-primary float-right">
+                            <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
+                        </a>
+                    @endif
                     <h5 class="m-0 font-weight-bold text-primary">Daftar Mobil Bekas</h5>
                 </div>
+                
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
@@ -70,15 +75,23 @@
                                     <td>{{ $mobil->transmisi }}</td>
                                     <td>{{ $mobil->warna }}</td>
                                     <td>{{ $mobil->ketersediaan }}</td>
-                                    <td>
-                                        <a href="{{route('mobil.edit', $mobil->id)}}" class="btn btn-sm btn-primary mb-1 mt-1">
-                                            <i class="fas fa-edit"></i>
+                                    <td class="d-flex gap-1">
+                                        <!-- Tombol View Detail bisa diakses oleh semua user -->
+                                        <a href="{{ route('mobil.show', $mobil->id) }}" class="btn btn-sm btn-info m-1">
+                                            <i class="fas fa-eye"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1 mt-1" 
-                                            onclick="confirmDelete('{{ route('mobil.destroy', $mobil->id) }}', '{{ $mobil->nama }}')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
+                                    
+                                        <!-- Tombol Edit & Hapus hanya untuk admin -->
+                                        @if(auth()->user()->is_admin == 1)
+                                            <a href="{{ route('mobil.edit', $mobil->id) }}" class="btn btn-sm btn-primary m-1">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm m-1" 
+                                                onclick="confirmDelete('{{ route('mobil.destroy', $mobil->id) }}', '{{ $mobil->nama }}')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        @endif
+                                    </td>                                    
                                 </tr>
                             @empty
                                 <tr>

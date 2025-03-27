@@ -40,10 +40,16 @@
                         value="{{ old('tahun', $mobil->tahun) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="merek">Merek Mobil</label>
-                    <input type="text" name="merek" class="form-control" placeholder="Masukkan merek mobil"
-                        value="{{ old('merek', $mobil->merek) }}" />
-                </div>
+                    <label for="merek_id">Merek Mobil</label>
+                    <select class="form-control" name="merek_id" id="merek_id">
+                        <option hidden>Pilih merek mobil</option>
+                        @foreach ($mereks as $merek)
+                            <option value="{{ $merek->id }}" {{ $mobil->merek_id == $merek->id ? 'selected' : '' }}>
+                                {{ $merek->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>                
                 <div class="form-group">
                     <label for="kilometer">Jarak Tempuh (km)</label>
                     <input type="text" name="kilometer" class="form-control" placeholder="Masukkan jarak tempuh dalam km"
@@ -63,12 +69,14 @@
                         value="{{ old('kapasitas_mesin', $mobil->kapasitas_mesin) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="tipe_mobil">Jenis Mobil</label>
-                    <select class="form-control" name="tipe_mobil" id="tipe_mobil">
+                    <label for="jenis_mobil_id">Jenis Mobil</label>
+                    <select class="form-control" name="jenis_mobil_id" id="jenis_mobil_id">
                         <option hidden>Pilih jenis mobil</option>
-                        <option value="MPV">MPV</option>
-                        <option value="SUV">SUV</option>
-                        <option value="Hatchback">Hatchback</option>
+                        @foreach ($jenis_mobils as $jenis)
+                            <option value="{{ $jenis->id }}" {{ $mobil->jenis_mobil_id == $jenis->id ? 'selected' : '' }}>
+                                {{ $jenis->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
@@ -110,7 +118,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('mobil.index') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ route('mobil.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
