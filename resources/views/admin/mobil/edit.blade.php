@@ -105,8 +105,8 @@
                     <label for="ketersediaan">Ketersediaan</label>
                     <select class="form-control" name="ketersediaan" id="ketersediaan">
                         <option hidden>Pilih status ketersediaan</option>
-                        <option {{ $mobil->ketersediaan == "Tidak Tersedia" ? "selected" : "" }} value="Tidak Tersedia">Tidak Tersedia</option>
-                        <option {{ $mobil->ketersediaan == "Tersedia" ? "selected" : "" }} value="Tersedia">Tersedia</option>
+                        <option {{ strtolower($mobil->ketersediaan) == strtolower("Tidak Tersedia") ? "selected" : "" }} value="Tidak Tersedia">Tidak Tersedia</option>
+                        <option {{ strtolower($mobil->ketersediaan) == strtolower("Tersedia") ? "selected" : "" }} value="Tersedia">Tersedia</option>
                     </select>
                 </div>
                 <div class="form-group">

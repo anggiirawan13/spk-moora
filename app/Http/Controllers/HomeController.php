@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Message;
 use App\Models\Car;
 
 class HomeController extends Controller
@@ -45,19 +43,5 @@ class HomeController extends Controller
         }else{
             return view('home');
         }
-    }
-    public function contactStore(Request $request){
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'nomor' => 'required',
-            'subjek' => 'required',
-            'pesan' => 'required'
-        ]);
-        Message::create($data);
-        return redirect()->back()->with([
-            'message'=> 'Pesan Anda Berhasil DiKirim',
-            'alert-type' => 'success'
-        ]);
     }
 }
