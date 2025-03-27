@@ -18,13 +18,13 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->user()){
-            return redirect('/');
-        }
-        if(!auth()->user()->is_admin){
-            return redirect('/');
-        //    return abort(403);
-        }
+        // if(!auth()->user()){
+        //     return redirect('/');
+        // }
+        // if(!auth()->user()->is_admin){
+        //     return redirect('/');
+        // //    return abort(403);
+        // }
         return $next($request);
     }
 }

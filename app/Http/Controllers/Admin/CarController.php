@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use App\Http\Requests\Admin\CarStoreRequest;
 use App\Http\Requests\Admin\CarUpdateRequest;
+use App\Models\CarBrand;
+use App\Models\CarType;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CarController extends Controller
@@ -30,7 +33,10 @@ class CarController extends Controller
      */
     public function create(): View
     {
-        return view('admin.mobil.create');
+        $mereks = CarBrand::all();
+        $jenis_mobils = CarType::all();
+
+        return view('admin.mobil.create',compact('mereks', 'jenis_mobils'));
     }
 
     /**
@@ -39,18 +45,27 @@ class CarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CarStoreRequest $request,): RedirectResponse
+    public function store(CarStoreRequest $request): RedirectResponse
     {
-        if($request->validated()){
-            $gambar = $request->file('gambar')->store('assets/mobil', 'public');
-            $slug = Str::slug($request->nama,'-');
+        if ($request->validated()) {
+            $gambar = $request->file('gambar')->store('car', 'public');
+            $gambarName = basename($gambar);
 
-            Car::create($request->except('gambar') + ['gambar'=> $gambar, 'slug' => $slug]);
+            $slug = Str::slug($request->nama, '-');
+
+            Car::create($request->except('gambar') + ['gambar' => $gambarName, 'slug' => $slug]);
         }
+
         return redirect()->route('mobil.index')->with([
-            'message'=> 'Data Berhasil DiTambahkan',
+            'message' => 'Data Berhasil Ditambahkan',
             'alert-type' => 'success'
         ]);
+    }
+
+    public function show($id)
+    {
+        $mobil = Car::with(['carBrand', 'carType'])->findOrFail($id);
+        return view('admin.mobil.show', compact('mobil'));
     }
 
     /**
@@ -61,7 +76,10 @@ class CarController extends Controller
      */
     public function edit(Car $mobil): View
     {
-        return view('admin.mobil.edit', compact('mobil'));
+        $mereks = CarBrand::all();
+        $jenis_mobils = CarType::all();
+
+        return view('admin.mobil.edit', compact('mobil', 'mereks', 'jenis_mobils'));
     }
 
     /**
@@ -73,12 +91,26 @@ class CarController extends Controller
      */
     public function update(CarUpdateRequest $request, Car $mobil): RedirectResponse
     {
-        if($request->validated()){
-            $slug = Str::slug($request->nama,'-');
-            $mobil->update($request->validated()+['slug'=> $slug]);
+        if ($request->validated()) {
+            $slug = Str::slug($request->nama, '-');
+            $dataUpdate = $request->except('gambar') + ['slug' => $slug];
+
+            if ($request->hasFile('gambar')) {
+                if ($mobil->gambar) {
+                    Storage::delete('public/car/' . $mobil->gambar);
+                }
+
+                $gambar = $request->file('gambar')->store('car', 'public');
+                $gambarName = basename($gambar);
+
+                $dataUpdate['gambar'] = $gambarName;
+            }
+
+            $mobil->update($dataUpdate);
         }
+
         return redirect()->route('mobil.index')->with([
-            'message'=> 'Data Berhasil DiEdit',
+            'message' => 'Data Berhasil Diubah',
             'alert-type' => 'info'
         ]);
     }

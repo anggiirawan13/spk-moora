@@ -4,27 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+return new class extends Migration {
+    public function up()
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->string('kode', 50)->unique();
             $table->string('nama');
-            $table->string('bobot');
-            $table->string('atribut');
+            $table->decimal('bobot', 5, 2);
+            $table->enum('atribut', ['Benefit', 'Cost']);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('criterias');
     }

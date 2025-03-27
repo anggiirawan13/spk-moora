@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Alternative;
 use App\Models\Criteria;
-use App\Models\Message;
 use App\Models\Car;
 use Illuminate\View\View;
 
@@ -19,13 +18,11 @@ class DashboardController extends Controller
     public function index(): View
     {
         $mobil = Car::count();
-        $pesan = Message::count();
         $kriteria = Criteria::count();
         $alternatif = Alternative::count();
 
         $data = (object) [
             'mobil' => $mobil,
-            'pesan' => $pesan,
             'kriteria' => $kriteria,
             'alternatif' => $alternatif,
         ];

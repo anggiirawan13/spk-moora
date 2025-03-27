@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 @section('content')
 
 @if(count($errors)>0)
@@ -17,32 +17,36 @@
   @endif
   <div class="col-lg-12 order-lg-1">
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tambah Kriteria</h6>
-        </div>
-    <div class="card-body">
+      <div class="card-header py-3">
+        <h5 class="m-0 font-weight-bold text-primary">Tambah Data Kriteria</h5>
+      </div>
+      <div class="card-body">
         <form action="{{ route('kriteria.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label>kode</label>
-            <input type="text" class="form-control" name="kode">
+            <label>Kode</label>
+            <input required type="text" class="form-control" name="kode">
         </div>
         <div class="form-group">
-            <label>nama</label>
-            <input type="text" class="form-control" name="nama">
+            <label>Nama</label>
+            <input required type="text" class="form-control" name="nama">
         </div>
         <div class="form-group">
-            <label>bobot</label>
-            <input type="text" class="form-control" name="bobot">
+            <label>Bobot</label>
+            <input required type="text" class="form-control" name="bobot">
         </div>
         <div class="form-group">
-            <label>atribut</label>
-            <input type="text" class="form-control" name="atribut">
+          <label for="atirbut">Atribut</label>
+          <select required class="form-control" name="atribut" id="atribut">
+              <option hidden>Pilih atribut</option>
+              <option value="Cost">Cost</option>
+              <option value="Benefit">Benefit</option>
+          </select>
         </div>
 
         <div class="form-group">
-            <a href="{{ route('kriteria.index') }}" class="btn btn-secondary">Batal</a>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+          <a href="{{ route('kriteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
         </form>
     </div>

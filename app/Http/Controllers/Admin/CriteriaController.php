@@ -57,6 +57,12 @@ class CriteriaController extends Controller
         return redirect()->back()->with('success','Data berhasil disimpan');
     }
 
+    public function show($id)
+    {
+        $kriteria = Criteria::findOrFail($id);
+        return view('admin.kriteria.show', compact('kriteria'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,12 +88,14 @@ class CriteriaController extends Controller
             'kode' => 'required',
             'nama' => 'required',
             'bobot' => 'required',
+            'atribut' => 'required',
         ]);
 
         $kriteria = [
             'kode' => $request->kode,
             'nama' => $request->nama,
             'bobot' => $request->bobot,
+            'atribut' => $request->atribut,
         ];
 
         Criteria::whereId($id)->update($kriteria);

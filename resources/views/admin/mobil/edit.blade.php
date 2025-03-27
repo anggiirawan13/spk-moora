@@ -1,127 +1,126 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            Form Edit Data
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">Ubah Data Mobil Bekas</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('mobil.update', $mobil->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('mobil.update', $mobil->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                @method('put')
+                @method("put")
                 <div class="form-group">
-                    <label for="nopol">Nopol</label>
-                    <input type="text" name="nopol" class="form-control" placeholder="Masukan nomor polisi"
+                    <label for="nopol">Nomor Polisi</label>
+                    <input required ="text" name="nopol" class="form-control" placeholder="Masukkan nomor polisi"
                         value="{{ old('nopol', $mobil->nopol) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" name="nama" class="form-control" placeholder="Masukan Mobil "
-                        value="{{ old('nama', $mobil ->nama) }}" wire:model="nama" wire:keyup="generateSlug" />
+                    <label for="nama">Nama Mobil</label>
+                    <input required ="text" name="nama" class="form-control" placeholder="Masukkan nama mobil"
+                        value="{{ old('nama', $mobil->nama) }}" wire:model="nama" wire:keyup="generateSlug" />
                 </div>
                 <div class="form-group">
-                    <label for="slug">Slug</label>
-                    <input type="text" name="slug" class="form-control" placeholder="Masukan slug mobil"
+                    <label for="slug">Slug Mobil</label>
+                    <input required ="text" name="slug" class="form-control" placeholder="Masukkan slug mobil (Otomotais atau Manual)"
                         value="{{ old('slug', $mobil->slug) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="gambar">Gambar</label>
-                    <img src="{{url('/storage/'.$mobil->gambar)}}" width="100" alt="">
-                    <input type="file" name="gambar" class="form-control" />
+                    <label for="gambar">Foto Mobil</label>
+                    <img src="{{asset('storage/car/'.$mobil->gambar)}}" width="100" alt="" class="mb-2 ml-2">
+                    <input required ="file" name="gambar" class="form-control" wire:model="gambar" />
                 </div>
                 <div class="form-group">
-                    <label for="harga">Harga</label>
-                    <input type="number" name="harga" class="form-control" placeholder="Masukan harga mobil"
-                        value="{{ old('harga',$mobil->harga) }}" />
+                    <label for="harga">Harga (Rp)</label>
+                    <input required ="number" name="harga" class="form-control" placeholder="Masukkan harga dalam rupiah"
+                        value="{{ old('harga', $mobil->harga) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="tahun">Tahun</label>
-                    <input type="number" name="tahun" class="form-control" placeholder="Masukan tahun"
+                    <label for="tahun">Tahun Produksi</label>
+                    <input required ="number" name="tahun" class="form-control" placeholder="Masukkan tahun produksi"
                         value="{{ old('tahun', $mobil->tahun) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="merek">Merek</label>
-                    <input type="text" name="merek" class="form-control" placeholder="Masukan merek"
-                        value="{{ old('merek', $mobil->merek) }}" />
-                </div>
+                    <label for="merek_id">Merek Mobil</label>
+                    <select required ="form-control" name="merek_id" id="merek_id">
+                        <option hidden>Pilih merek mobil</option>
+                        @foreach ($mereks as $merek)
+                            <option value="{{ $merek->id }}" {{ $mobil->merek_id == $merek->id ? 'selected' : '' }}>
+                                {{ $merek->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>                
                 <div class="form-group">
-                    <label for="kilometer">Kilometer</label>
-                    <input type="text" name="kilometer" class="form-control" placeholder="Masukan Kilometer"
+                    <label for="kilometer">Jarak Tempuh (km)</label>
+                    <input required ="text" name="kilometer" class="form-control" placeholder="Masukkan jarak tempuh dalam km"
                         value="{{ old('kilometer', $mobil->kilometer) }}" />
                 </div>
                 <div class="form-group">
                     <label for="bahan_bakar">Bahan Bakar</label>
-                    <select class="form-control" name="bahan_bakar" id="bahan_bakar">
-                        <option {{$mobil->bahan_bakar == 'Bensin' ? 'selected' : null}} value="Bensin">Bensin</option>
-                        <option {{$mobil->bahan_bakar == 'Solar' ? 'selected' : null}} value="Solar">Solar</option>
+                    <select required ="form-control" name="bahan_bakar" id="bahan_bakar">
+                        <option hidden>Pilih bahan bakar</option>
+                        <option value="Bensin">Bensin</option>
+                        <option value="Solar">Solar</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="kapasitas_mesin">Kapasitas Mesin</label>
-                    <select class="form-control" name="kapasitas_mesin" id="kapasitas_mesin">
-                        <option {{$mobil->kapasitas_mesin == '1000' ? 'selected' : null}} value="1000">1000</option>
-                        <option {{$mobil->kapasitas_mesin == '1200' ? 'selected' : null}} value="1200">1200</option>
-                        <option {{$mobil->kapasitas_mesin == '1500' ? 'selected' : null}} value="1500">1500</option>
-                        <option {{$mobil->kapasitas_mesin == '2000' ? 'selected' : null}} value="2000">2000</option>
+                    <label for="kapasitas_mesin">Kapasitas Mesin (cc)</label>
+                    <input required ="text" name="kapasitas_mesin" class="form-control" placeholder="Masukkan kapasitas mesin dalam cc"
+                        value="{{ old('kapasitas_mesin', $mobil->kapasitas_mesin) }}" />
+                </div>
+                <div class="form-group">
+                    <label for="jenis_mobil_id">Jenis Mobil</label>
+                    <select required ="form-control" name="jenis_mobil_id" id="jenis_mobil_id">
+                        <option hidden>Pilih jenis mobil</option>
+                        @foreach ($jenis_mobils as $jenis)
+                            <option value="{{ $jenis->id }}" {{ $mobil->jenis_mobil_id == $jenis->id ? 'selected' : '' }}>
+                                {{ $jenis->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="tipe_mobil">Tipe Mobil</label>
-                    <select class="form-control" name="tipe_mobil" id="tipe_mobil">
-                        <option {{$mobil->tipe_mobil == 'MPV' ? 'selected' : null}} value="MPV">MPV</option>
-                        <option {{$mobil->tipe_mobil == 'SUV' ? 'selected' : null}} value="SUV">SUV</option>
-                        <option {{$mobil->tipe_mobil == 'Hatchback' ? 'selected' : null}} value="Hatchback">Hatchback</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="jml_kursi">Kapasitas Penumpang</label>
-                    <select class="form-control" name="jml_kursi" id="jml_kursi">
-                        <option {{$mobil->jml_kursi == '5' ? 'selected' : null}} value="5">5</option>
-                        <option {{$mobil->jml_kursi == '7' ? 'selected' : null}} value="7">7</option>
-                        <option {{$mobil->jml_kursi == '9' ? 'selected' : null}} value="9">9</option>
-                    </select>
+                    <label for="jml_kursi">Jumlah Kursi</label>
+                    <input required ="text" name="jml_kursi" class="form-control" placeholder="Masukkan jumlah kursi"
+                        value="{{ old('jml_kursi', $mobil->jml_kursi) }}" />
                 </div>
                 <div class="form-group">
                     <label for="transmisi">Transmisi</label>
-                    <select class="form-control" name="transmisi" id="transmisi">
-                        <option {{$mobil->transmisi == 'Manual' ? 'selected' : null}} value="Manual">Manual</option>
-                        <option {{$mobil->transmisi == 'Matic' ? 'selected' : null}} value="Matic">Matic</option>
+                    <select required ="form-control" name="transmisi" id="transmisi">
+                        <option hidden>Pilih tipe transmisi</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Matic">Matic</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="warna">Warna</label>
-                    <select class="form-control" name="warna" id="warna">
-                        <option {{$mobil->warna == 'Merah' ? 'selected' : null}} value="Merah">Merah</option>
-                        <option {{$mobil->warna == 'Silver' ? 'selected' : null}} value="Silver">Silver</option>
-                        <option {{$mobil->warna == 'Abu-abu' ? 'selected' : null}} value="Abu-abu">Abu-Abu</option>
-                        <option {{$mobil->warna == 'Hitam' ? 'selected' : null}} value="Hitam">Hitam</option>
-                        <option {{$mobil->warna == 'Putih' ? 'selected' : null}} value="Putih">Putih</option>
-                    </select>
+                    <label for="warna">Warna Mobil</label>
+                    <input required ="text" name="warna" class="form-control" placeholder="Masukkan warna mobil"
+                        value="{{ old('warna', $mobil->warna) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="pemilik">Pemilik</label>
-                    <textarea class="form-control" name="pemilik" placeholder="Masukan nama pemilik" id="pemilik"
-                    >{{ old('pemilik', $mobil->pemilik) }}</textarea>
+                    <label for="pemilik">Nama Pemilik</label>
+                    <input required ="text" name="pemilik" class="form-control" placeholder="Masukkan nama pemilik mobil"
+                        value="{{ old('pemilik', $mobil->pemilik) }}" wire:model="pemilik" />
                 </div>
                 <div class="form-group">
                     <label for="alamat_pemilik">Alamat Pemilik</label>
-                    <textarea class="form-control" name="alamat_pemilik" placeholder="Masukan alamat pemilik" id="alamat_pemilik"
-                    >{{ old('alamat_pemilik', $mobil->alamat_pemilik) }}</textarea>
+                    <textarea required class="form-control" name="alamat_pemilik" placeholder="Masukkan alamat lengkap pemilik" id="alamat_pemilik">{{ old('alamat_pemilik', $mobil->alamat_pemilik) }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="deskripsi">Deskripsi</label>
-                    <textarea class="form-control" name="deskripsi" placeholder="Masukan Deskripsi" id="deskripsi"
-                     >{{ old('deskripsi', $mobil->deskripsi) }}</textarea>
+                    <label for="deskripsi">Deskripsi Mobil</label>
+                    <textarea required class="form-control" name="deskripsi" placeholder="Masukkan deskripsi mobil" id="deskripsi">{{ old('deskripsi', $mobil->deskripsi) }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="ketersediaan">Ketersediaan</label>
-                    <select class="form-control" name="ketersediaan" id="ketersediaan">
-                        <option {{$mobil->ketersediaan == 'tidak tersedia' ? 'selected' : null}} value="tidak tersedia">Tidak Tersedia</option>
-                        <option {{$mobil->ketersediaan == 'tersedia' ? 'selected' : null}} value="tersedia">Tersedia</option>
+                    <select required ="form-control" name="ketersediaan" id="ketersediaan">
+                        <option hidden>Pilih status ketersediaan</option>
+                        <option {{ strtolower($mobil->ketersediaan) == strtolower("Tidak Tersedia") ? "selected" : "" }} value="Tidak Tersedia">Tidak Tersedia</option>
+                        <option {{ strtolower($mobil->ketersediaan) == strtolower("Tersedia") ? "selected" : "" }} value="Tersedia">Tersedia</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Update Data</button>
+                    <a href="{{ route('mobil.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

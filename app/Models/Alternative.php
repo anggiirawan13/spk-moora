@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Alternative extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama','C1','C2','C3','C4','C5','kriteria_id'];
 
-    public function criteria(){
-        return $this->belongsTo(Criteria::class, 'kriteria_id', 'id');
+    protected $table = 'alternatives';
+
+    protected $fillable = ['nama'];
+
+    public function values()
+    {
+        return $this->hasMany(AlternativeValue::class, 'alternative_id');
     }
 }
+

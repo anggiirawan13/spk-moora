@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('pemilik');
             $table->text('alamat_pemilik');
             $table->text('deskripsi')->nullable();
-            $table->string('Ketersediaan');
+            $table->string('ketersediaan');
             $table->timestamps();
         });
     }

@@ -17,8 +17,8 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'aldi',
             'email' => 'aldi@admin.com',
-            'password' => bcrypt('user123'),
-            'is_admin' => 0,
+            'password' => bcrypt('admin1234'),
+            'is_admin' => 1,
         ]);
     }
 }
