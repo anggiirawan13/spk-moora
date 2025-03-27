@@ -31,12 +31,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('mobil.index')}}">
             <i class="fas fa-folder"></i>
-            <span>Data Mobil</span></a>
-    </li>
-<li class="nav-item">
-        <a class="nav-link" href="{{route('admin.message.index')}}">
-            <i class="fas fa-envelope"></i>
-            <span>Daftar Pesan</span></a>
+            <span>Mobil Bekas</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">

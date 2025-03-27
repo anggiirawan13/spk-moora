@@ -36,8 +36,8 @@
                                 <form action="{{ route('kriteria.destroy', $item->id )}}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <a href="{{ route('kriteria.edit', $item->id ) }}" class="btn bg-primary btn-sm text-white"><i class="fas fa-edit"></i> Edit</a>
-                                    <button type="submit" class="btn bg-gradient-danger btn-sm text-white" onclick="return confirm('apa kamu yakin akan menghapus data?')"><i class="fas fa-trash"></i> Delete</button>
+                                    <a href="{{ route('kriteria.edit', $item->id ) }}" class="btn bg-primary btn-sm text-white"><i class="fas fa-edit"></i></a>
+                                    <button type="submit" class="btn bg-gradient-danger btn-sm text-white" onclick="return confirm('apa kamu yakin akan menghapus data?')"><i class="fas fa-trash"></i></button>
                                 </form>
                             </div>
                         </td>

@@ -25,8 +25,6 @@ Route::get('spk',[\App\Http\Controllers\HomeController::class,'spk'])->name('spk
 Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard.index')
 ->middleware('is_admin');
 
-Route::get('/admin/messages',[\App\Http\Controllers\Admin\MessageController::class,'index'])->name('admin.message.index');
-
 Route::resource('/admin/mobil', \App\Http\Controllers\Admin\CarController::class);
 Route::resource('/admin/kriteria', CriteriaController::class);
 Route::resource('/admin/alternatif', AlternativeController::class);

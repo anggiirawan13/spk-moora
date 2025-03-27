@@ -109,7 +109,7 @@
                                             <div class="product-img product-img-zoom">
                                                 <a href="{{ route('detail', $mobil->slug) }}">
                                                     <img class="default-img" 
-                                                        src="{{ $mobil->gambar && Storage::exists('public/'.$mobil->gambar) ? url('/storage/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}" 
+                                                        src="{{ $mobil->gambar && Storage::exists(asset('storage/car/'.$mobil->gambar) ? url('public/car/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}" 
                                                         alt="{{ $mobil->nama }}">
                                                 </a>                                                
                                             </div>
