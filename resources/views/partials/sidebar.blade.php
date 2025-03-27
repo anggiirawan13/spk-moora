@@ -2,12 +2,12 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('homepage') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <div class="sidebar-brand-icon">
-            <i><img src="{{ asset('backend') }}/img/logo.png" alt="logo"></i>
+            <img src="{{ asset('img/logo.jpeg') }}" alt="logo" width="40" height="40" class="img-fluid">
         </div>
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
-    </a>
+    </a>    
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">

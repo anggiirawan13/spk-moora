@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 
 @section('content')
     <div class="container">
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}" 
+                        <img src="{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('img/default-image.png') }}" 
                             class="img-fluid rounded shadow" alt="{{ $mobil->nama }}">
                     </div>
                     <div class="col-md-8">

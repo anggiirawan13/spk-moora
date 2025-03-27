@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 @section('content')
 
 <h4>Detail Jenis Mobil</h4>

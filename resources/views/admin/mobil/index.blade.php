@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 
 @section('content')
     <div class="row">
@@ -58,9 +58,9 @@
                             @forelse ($mobils as $mobil)
                                 <tr>
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ $mobil->nama }}', '{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}')">
+                                        <a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ $mobil->nama }}', '{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('img/default-image.png') }}')">
                                             <img class="default-img" 
-                                                src="{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('frontend/imgs/default-image.png') }}" 
+                                                src="{{ $mobil->gambar ? asset('storage/car/'.$mobil->gambar) : asset('img/default-image.png') }}" 
                                                 alt="{{ $mobil->nama }}" width="60">
                                         </a>
                                     </td>

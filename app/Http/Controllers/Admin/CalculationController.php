@@ -32,7 +32,6 @@ class CalculationController extends Controller
             // Hitung jumlah kuadrat nilai kriteria
             $sumSquared[$k->id] = $alternatif->sum(function ($a) use ($k) {
                 $nilai = optional($a->values->where('criteria_id', $k->id)->first())->nilai ?? 0;
-
                 return pow($nilai, 2);
             });
 

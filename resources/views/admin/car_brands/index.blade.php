@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.navbar')
 
 @section('content')
 <div class="card shadow mb-4">
