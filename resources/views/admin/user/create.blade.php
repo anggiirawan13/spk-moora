@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            Tambah User
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('user.store') }}" method="POST">

@@ -68,48 +68,40 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan.');
     }
     
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Car $mobil): View
+    public function edit($id)
     {
-        return view('admin.user.edit', compact('mobil'));
+        $user = User::findOrFail($id);
+        return view('admin.user.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CarUpdateRequest $request, Car $mobil): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
-        if ($request->validated()) {
-            $slug = Str::slug($request->nama, '-');
-            $dataUpdate = $request->except('gambar') + ['slug' => $slug];
+        // Validasi input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required|in:admin,user',
+        ]);
 
-            if ($request->hasFile('gambar')) {
-                if ($mobil->gambar) {
-                    Storage::delete('public/car/' . $mobil->gambar);
-                }
+        // Ambil user berdasarkan ID
+        $user = User::findOrFail($id);
 
-                $gambar = $request->file('gambar')->store('car', 'public');
-                $gambarName = basename($gambar);
+        // Ubah role menjadi 1 jika admin, 0 jika user
+        $validatedData['is_admin'] = $validatedData['role'] === 'admin' ? 1 : 0;
+        unset($validatedData['role']); // Hapus 'role' agar tidak menyebabkan error
 
-                $dataUpdate['gambar'] = $gambarName;
-            }
-
-            $mobil->update($dataUpdate);
+        // Periksa apakah password diubah atau tidak
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']); // Jika password tidak diisi, jangan ubah
         }
 
-        return redirect()->route('user.index')->with([
-            'message' => 'Data Berhasil Diubah',
-            'alert-type' => 'info'
-        ]);
+        // Update data user
+        $user->update($validatedData);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil diperbarui.');
     }
 
     /**
@@ -118,12 +110,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $mobil): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
-        if($mobil->gambar){
-            unlink('storage/' . $mobil->gambar);
-        }
-        $mobil->delete();
+        $user->delete();
         return redirect()->back()->with([
             'message'=> 'Data Berhasil DiHapus',
             'alert-type' => 'danger'

@@ -18,7 +18,7 @@
 <div class="col-lg-12 order-lg-1">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Ubah Data Alternatif</h6>
+            <h5 class="m-0 font-weight-bold text-primary">Ubah Data Alternatif</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('alternatif.update', $alternatif->id ) }}" method="POST">

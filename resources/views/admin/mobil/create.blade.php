@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            Form Tambah Data
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">Tambah Data Mobil Bekas</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('mobil.store') }}" method="POST" enctype="multipart/form-data">

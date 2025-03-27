@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            Ubah Data Mobil
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold text-primary">Ubah Data Mobil Bekas</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('mobil.update', $mobil->id) }}" method="post" enctype="multipart/form-data">

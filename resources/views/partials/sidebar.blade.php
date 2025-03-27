@@ -24,7 +24,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Master Data
+        Data Master
     </div>
 
     <li class="nav-item">
@@ -32,14 +32,6 @@
             <i class="fas fa-folder"></i>
             <span>Mobil Bekas</span></a>
     </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Sistem Penunjang Keputusan
-    </div>
 
     <li class="nav-item">
         <a class="nav-link" href="{{route('kriteria.index')}}">
@@ -52,6 +44,14 @@
             <i class="fas fa-th-list"></i>
             <span>Alternatif</span></a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Proses Perhitungan
+    </div>
 
     <li class="nav-item">
         <a class="nav-link" href="{{route('hitung')}}">
