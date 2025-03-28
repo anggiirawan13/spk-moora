@@ -420,9 +420,9 @@
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-tablet:before { content: fa-content($fa-var-tablet-alt); }
 
-.#{$fa-css-prefix}.#{$fa-css-prefix}-mobile:before { content: fa-content($fa-var-mobile-alt); }
+.#{$fa-css-prefix}.#{$fa-css-prefix}-care:before { content: fa-content($fa-var-care-alt); }
 
-.#{$fa-css-prefix}.#{$fa-css-prefix}-mobile-phone:before { content: fa-content($fa-var-mobile-alt); }
+.#{$fa-css-prefix}.#{$fa-css-prefix}-care-phone:before { content: fa-content($fa-var-care-alt); }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-circle-o {
   font-family: 'Font Awesome 5 Free';
@@ -956,7 +956,7 @@
   font-weight: 400;
 }
 
-.#{$fa-css-prefix}.#{$fa-css-prefix}-automobile:before { content: fa-content($fa-var-car); }
+.#{$fa-css-prefix}.#{$fa-css-prefix}-autocare:before { content: fa-content($fa-var-car); }
 
 .#{$fa-css-prefix}.#{$fa-css-prefix}-envelope-o {
   font-family: 'Font Awesome 5 Free';

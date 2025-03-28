@@ -2,69 +2,45 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Car;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
-use App\Http\Requests\Admin\CarUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
         $users = User::where('id', '!=', Auth::id())->latest()->get();
         return view('admin.user.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
         return view('admin.user.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request): RedirectResponse
     {
-        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'nullable|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
             'role' => 'required|in:admin,user',
         ]);
 
-        // Konversi role ke angka (1 untuk admin, 0 untuk user)
         $roleValue = strtolower($validatedData['role']) === strtolower('admin') ? 1 : 0;
 
-        // Simpan data user
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']), // Enkripsi password
-            'is_admin' => $roleValue, // Simpan sebagai 1 atau 0
+            'password' => Hash::make($validatedData['password']),
+            'is_admin' => $roleValue,
         ]);
 
-        // Redirect ke halaman user dengan pesan sukses
         return redirect()->route('admin.user.index')->with('success', 'User berhasil ditambahkan.');
     }
     
@@ -76,40 +52,29 @@ class UserController extends Controller
 
     public function update(Request $request, $id): RedirectResponse
     {
-        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
             'role' => 'required|in:admin,user',
         ]);
 
-        // Ambil user berdasarkan ID
         $user = User::findOrFail($id);
 
-        // Ubah role menjadi 1 jika admin, 0 jika user
         $validatedData['is_admin'] = $validatedData['role'] === 'admin' ? 1 : 0;
-        unset($validatedData['role']); // Hapus 'role' agar tidak menyebabkan error
+        unset($validatedData['role']);
 
-        // Periksa apakah password diubah atau tidak
         if (!empty($validatedData['password'])) {
             $validatedData['password'] = Hash::make($validatedData['password']);
         } else {
-            unset($validatedData['password']); // Jika password tidak diisi, jangan ubah
+            unset($validatedData['password']);
         }
 
-        // Update data user
         $user->update($validatedData);
 
         return redirect()->route('admin.user.index')->with('success', 'User berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
@@ -119,30 +84,28 @@ class UserController extends Controller
         ]);
     }
 
+    public function editProfile()
+    {
+        return view('admin.user.profile');
+    }
+
     public function updateProfile(Request $request)
     {
-        $user = Auth::user(); // Pastikan user sedang login
-
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
-        }
+        $user = Auth::user();
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6|confirmed',
-        ]);
-        
-        // Periksa apakah password diubah atau tidak
+            'password' => 'nullable|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+        ]);        
+
+        $user->name = $validatedData['name'];
+
         if (!empty($validatedData['password'])) {
-            $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-            unset($validatedData['password']); // Jika password kosong, jangan diubah
+            $user->password = Hash::make($validatedData['password']);
         }
 
-        // Update profil user
-        $user->update($validatedData);
+        $user->save();
 
-        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+        return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
     }
 }

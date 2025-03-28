@@ -638,7 +638,7 @@ i[class^="fi-rs-"]:before, i[class*=" fi-rs-"]:before, span[class^="fi-rs-"]:bef
 .fi-rs-minus:before {
     content: "\f1ce";
 }
-.fi-rs-mobile:before {
+.fi-rs-care:before {
     content: "\f1cf";
 }
 .fi-rs-mode-landscape:before {

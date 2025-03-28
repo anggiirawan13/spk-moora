@@ -498,10 +498,10 @@
 .fa.fa-tablet:before {
   content: "\f3fa"; }
 
-.fa.fa-mobile:before {
+.fa.fa-care:before {
   content: "\f3cd"; }
 
-.fa.fa-mobile-phone:before {
+.fa.fa-care-phone:before {
   content: "\f3cd"; }
 
 .fa.fa-circle-o {
@@ -1058,7 +1058,7 @@
   font-family: 'Font Awesome 5 Brands';
   font-weight: 400; }
 
-.fa.fa-automobile:before {
+.fa.fa-autocare:before {
   content: "\f1b9"; }
 
 .fa.fa-envelope-o {
