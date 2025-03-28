@@ -28,7 +28,7 @@
                     @foreach($alternative->values as $value)
                         <tr>
                             <td>{{ $value->criteria->name }}</td>
-                            <td>{{ $value->criteria->kode }}</td>
+                            <td>{{ $value->criteria->code }}</td>
                             <td>{{ $value->value }}</td>
                         </tr>
                     @endforeach

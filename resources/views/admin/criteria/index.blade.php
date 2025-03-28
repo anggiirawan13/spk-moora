@@ -31,17 +31,15 @@
                     @forelse ($criteria as $key=>$item)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{$item->kode}}</td>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->weight}}</td>
-                        <td>{{$item->atribut}}</td>
+                        <td>{{ $item->code }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->weight * 10 }}</td>
+                        <td>{{ $item->atribut }}</td>
                         <td class="d-flex gap-1">
-                            <!-- Tombol View Detail bisa diakses oleh semua user -->
                             <a href="{{ route('criteria.show', $item->id) }}" class="btn btn-sm btn-info m-1">
                                 <i class="fas fa-eye"></i>
                             </a>
                         
-                            <!-- Tombol Edit & Hapus hanya untuk admin -->
                             @if(auth()->user()->is_admin == 1)
                                 <a href="{{ route('criteria.edit', $item->id) }}" class="btn btn-sm btn-primary m-1">
                                     <i class="fas fa-edit"></i>

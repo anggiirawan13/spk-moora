@@ -11,7 +11,7 @@
             <table class="table table-bordered">
                 <tr>
                     <th>Kode</th>
-                    <td>{{ $criteria->kode }}</td>
+                    <td>{{ $criteria->code }}</td>
                 </tr>
                 <tr>
                     <th>Nama</th>
@@ -19,11 +19,11 @@
                 </tr>
                 <tr>
                     <th>Bobot</th>
-                    <td>{{ $criteria->weight }}</td>
+                    <td>{{ $criteria->weight * 10 }}</td>
                 </tr>
                 <tr>
                     <th>Atribut</th>
-                    <td>{{ $criteria->atribut }}</td>
+                    <td>{{ ucwords(str_replace('_', ' ', $criteria->attribute_type)) }}</td>
                 </tr>
             </table>
 
