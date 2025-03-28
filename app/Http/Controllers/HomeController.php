@@ -9,8 +9,8 @@ class HomeController extends Controller
 {
 
     public function index(){
-        $mobils = Car::latest()->get();
-        return view('auth.login',compact('mobils'));
+        $cars = Car::latest()->get();
+        return view('auth.login',compact('cars'));
     }
 
     public function login(){

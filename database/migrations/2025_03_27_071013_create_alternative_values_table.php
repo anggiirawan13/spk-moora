@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('alternative_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alternative_id')->constrained('alternatives')->onDelete('cascade');
-            $table->foreignId('criteria_id')->constrained('criterias')->onDelete('cascade');
-            $table->decimal('nilai', 10, 2);
+            $table->foreignId('alternative_id')->constrained('alternatives')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
+            $table->decimal('value', 10, 2);
             $table->timestamps();
         });
     }

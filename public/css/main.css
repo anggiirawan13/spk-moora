@@ -2848,7 +2848,7 @@ table .product-thumbnail img {
   max-height: 1200px;
 }
 
-.mobile-promotion {
+.care-promotion {
   display: none;
 }
 
@@ -5431,26 +5431,26 @@ h6.post-title {
   transition-delay: 0s;
 }
 
-.mobile-header-wrapper-style.sidebar-visible {
+.care-header-wrapper-style.sidebar-visible {
   visibility: visible;
   opacity: 1;
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top .mobile-header-logo a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-top .care-header-logo a {
   display: block;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav {
   height: 100%;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .main-categori-wrap a i {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .main-categori-wrap a i {
   margin-right: 15px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .main-categori-wrap .categori-dropdown-active-small {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .main-categori-wrap .categori-dropdown-active-small {
   background-color: transparent;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -6121,7 +6121,7 @@ h6.post-title {
   z-index: 9999;
 }
 
-.mobile-menu-active .body-overlay-1 {
+.care-menu-active .body-overlay-1 {
   opacity: 1;
   visibility: visible;
 }
@@ -6131,7 +6131,7 @@ h6.post-title {
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.mobile-header-wrapper-style {
+.care-header-wrapper-style {
   position: fixed;
   top: 0;
   width: 360px;
@@ -6150,14 +6150,14 @@ h6.post-title {
   z-index: 99999;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner {
+.care-header-wrapper-style .care-header-wrapper-inner {
   padding: 0px 0px 30px;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6173,26 +6173,26 @@ h6.post-title {
   align-items: center;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top .mobile-header-logo a img {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-top .care-header-logo a img {
   width: 100px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area {
   padding: 30px 30px 30px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li {
   display: block;
   position: relative;
   padding: 10px 0;
   border-bottom: 1px solid #f2f2f2;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li:last-child {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li:last-child {
   border-bottom: none;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li.menu-item-has-children .menu-expand {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li.menu-item-has-children .menu-expand {
   right: 0;
   position: absolute;
   cursor: pointer;
@@ -6206,20 +6206,20 @@ h6.post-title {
   color: #1a1a1a;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li.menu-item-has-children .menu-expand i {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li.menu-item-has-children .menu-expand i {
   font-size: 14px;
   font-weight: 300;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li.menu-item-has-children.active > .menu-expand {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li.menu-item-has-children.active > .menu-expand {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li.menu-item-has-children.active > .menu-expand i::before {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li.menu-item-has-children.active > .menu-expand i::before {
   content: "\f112";
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li a {
   font-size: 16px;
   line-height: 1;
   text-transform: capitalize;
@@ -6229,66 +6229,66 @@ h6.post-title {
   color: #1a1a1a;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li a i {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li a i {
   margin-right: 5px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul {
   padding: 0 0 0 10px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul li {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul li {
   padding: 10px 0;
   border-bottom: none;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul li.menu-item-has-children .menu-expand {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul li.menu-item-has-children .menu-expand {
   top: 0px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul li a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul li a {
   font-size: 15px;
   display: block;
   font-weight: 500;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul li ul {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul li ul {
   margin-top: 10px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li ul li.menu-item-has-children.active {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li ul li.menu-item-has-children.active {
   padding-bottom: 0;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-menu-wrap nav .mobile-menu li:hover > a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-menu-wrap nav .care-menu li:hover > a {
   color: #F15412;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .categori-dropdown-wrap ul li a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .categori-dropdown-wrap ul li a {
   padding: 5px 15px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap {
   padding: 25px 0 30px;
   margin-bottom: 30px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info {
   position: relative;
   margin-bottom: 13px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info:last-child {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info:last-child {
   margin-bottom: 0;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info a {
   font-size: 15px;
   display: block;
   font-weight: 500;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info a span {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info a span {
   float: right;
   font-size: 18px;
   position: relative;
@@ -6296,7 +6296,7 @@ h6.post-title {
   line-height: 1;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info .lang-curr-dropdown {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info .lang-curr-dropdown {
   margin-top: 5px;
   display: none;
   background-color: transparent;
@@ -6307,33 +6307,33 @@ h6.post-title {
   z-index: 11;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info .lang-curr-dropdown ul li {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info .lang-curr-dropdown ul li {
   padding-bottom: 10px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info .lang-curr-dropdown ul li:last-child {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info .lang-curr-dropdown ul li:last-child {
   padding-bottom: 0px;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info .lang-curr-dropdown ul li a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info .lang-curr-dropdown ul li a {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info .lang-curr-dropdown ul li a:hover {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info .lang-curr-dropdown ul li a:hover {
   color: #F15412;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-info-wrap .single-mobile-header-info:hover > a {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-info-wrap .single-care-header-info:hover > a {
   color: #1a1a1a;
 }
 
-.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area .mobile-header-border {
+.care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area .care-header-border {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.mobile-social-icon a {
+.care-social-icon a {
   text-align: center;
   font-size: 14px;
   margin-right: 5px;
@@ -6341,27 +6341,27 @@ h6.post-title {
   transition-duration: 0.5s;
 }
 
-.mobile-social-icon a img {
+.care-social-icon a img {
   max-width: 20px;
   opacity: 0.7;
 }
 
-.mobile-social-icon a img:hover {
+.care-social-icon a img:hover {
   opacity: 1;
 }
 
-.mobile-social-icon a:hover {
+.care-social-icon a:hover {
   -webkit-transform: translateY(-2px);
           transform: translateY(-2px);
   -webkit-transition-duration: 0.5s;
           transition-duration: 0.5s;
 }
 
-.mobile-social-icon a:last-child {
+.care-social-icon a:last-child {
   margin-right: 0;
 }
 
-.mobile-search {
+.care-search {
   padding: 0 0 10px 0;
 }
 
@@ -9238,17 +9238,17 @@ span.fi-rs-apps {
     font-size: 25px;
     padding: 21px 20px 12px 0;
   }
-  .mobile-header-wrapper-style {
+  .care-header-wrapper-style {
     width: 320px;
   }
-  .mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top {
+  .care-header-wrapper-style .care-header-wrapper-inner .care-header-top {
     padding: 10px 20px;
     border-bottom: 1px solid #e2e9e1;
   }
-  .mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top .mobile-header-logo a img {
+  .care-header-wrapper-style .care-header-wrapper-inner .care-header-top .care-header-logo a img {
     width: 80px;
   }
-  .mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-content-area {
+  .care-header-wrapper-style .care-header-wrapper-inner .care-header-content-area {
     padding: 30px 20px;
   }
   .header-height-1 {
@@ -9373,7 +9373,7 @@ span.fi-rs-apps {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
-  .mobile-promotion {
+  .care-promotion {
     display: inline-block;
   }
 }
@@ -9918,7 +9918,7 @@ span.fi-rs-apps {
 
 @media (max-width:600px)
 {
-	.mobile-header-wrapper-style .mobile-header-wrapper-inner .mobile-header-top .mobile-header-logo a img {
+	.care-header-wrapper-style .care-header-wrapper-inner .care-header-top .care-header-logo a img {
 		width: 120px;
 	}
 	.mob-center{

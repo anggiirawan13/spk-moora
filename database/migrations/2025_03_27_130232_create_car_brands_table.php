@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up() {
-        Schema::create('admin.car_brands', function (Blueprint $table) {
+        Schema::create('car_brands', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
@@ -14,7 +14,7 @@ return new class extends Migration {
     }
 
     public function down() {
-        Schema::dropIfExists('admin.car_brands');
+        Schema::dropIfExists('car_brands');
     }
 };
 

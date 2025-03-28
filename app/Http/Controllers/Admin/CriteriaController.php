@@ -10,47 +10,33 @@ use Illuminate\View\View;
 
 class CriteriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
-        $kriteria = Criteria::orderby('kode', 'asc')->get();
-        return view('admin.kriteria.index', compact('kriteria'));
+        $criteria = Criteria::orderby('code', 'asc')->get();
+        return view('admin.criteria.index', compact('criteria'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
-        return view('admin.kriteria.create');
+        $maxWeight = Criteria::sum('weight') * 10;
+        if (Criteria::count() < 1) $maxWeight = 10;
+        return view('admin.criteria.create', compact('maxWeight'));
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'kode' => 'required',
-            'nama' => 'required',
-            'bobot' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'weight' => 'required',
             'atribut' => 'required'
         ]);
 
-        $kriteria = Criteria::create([
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-            'bobot' => $request->bobot,
+        Criteria::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'weight' => $request->weight / 10,
             'atribut' => $request->atribut,
         ]);
 
@@ -59,60 +45,42 @@ class CriteriaController extends Controller
 
     public function show($id)
     {
-        $kriteria = Criteria::findOrFail($id);
-        return view('admin.kriteria.show', compact('kriteria'));
+        $criteria = Criteria::findOrFail($id);
+        return view('admin.criteria.show', compact('criteria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id): View
     {
-        $kriteria = Criteria::findorfail($id);
-        return view('admin.kriteria.edit', compact('kriteria'));
+        $criteria = Criteria::findorfail($id);
+        $maxWeight = (Criteria::sum('weight') - $criteria->weight) * 10;
+        return view('admin.criteria.edit', compact('criteria', 'maxWeight'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
-            'kode' => 'required',
-            'nama' => 'required',
-            'bobot' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'weight' => 'required',
             'atribut' => 'required',
         ]);
 
-        $kriteria = [
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-            'bobot' => $request->bobot,
+        $criteria = [
+            'code' => $request->code,
+            'name' => $request->name,
+            'weight' => $request->weight,
             'atribut' => $request->atribut,
         ];
 
-        Criteria::whereId($id)->update($kriteria);
+        Criteria::whereId($id)->update($criteria);
 
-        return redirect()->route('kriteria.index')->with('success','Data Berhasil di Update');
+        return redirect()->route('criteria.index')->with('success','Data Berhasil di Update');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id): RedirectResponse
     {
-        $kriteria = Criteria::findorfail($id);
-        $kriteria->delete();
+        $criteria = Criteria::findorfail($id);
+        $criteria->delete();
 
         return redirect()->back()->with('success','Data Berhasil Dihapus');
     }

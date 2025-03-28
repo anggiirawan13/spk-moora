@@ -10,21 +10,16 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
-        $mobil = Car::count();
-        $kriteria = Criteria::count();
-        $alternatif = Alternative::count();
+        $car = Car::count();
+        $criteria = Criteria::count();
+        $alternative = Alternative::count();
 
         $data = (object) [
-            'mobil' => $mobil,
-            'kriteria' => $kriteria,
-            'alternatif' => $alternatif,
+            'car' => $car,
+            'criteria' => $criteria,
+            'alternative' => $alternative,
         ];
 
         return view('admin.dashboard', compact('data'));

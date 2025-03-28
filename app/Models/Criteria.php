@@ -12,10 +12,14 @@ class Criteria extends Model
     protected $table = 'criterias';
 
     protected $fillable = [
-        'kode',
-        'nama',
-        'bobot',
-        'atribut',
+        'code',
+        'name',
+        'weight',
+        'attribute_type',
+    ];
+
+    protected $casts = [
+        'weight' => 'float',
     ];
 
     public function alternativeValues()
