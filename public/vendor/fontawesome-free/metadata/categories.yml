@@ -532,8 +532,8 @@ communication:
     - microphone-alt
     - microphone-alt-slash
     - microphone-slash
-    - mobile
-    - mobile-alt
+    - care
+    - care-alt
     - paper-plane
     - phone
     - phone-alt
@@ -561,8 +561,8 @@ computers:
     - laptop-house
     - memory
     - microchip
-    - mobile
-    - mobile-alt
+    - care
+    - care-alt
     - mouse
     - plug
     - power-off
@@ -1809,8 +1809,8 @@ objects:
     - microphone
     - microphone-alt
     - mitten
-    - mobile
-    - mobile-alt
+    - care
+    - care-alt
     - money-bill
     - money-bill-alt
     - money-check

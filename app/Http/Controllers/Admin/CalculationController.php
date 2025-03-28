@@ -9,64 +9,55 @@ use App\Models\Alternative;
 
 class CalculationController extends Controller
 {
-    public function hitung(Request $request)
+    public function calculation(Request $request)
     {
-        // Ambil data kriteria dan alternatif
-        $kriteria = Criteria::all();
-        $alternatif = Alternative::with('values')->get();
+        $criteria = Criteria::all();
+        $alternative = Alternative::with('values')->get();
 
-        // Ambil total bobot (hindari pembagian nol)
-        $totalBobot = $kriteria->sum('bobot') ?: 1;
+        $totalBobot = $criteria->sum('weight') ?: 1;
 
-        // Normalisasi bobot
-        $bobot = [];
-        foreach ($kriteria as $k) {
-            $bobot[$k->id] = $k->bobot / $totalBobot;
+        $weight = [];
+        foreach ($criteria as $k) {
+            $weight[$k->id] = $k->weight / $totalBobot;
         }
 
-        // Normalisasi matriks keputusan
-        $normalisasi = [];
+        $normalization = [];
         $sumSquared = [];
 
-        foreach ($kriteria as $k) {
-            // Hitung jumlah kuadrat nilai kriteria
-            $sumSquared[$k->id] = $alternatif->sum(function ($a) use ($k) {
-                $nilai = optional($a->values->where('criteria_id', $k->id)->first())->nilai ?? 0;
-                return pow($nilai, 2);
+        foreach ($criteria as $k) {
+            $sumSquared[$k->id] = $alternative->sum(function ($a) use ($k) {
+                $value = optional($a->values->where('criteria_id', $k->id)->first())->value ?? 0;
+                return pow($value, 2);
             });
 
-            // Ambil akar dari jumlah kuadrat
             $sqrtSumSquared = sqrt($sumSquared[$k->id]) ?: 1;
 
-            // Normalisasi setiap alternatif
-            foreach ($alternatif as $a) {
-                $nilai = optional($a->values->where('criteria_id', $k->id)->first())->nilai ?? 0;
-                $normalisasi[$a->id][$k->id] = $nilai / $sqrtSumSquared;
+            foreach ($alternative as $a) {
+                $value = optional($a->values->where('criteria_id', $k->id)->first())->value ?? 0;
+                $normalization[$a->id][$k->id] = $value / $sqrtSumSquared;
             }
         }
 
-        // Hitung nilai optimasi MOORA
-        $nilaiMoora = [];
-        foreach ($alternatif as $a) {
+        $valueMoora = [];
+        foreach ($alternative as $a) {
             $benefit = 0;
             $cost = 0;
 
-            foreach ($kriteria as $k) {
-                $normalizedValue = $normalisasi[$a->id][$k->id] ?? 0;
+            foreach ($criteria as $k) {
+                $normalizedValue = $normalization[$a->id][$k->id] ?? 0;
 
                 if (strtolower($k->atribut) == 'benefit') {
-                    $benefit += $bobot[$k->id] * $normalizedValue;
+                    $benefit += $weight[$k->id] * $normalizedValue;
                 } else {
-                    $cost += $bobot[$k->id] * $normalizedValue;
+                    $cost += $weight[$k->id] * $normalizedValue;
                 }
             }
 
-            $nilaiMoora[$a->id] = $benefit - $cost;
+            $valueMoora[$a->id] = $benefit - $cost;
         }
 
-        // Urutkan alternatif berdasarkan nilai MOORA tertinggi
-        arsort($nilaiMoora);
+        arsort($valueMoora);
 
-        return view('admin.moora.hitung', compact('alternatif', 'kriteria', 'normalisasi', 'bobot', 'nilaiMoora'));
+        return view('admin.moora.calculation', compact('alternative', 'criteria', 'normalization', 'weight', 'valueMoora'));
     }
 }

@@ -922,7 +922,7 @@
           (deltaY < 0 && scrollTop === i.contentHeight - i.containerHeight) ||
           (deltaY > 0 && scrollTop === 0)
         ) {
-          // set prevent for mobile Chrome refresh
+          // set prevent for care Chrome refresh
           return window.scrollY === 0 && deltaY > 0 && env.isChrome;
         }
       } else if (magnitudeX > magnitudeY) {

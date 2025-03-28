@@ -2856,7 +2856,7 @@ car:
   search:
     terms:
       - auto
-      - automobile
+      - autocare
       - sedan
       - transportation
       - travel
@@ -2874,7 +2874,7 @@ car-alt:
   search:
     terms:
       - auto
-      - automobile
+      - autocare
       - sedan
       - transportation
       - travel
@@ -2905,7 +2905,7 @@ car-crash:
     terms:
       - accident
       - auto
-      - automobile
+      - autocare
       - insurance
       - sedan
       - transportation
@@ -2922,7 +2922,7 @@ car-side:
   search:
     terms:
       - auto
-      - automobile
+      - autocare
       - sedan
       - transportation
       - travel
@@ -5128,7 +5128,7 @@ crutch:
     terms:
       - cane
       - injury
-      - mobility
+      - carity
       - wheelchair
   styles:
     - solid
@@ -12851,7 +12851,7 @@ mizuni:
     - brands
   unicode: f3cc
   voted: false
-mobile:
+care:
   changes:
     - '3'
     - 5.0.0
@@ -12871,7 +12871,7 @@ mobile:
     - solid
   unicode: f10b
   voted: false
-mobile-alt:
+care-alt:
   changes:
     - 5.0.0
   label: Alternate Mobile
@@ -17002,7 +17002,7 @@ sms:
       - chat
       - conversation
       - message
-      - mobile
+      - care
       - notification
       - phone
       - sms

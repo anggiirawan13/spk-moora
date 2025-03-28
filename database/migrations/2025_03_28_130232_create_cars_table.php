@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('cars', function (Blueprint $table) {
+            $table->id();
+            $table->string('license_plate')->unique();
+            $table->string('name')->unique();
+            $table->string('slug')->unique()->index();
+            $table->string('image_path');
+            $table->unsignedInteger('price');
+            $table->year('manufacture_year');
+            $table->foreignId('brand_id')->constrained('car_brands')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('mileage');
+            $table->foreignId('fuel_type_id')->constrained('fuel_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('engine_capacity');
+            $table->foreignId('car_type_id')->constrained('car_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedTinyInteger('seat_count');
+            $table->foreignId('transmission_type_id')->constrained('car_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('color')->nullable();
+            $table->string('owner_name')->nullable();
+            $table->text('owner_address')->nullable();
+            $table->text('description')->nullable();
+            $table->smallInteger('is_available')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('cars');
+    }
+};
