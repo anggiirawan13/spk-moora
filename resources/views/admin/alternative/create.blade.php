@@ -30,7 +30,7 @@
                 {{-- Looping Kriteria --}}
                 @foreach($criteria as $k)
                 <div class="form-group">
-                    <label>{{ $k->name }} ({{ $k->kode }})</label>
+                    <label>{{ $k->name }} ({{ $k->code }})</label>
                     <input type="number" class="form-control" name="value_{{ $k->id }}" required>
                 </div>
                 @endforeach

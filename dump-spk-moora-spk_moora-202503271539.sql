@@ -126,14 +126,14 @@ DROP TABLE IF EXISTS `criterias`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `criterias` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `kode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `weight` decimal(5,2) NOT NULL,
   `atribut` enum('Benefit','Cost') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `criterias_kode_unique` (`kode`)
+  UNIQUE KEY `criterias_code_unique` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

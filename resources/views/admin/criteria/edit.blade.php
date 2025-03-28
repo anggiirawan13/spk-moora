@@ -26,7 +26,7 @@
           @method('PUT')
             <div class="form-group">
               <label>Kode</label>
-              <input required type="text" class="form-control" name="kode" value="{{ $criteria->kode }}">
+              <input required type="text" class="form-control" name="code" value="{{ $criteria->code }}">
             </div>
             <div class="form-group">
               <label>Nama</label>
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
               <label>Bobot</label>
-              <input required type="text" class="form-control" name="weight" value="{{ $criteria->weight }}">
+              <input required type="number" class="form-control" name="weight" value="{{ $criteria->weight }}" min="1" max="{{ $maxWeight }}">
             </div>
             <div class="form-group">
               <label for="atribut">Atribut</label>

@@ -12,29 +12,31 @@ class CriteriaController extends Controller
 {
     public function index(): View
     {
-        $criteria = Criteria::orderby('kode', 'asc')->get();
+        $criteria = Criteria::orderby('code', 'asc')->get();
         return view('admin.criteria.index', compact('criteria'));
     }
 
     public function create(): View
     {
-        return view('admin.criteria.create');
+        $maxWeight = Criteria::sum('weight') * 10;
+        if (Criteria::count() < 1) $maxWeight = 10;
+        return view('admin.criteria.create', compact('maxWeight'));
 
     }
 
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'kode' => 'required',
+            'code' => 'required',
             'name' => 'required',
             'weight' => 'required',
             'atribut' => 'required'
         ]);
 
-        $criteria = Criteria::create([
-            'kode' => $request->kode,
+        Criteria::create([
+            'code' => $request->code,
             'name' => $request->name,
-            'weight' => $request->weight,
+            'weight' => $request->weight / 10,
             'atribut' => $request->atribut,
         ]);
 
@@ -50,20 +52,21 @@ class CriteriaController extends Controller
     public function edit($id): View
     {
         $criteria = Criteria::findorfail($id);
-        return view('admin.criteria.edit', compact('criteria'));
+        $maxWeight = (Criteria::sum('weight') - $criteria->weight) * 10;
+        return view('admin.criteria.edit', compact('criteria', 'maxWeight'));
     }
 
     public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
-            'kode' => 'required',
+            'code' => 'required',
             'name' => 'required',
             'weight' => 'required',
             'atribut' => 'required',
         ]);
 
         $criteria = [
-            'kode' => $request->kode,
+            'code' => $request->code,
             'name' => $request->name,
             'weight' => $request->weight,
             'atribut' => $request->atribut,

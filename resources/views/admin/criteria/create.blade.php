@@ -25,7 +25,7 @@
         @csrf
         <div class="form-group">
             <label>Kode</label>
-            <input required type="text" class="form-control" name="kode">
+            <input required type="text" class="form-control" name="code">
         </div>
         <div class="form-group">
             <label>Nama</label>
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
             <label>Bobot</label>
-            <input required type="text" class="form-control" name="weight">
+            <input required type="number" class="form-control" name="weight" min="1" max="{{ $maxWeight }}">
         </div>
         <div class="form-group">
           <label for="atirbut">Atribut</label>
