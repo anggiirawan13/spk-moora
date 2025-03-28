@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CriteriaController;
 use App\Http\Controllers\Admin\AlternativeController;
 use App\Http\Controllers\Admin\CalculationController;
-use App\Http\Controllers\CarTypeController;
-use App\Http\Controllers\CarBrandController;
+use App\Http\Controllers\Admin\CarBrandController;
+use App\Http\Controllers\Admin\CarTypeController;
+use App\Http\Controllers\Admin\FuelTypeController;
+use App\Http\Controllers\Admin\TransmissionTypeController;
 
 Auth::routes();
 
@@ -22,16 +24,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
-    Route::resource('/mobil', CarController::class);
-    Route::resource('/kriteria', CriteriaController::class);
-    Route::resource('/alternatif', AlternativeController::class);
-    Route::get('/hitung', [CalculationController::class, 'hitung'])->name('hitung');
+    Route::resource('/car', CarController::class);
+    Route::resource('/criteria', CriteriaController::class);
+    Route::resource('/alternative', AlternativeController::class);
+    Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
 });
 
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::resource('/user', UserController::class);
-    Route::resource('/car_types', CarTypeController::class);
-    Route::resource('/car_brands', CarBrandController::class);
+    Route::resource('/transmission_type', TransmissionTypeController::class);
+    Route::resource('/fuel_type', FuelTypeController::class);
+    Route::resource('/car_type', CarTypeController::class);
+    Route::resource('/car_brand', CarBrandController::class);
 });

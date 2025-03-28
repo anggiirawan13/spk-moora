@@ -9,10 +9,10 @@ return new class extends Migration {
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->string('kode', 50)->unique();
-            $table->string('nama');
-            $table->decimal('bobot', 5, 2);
-            $table->enum('atribut', ['Benefit', 'Cost']);
+            $table->string('code', 50)->unique();
+            $table->string('name')->index();
+            $table->decimal('weight', 5, 2);
+            $table->enum('attribute_type', ['benefit', 'cost']);
             $table->timestamps();
         });
     }

@@ -28,31 +28,51 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.car_types.index') }}">
-            <i class="fas fa-car-side"></i>
+        <a class="nav-link" href="{{ route('admin.transmission_type.index') }}">
+            <i class="fas fa-cogs"></i>
+            <span>Tipe Transmisi</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.fuel_type.index') }}">
+            <i class="fas fa-gas-pump"></i>
+            <span>Bahan Bakar</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.car_type.index') }}">
+            <i class="fas fa-truck-pickup"></i>
             <span>Jenis Mobil</span></a>
     </li>
     
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.car_brands.index') }}">
-            <i class="fas fa-folder"></i>
+        <a class="nav-link" href="{{ route('admin.car_brand.index') }}">
+            <i class="fas fa-warehouse"></i>
             <span>Merek Mobil</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('mobil.index') }}">
+        <a class="nav-link" href="{{ route('car.index') }}">
             <i class="fas fa-car"></i>
             <span>Mobil Bekas</span></a>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Data Penunjang Keputusan
+    </div>
+
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('kriteria.index') }}">
+        <a class="nav-link" href="{{ route('criteria.index') }}">
             <i class="fas fa-chart-bar"></i>
             <span>Kriteria</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('alternatif.index') }}">
+        <a class="nav-link" href="{{ route('alternative.index') }}">
             <i class="fas fa-th-large"></i>
             <span>Alternatif</span></a>
     </li>
@@ -66,7 +86,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('hitung') }}">
+        <a class="nav-link" href="{{ route('calculation') }}">
             <i class="fas fa-calculator"></i>
             <span>Hitung</span></a>
     </li>

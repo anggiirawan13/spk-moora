@@ -189,8 +189,8 @@ map-marker:
 meanpath:
   name: font-awesome
   prefix: fab
-mobile:
-  name: mobile-alt
+care:
+  name: care-alt
 money:
   name: money-bill-alt
   prefix: far

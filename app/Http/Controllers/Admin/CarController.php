@@ -4,59 +4,47 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Car;
 use App\Http\Controllers\Controller;
+use App\Models\TransmissionType;
 use Illuminate\Support\Str;
 use App\Http\Requests\Admin\CarStoreRequest;
 use App\Http\Requests\Admin\CarUpdateRequest;
 use App\Models\CarBrand;
 use App\Models\CarType;
+use App\Models\FuelType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
-        $mobils = Car::latest()->get();
-        return view('admin.mobil.index', compact('mobils'));
+        $cars = Car::latest()->get();
+        return view('admin.car.index', compact('cars'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
-        $mereks = CarBrand::all();
-        $jenis_mobils = CarType::all();
+        $brands = CarBrand::all();
+        $carTypes = CarType::all();
+        $fuelTypes = FuelType::all();
+        $transmissionTypes = TransmissionType::all();
 
-        return view('admin.mobil.create',compact('mereks', 'jenis_mobils'));
+        return view('admin.car.create', compact( 'brands', 'carTypes', 'fuelTypes', 'transmissionTypes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CarStoreRequest $request): RedirectResponse
     {
         if ($request->validated()) {
-            $gambar = $request->file('gambar')->store('car', 'public');
+            $gambar = $request->file('image_path')->store('car', 'public');
             $gambarName = basename($gambar);
 
-            $slug = Str::slug($request->nama, '-');
+            $slug = Str::slug($request->name, '-');
 
-            Car::create($request->except('gambar') + ['gambar' => $gambarName, 'slug' => $slug]);
+            Car::create($request->except('image_path') + ['image_path' => $gambarName, 'slug' => $slug]);
         }
 
-        return redirect()->route('mobil.index')->with([
+        return redirect()->route('car.index')->with([
             'message' => 'Data Berhasil Ditambahkan',
             'alert-type' => 'success'
         ]);
@@ -64,73 +52,55 @@ class CarController extends Controller
 
     public function show($id)
     {
-        $mobil = Car::with(['carBrand', 'carType'])->findOrFail($id);
-        return view('admin.mobil.show', compact('mobil'));
+        $car = Car::with(['carBrand', 'carType', 'fuelType', 'transmissionType'])->findOrFail($id);
+        return view('admin.car.show', compact('car'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Car $mobil): View
+    public function edit(Car $car): View
     {
-        $mereks = CarBrand::all();
-        $jenis_mobils = CarType::all();
+        $brands = CarBrand::all();
+        $carTypes = CarType::all();
+        $fuelTypes = FuelType::all();
+        $transmissionTypes = TransmissionType::all();
 
-        return view('admin.mobil.edit', compact('mobil', 'mereks', 'jenis_mobils'));
+        return view('admin.car.edit', compact('car', 'brands', 'carTypes', 'fuelTypes', 'transmissionTypes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CarUpdateRequest $request, Car $mobil): RedirectResponse
+    public function update(CarUpdateRequest $request, Car $car): RedirectResponse
     {
         if ($request->validated()) {
-            $slug = Str::slug($request->nama, '-');
-            $dataUpdate = $request->except('gambar') + ['slug' => $slug];
+            $slug = Str::slug($request->name, '-');
+            $dataUpdate = $request->except('image_path') + ['slug' => $slug];
 
-            if ($request->hasFile('gambar')) {
-                if ($mobil->gambar) {
-                    Storage::delete('public/car/' . $mobil->gambar);
+            if ($request->hasFile('image_path')) {
+                if ($car->image_path) {
+                    Storage::delete('public/car/' . $car->image_path);
                 }
 
-                $gambar = $request->file('gambar')->store('car', 'public');
+                $gambar = $request->file('image_path')->store('car', 'public');
                 $gambarName = basename($gambar);
 
-                $dataUpdate['gambar'] = $gambarName;
+                $dataUpdate['image_path'] = $gambarName;
             }
 
-            $mobil->update($dataUpdate);
+            $car->update($dataUpdate);
         }
 
-        return redirect()->route('mobil.index')->with([
+        return redirect()->route('car.index')->with([
             'message' => 'Data Berhasil Diubah',
             'alert-type' => 'info'
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Car $mobil): RedirectResponse
+    public function destroy(Car $car): RedirectResponse
     {
-        if($mobil->gambar){
-            unlink('storage/' . $mobil->gambar);
+        if($car->image_path){
+            unlink('storage/' . $car->image_path);
         }
-        $mobil->delete();
+        $car->delete();
         return redirect()->back()->with([
             'message'=> 'Data Berhasil DiHapus',
             'alert-type' => 'danger'
         ]);
     }
-
 }

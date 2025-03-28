@@ -12,120 +12,94 @@ use Illuminate\View\View;
 
 class AlternativeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
-        $kriteria = Criteria::orderBy('id', 'asc')->get();
-        $alternatif = Alternative::with('values')->orderBy('created_at', 'asc')->get();
+        $criteria = Criteria::orderBy('id', 'asc')->get();
+        $alternative = Alternative::with('values')->orderBy('created_at', 'asc')->get();
         
-        return view('admin.alternatif.index', compact('kriteria', 'alternatif'));
+        return view('admin.alternative.index', compact('criteria', 'alternative'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
-        $kriteria = Criteria::orderBy('id', 'asc')->get();
-        return view('admin.alternatif.create', compact('kriteria'));
+        $criteria = Criteria::orderBy('id', 'asc')->get();
+        return view('admin.alternative.create', compact('criteria'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
-        $kriteria = Criteria::all();
+        $criteria = Criteria::all();
 
-        // Validasi dinamis sesuai jumlah kriteria
-        $rules = ['nama' => 'required'];
-        foreach ($kriteria as $k) {
-            $rules["nilai_{$k->id}"] = 'required|numeric';
+        $rules = ['name' => 'required'];
+        foreach ($criteria as $k) {
+            $rules["value_{$k->id}"] = 'required|numeric';
         }
 
         $request->validate($rules);
 
-        // Simpan alternatif
-        $alternatif = Alternative::create([
-            'nama' => $request->nama,
+        $alternative = Alternative::create([
+            'name' => $request->name,
         ]);
 
-        // Simpan nilai alternatif berdasarkan kriteria
-        foreach ($kriteria as $k) {
+        foreach ($criteria as $k) {
             AlternativeValue::create([
-                'alternative_id' => $alternatif->id,
+                'alternative_id' => $alternative->id,
                 'criteria_id' => $k->id,
-                'nilai' => $request->input("nilai_{$k->id}"),
+                'value' => $request->input("value_{$k->id}"),
             ]);
         }
 
-        return redirect()->route('alternatif.index')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('alternative.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function show($id)
     {
-        $alternatif = Alternative::with('values.criteria')->findOrFail($id);
-        return view('admin.alternatif.show', compact('alternatif'));
+        $alternative = Alternative::with('values.criteria')->findOrFail($id);
+        return view('admin.alternative.show', compact('alternative'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id): View
     {
-        $alternatif = Alternative::findOrFail($id);
-        $kriteria = Criteria::orderBy('id', 'asc')->get();
-        $nilaiAlternatif = AlternativeValue::where('alternative_id', $id)->pluck('nilai', 'criteria_id');
+        $alternative = Alternative::findOrFail($id);
+        $criteria = Criteria::orderBy('id', 'asc')->get();
+        $valueAlternatif = AlternativeValue::where('alternative_id', $id)->pluck('value', 'criteria_id');
 
-        return view('admin.alternatif.edit', compact('alternatif', 'kriteria', 'nilaiAlternatif'));
+        return view('admin.alternative.edit', compact('alternative', 'criteria', 'valueAlternatif'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id): RedirectResponse
     {
-        $alternatif = Alternative::findOrFail($id);
-        $kriteria = Criteria::all();
+        $alternative = Alternative::findOrFail($id);
+        $criteria = Criteria::all();
 
-        // Validasi dinamis sesuai jumlah kriteria
-        $rules = ['nama' => 'required'];
-        foreach ($kriteria as $k) {
-            $rules["nilai_{$k->id}"] = 'required|numeric';
+        $rules = ['name' => 'required'];
+        foreach ($criteria as $k) {
+            $rules["value_{$k->id}"] = 'required|numeric';
         }
         $request->validate($rules);
 
-        // Update alternatif
-        $alternatif->update(['nama' => $request->nama]);
+        $alternative->update(['name' => $request->name]);
 
-        // Update atau buat nilai alternatif
-        foreach ($kriteria as $k) {
+        foreach ($criteria as $k) {
             AlternativeValue::updateOrCreate(
                 [
-                    'alternative_id' => $alternatif->id,
+                    'alternative_id' => $alternative->id,
                     'criteria_id' => $k->id,
                 ],
-                ['nilai' => $request->input("nilai_{$k->id}")]
+                ['value' => $request->input("value_{$k->id}")]
             );
         }
 
-        return redirect()->route('alternatif.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('alternative.index')->with('success', 'Data berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id): RedirectResponse
     {
-        $alternatif = Alternative::findOrFail($id);
+        $alternative = Alternative::findOrFail($id);
 
-        // Hapus nilai terkait
         AlternativeValue::where('alternative_id', $id)->delete();
 
-        // Hapus alternatif
-        $alternatif->delete();
+        $alternative->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
