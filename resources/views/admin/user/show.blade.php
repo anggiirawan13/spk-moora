@@ -48,7 +48,7 @@
                 <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                     Kembali</a>
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                    <x-button_edit route="admin.user.edit" :id="$user->id" />
                 @endif
             </div>
         </div>

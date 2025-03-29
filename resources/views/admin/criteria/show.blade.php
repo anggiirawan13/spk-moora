@@ -33,7 +33,7 @@
                     <a href="{{ route('criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                         Kembali</a>
                     @if (auth()->user()->is_admin == 1)
-                        <a href="{{ route('criteria.edit', $criteria->id) }}" class="btn btn-primary">Edit</a>
+                        <x-button_edit route="criteria.edit" :id="$criteria->id" />
                     @endif
                 </div>
             </div>

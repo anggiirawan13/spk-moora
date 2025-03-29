@@ -38,10 +38,9 @@
                 </table>
 
                 <div class="mt-3">
-                    <a href="{{ route('alternative.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
-                        Kembali</a>
+                    <x-button_back route="alternative.index" />
                     @if (auth()->user()->is_admin == 1)
-                        <a href="{{ route('alternative.edit', $alternative->id) }}" class="btn btn-primary">Edit</a>
+                        <x-button_edit route="admin.alternative.edit" :id="$alternative->id" />
                     @endif
                 </div>
             </div>
