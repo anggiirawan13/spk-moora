@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             @auth
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('alternative.store') }}" class="btn btn-primary float-right">
+                    <a href="{{ route('alternative.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
                     </a>
                 @endif
