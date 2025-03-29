@@ -11,6 +11,7 @@ use App\Models\CarBrand;
 use App\Models\CarType;
 use App\Models\FuelType;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -74,6 +75,26 @@ class CarController extends Controller
     {
         $car = Car::with(['carBrand', 'carType', 'fuelType', 'transmissionType'])->findOrFail($id);
         return view('admin.car.show', compact('car'));
+    }
+
+    public function showComparisonForm()
+    {
+        $cars = Car::all();
+
+        return view('admin.car.compare_form', compact('cars'));
+    }
+
+    public function compare(Request $request)
+    {
+        $request->validate([
+            'car1' => 'required|exists:cars,id',
+            'car2' => 'required|exists:cars,id',
+        ]);
+
+        $car1 = Car::with(['carBrand', 'carType', 'fuelType', 'transmissionType'])->findOrFail($request->car1);
+        $car2 = Car::with(['carBrand', 'carType', 'fuelType', 'transmissionType'])->findOrFail($request->car2);
+
+        return view('admin.car.compare', compact('car1', 'car2'));
     }
 
     public function edit($id)

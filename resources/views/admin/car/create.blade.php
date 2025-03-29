@@ -31,7 +31,9 @@
                 </div>
                 <div class="form-group">
                     <label for="image_path">Foto Mobil</label>
-                    <input type="file" name="image_path" class="form-control" wire:model="image_path" required />
+                    <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*" required
+                        onchange="previewImage(event)" />
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
                 </div>
                 <div class="form-group">
                     <label for="price">Harga (Rp)</label>
@@ -130,5 +132,20 @@
             </form>
         </div>
     </div>
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
 
+            reader.onload = function() {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Tampilkan preview gambar
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 @endsection

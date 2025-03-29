@@ -10,7 +10,7 @@
     </a>
 
     @auth
-        @if (auth()->user()->is_admin == 1)
+        @can('admin')
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -18,111 +18,107 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
                     <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
-        @endif
+        @endcan
     @endauth
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Data Master
-    </div>
+    <!-- Data Master (Dropdown) -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMaster"
+           aria-expanded="false" aria-controls="dataMaster">
+            <i class="fas fa-database"></i>
+            <span>Data Master</span>
+        </a>
+        <div id="dataMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('admin')
+                    <a class="collapse-item" href="{{ route('admin.transmission_type.index') }}">
+                        <i class="fas fa-cogs"></i> Tipe Transmisi
+                    </a>
+                    <a class="collapse-item" href="{{ route('admin.fuel_type.index') }}">
+                        <i class="fas fa-gas-pump"></i> Bahan Bakar
+                    </a>
+                    <a class="collapse-item" href="{{ route('admin.car_type.index') }}">
+                        <i class="fas fa-truck-pickup"></i> Jenis Mobil
+                    </a>
+                    <a class="collapse-item" href="{{ route('admin.car_brand.index') }}">
+                        <i class="fas fa-warehouse"></i> Merek Mobil
+                    </a>
+                @endcan
+            </div>
+        </div>
+    </li>
 
-    @auth
-        @if (auth()->user()->is_admin == 1)
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.transmission_type.index') }}">
-                    <i class="fas fa-cogs"></i>
-                    <span>Tipe Transmisi</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.fuel_type.index') }}">
-                    <i class="fas fa-gas-pump"></i>
-                    <span>Bahan Bakar</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.car_type.index') }}">
-                    <i class="fas fa-truck-pickup"></i>
-                    <span>Jenis Mobil</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.car_brand.index') }}">
-                    <i class="fas fa-warehouse"></i>
-                    <span>Merek Mobil</span></a>
-            </li>
-        @endif
-    @endauth
-
+    <!-- Mobil -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('car.index') }}">
             <i class="fas fa-car"></i>
-            <span>Mobil Bekas</span></a>
+            <span>Mobil Bekas</span>
+        </a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Data Penunjang Keputusan
-    </div>
-
+    <!-- Perbandingan Mobil -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('criteria.index') }}">
+        <a class="nav-link" href="{{ route('car.compare.form') }}">
+            <i class="fas fa-balance-scale"></i>
+            <span>Perbandingan Mobil</span>
+        </a>
+    </li>
+
+    <!-- Data Penunjang Keputusan (Dropdown) -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPenunjang"
+           aria-expanded="false" aria-controls="dataPenunjang">
             <i class="fas fa-list-alt"></i>
-            <span>Kriteria</span></a>
+            <span>Data Penunjang</span>
+        </a>
+        <div id="dataPenunjang" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('criteria.index') }}">
+                    <i class="fas fa-list"></i> Kriteria
+                </a>
+                <a class="collapse-item" href="{{ route('alternative.index') }}">
+                    <i class="fas fa-th"></i> Alternatif
+                </a>
+            </div>
+        </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('alternative.index') }}">
-            <i class="fas fa-th"></i>
-            <span>Alternatif</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Proses Perhitungan
-    </div>
-
+    <!-- Proses Perhitungan -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('calculation') }}">
             <i class="fas fa-calculator"></i>
-            <span>Hitung</span></a>
+            <span>Hitung</span>
+        </a>
     </li>
 
-    <!-- Menu Manage User (Hanya untuk Admin) -->
-    @auth
-        @if (auth()->user()->is_admin == 1)
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Manajemen Pengguna
+    <!-- Manajemen Pengguna (Dropdown untuk Admin) -->
+    @can('admin')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManagement"
+               aria-expanded="false" aria-controls="userManagement">
+                <i class="fas fa-users"></i>
+                <span>Manajemen Pengguna</span>
+            </a>
+            <div id="userManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.user.index') }}">
+                        <i class="fas fa-user"></i> Data User
+                    </a>
+                </div>
             </div>
-
-            <!-- Menu Manage User -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.user.index') }}">
-                    <i class="fas fa-users"></i>
-                    <span>Data User</span></a>
-            </li>
-        @endif
-    @endauth
+        </li>
+    @endcan
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+    <!-- Sidebar Toggler -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
