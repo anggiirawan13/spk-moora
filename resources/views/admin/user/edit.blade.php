@@ -4,6 +4,8 @@
 
 @section('content')
 
+    <x-alert />
+
     <div class="card">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">Ubah Data Pengguna</h5>

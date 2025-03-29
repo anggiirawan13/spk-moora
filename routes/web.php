@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/alternative', AlternativeController::class)->names('alternative');
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
 
-    Route::name('admin.')->middleware(['admin'])->group(function () {
+    Route::name('admin.')->middleware('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
         Route::resource('/user', UserController::class)->names('user');

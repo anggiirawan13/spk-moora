@@ -7,17 +7,21 @@
             <img src="{{ asset('img/logo.jpeg') }}" alt="logo" width="40" height="40" class="img-fluid">
         </div>
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
-    </a>    
+    </a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    @auth
+        @if (auth()->user()->is_admin == 1)
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+        @endif
+    @endauth
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -27,29 +31,33 @@
         Data Master
     </div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.transmission_type.index') }}">
-            <i class="fas fa-cogs"></i>
-            <span>Tipe Transmisi</span></a>
-    </li>
+    @auth
+        @if (auth()->user()->is_admin == 1)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.transmission_type.index') }}">
+                    <i class="fas fa-cogs"></i>
+                    <span>Tipe Transmisi</span></a>
+            </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.fuel_type.index') }}">
-            <i class="fas fa-gas-pump"></i>
-            <span>Bahan Bakar</span></a>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.fuel_type.index') }}">
+                    <i class="fas fa-gas-pump"></i>
+                    <span>Bahan Bakar</span></a>
+            </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.car_type.index') }}">
-            <i class="fas fa-truck-pickup"></i>
-            <span>Jenis Mobil</span></a>
-    </li>
-    
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.car_brand.index') }}">
-            <i class="fas fa-warehouse"></i>
-            <span>Merek Mobil</span></a>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.car_type.index') }}">
+                    <i class="fas fa-truck-pickup"></i>
+                    <span>Jenis Mobil</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.car_brand.index') }}">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Merek Mobil</span></a>
+            </li>
+        @endif
+    @endauth
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('car.index') }}">
@@ -67,13 +75,13 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('criteria.index') }}">
-            <i class="fas fa-chart-bar"></i>
+            <i class="fas fa-list-alt"></i>
             <span>Kriteria</span></a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('alternative.index') }}">
-            <i class="fas fa-th-large"></i>
+            <i class="fas fa-th"></i>
             <span>Alternatif</span></a>
     </li>
 
@@ -93,22 +101,22 @@
 
     <!-- Menu Manage User (Hanya untuk Admin) -->
     @auth
-    @if(auth()->user()->is_admin == 1)
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        @if (auth()->user()->is_admin == 1)
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Manajemen Pengguna
-        </div>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Manajemen Pengguna
+            </div>
 
-        <!-- Menu Manage User -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.user.index') }}">
-                <i class="fas fa-users"></i>
-                <span>Data User</span></a>
-        </li>
-    @endif
+            <!-- Menu Manage User -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Data User</span></a>
+            </li>
+        @endif
     @endauth
 
     <!-- Divider -->

@@ -2,9 +2,13 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="{{ route($createRoute) }}" class="btn btn-primary float-right">
-            <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
-        </a>
+        @auth
+            @if (auth()->user()->is_admin == 1)
+                <a href="{{ route($createRoute) }}" class="btn btn-primary float-right">
+                    <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
+                </a>
+            @endif
+        @endauth
         <h5 class="m-0 font-weight-bold text-primary">{{ $title }}</h5>
     </div>
 
@@ -57,20 +61,24 @@
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <a href="{{ route($editRoute, $item['id']) }}" class="btn btn-sm btn-primary m-1">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                @auth
+                                    @if (auth()->user()->is_admin == 1)
+                                        <a href="{{ route($editRoute, $item['id']) }}" class="btn btn-sm btn-primary m-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
 
-                                <button type="button" class="btn btn-danger btn-sm m-1"
-                                    onclick="confirmDelete('{{ route($deleteRoute, $item['id']) }}', '{{ $item[$columns[0]['field']] }}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="{{ count($columns) + 2 }}" class="text-center">Data Kosong</td>
-                        </tr>
+                                        <button type="button" class="btn btn-danger btn-sm m-1"
+                                            onclick="confirmDelete('{{ route($deleteRoute, $item['id']) }}', '{{ $item[$columns[0]['field']] }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                </td>
+                        @endif
+                    @endauth
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="{{ count($columns) + 2 }}" class="text-center">Data Kosong</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>

@@ -23,7 +23,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if (Auth::user()->is_admin != 1) {
+                    return redirect()->intended('car');
+                } else {
+                    return redirect()->intended('admin.dashboard.index');
+                }
             }
         }
 
