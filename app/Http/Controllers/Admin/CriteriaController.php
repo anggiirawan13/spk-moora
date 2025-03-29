@@ -12,8 +12,8 @@ class CriteriaController extends Controller
 {
     public function index(): View
     {
-        $criteria = Criteria::orderby('code', 'asc')->get();
-        return view('admin.criteria.index', compact('criteria'));
+        $criterias = Criteria::orderby('code', 'asc')->get();
+        return view('admin.criteria.index', compact('criterias'));
     }
 
     public function create(): View

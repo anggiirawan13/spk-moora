@@ -30,12 +30,12 @@
                 <div class="form-group">
                     <label for="price">Harga (Rp)</label>
                     <input type="number" name="price" class="form-control" placeholder="Masukkan harga dalam rupiah"
-                        value="{{ old('price') }}" required />
+                        value="{{ old('price') }}" required min="1" />
                 </div>
                 <div class="form-group">
                     <label for="manufacture_year">Tahun Produksi</label>
                     <input type="number" name="manufacture_year" class="form-control" placeholder="Masukkan tahun produksi"
-                        value="{{ old('manufacture_year') }}" required />
+                        value="{{ old('manufacture_year') }}" required min="2000" />
                 </div>
                 <div class="form-group">
                     <label for="brand_id">Merek Mobil</label>
@@ -61,9 +61,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="kapasitas_mesin">Kapasitas Mesin (cc)</label>
-                    <input type="text" name="kapasitas_mesin" class="form-control" placeholder="Masukkan kapasitas mesin dalam cc"
-                        value="{{ old('kapasitas_mesin') }}" required />
+                    <label for="engine_capacity">Kapasitas Mesin (cc)</label>
+                    <input type="number" name="engine_capacity" class="form-control" placeholder="Masukkan kapasitas mesin dalam cc"
+                        value="{{ old('engine_capacity') }}" required />
                 </div>
                 <div class="form-group">
                     <label for="car_type_id">Jenis Mobil</label>
@@ -76,8 +76,8 @@
                 </div>
                 <div class="form-group">
                     <label for="seat_count">Jumlah Kursi</label>
-                    <input type="text" name="seat_count" class="form-control" placeholder="Masukkan jumlah kursi"
-                        value="{{ old('seat_count') }}" required />
+                    <input type="number" name="seat_count" class="form-control" placeholder="Masukkan jumlah kursi"
+                        value="{{ old('seat_count') }}" required min="2" />
                 </div>
                 <div class="form-group">
                     <label for="transmission_type_id">Transmisi</label>
@@ -94,9 +94,9 @@
                         value="{{ old('color') }}" required />
                 </div>
                 <div class="form-group">
-                    <label for="owner">Nama Pemilik</label>
-                    <input type="text" name="owner" class="form-control" placeholder="Masukkan nama pemilik mobil"
-                        value="{{ old('owner') }}" wire:model="owner" required />
+                    <label for="owner_name">Nama Pemilik</label>
+                    <input type="text" name="owner_name" class="form-control" placeholder="Masukkan nama pemilik mobil"
+                        value="{{ old('owner_name') }}" wire:model="owner_name" required />
                 </div>
                 <div class="form-group">
                     <label for="owner_address">Alamat Pemilik</label>

@@ -14,10 +14,10 @@ class AlternativeController extends Controller
 {
     public function index(): View
     {
-        $criteria = Criteria::orderBy('id', 'asc')->get();
-        $alternative = Alternative::with('values')->orderBy('created_at', 'asc')->get();
+        $criterias = Criteria::orderBy('id', 'asc')->get();
+        $alternatives = Alternative::with('values')->orderBy('created_at', 'asc')->get();
         
-        return view('admin.alternative.index', compact('criteria', 'alternative'));
+        return view('admin.alternative.index', compact('criterias', 'alternatives'));
     }
 
     public function create(): View

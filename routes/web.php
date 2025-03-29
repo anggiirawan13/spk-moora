@@ -16,11 +16,9 @@ use App\Http\Controllers\Admin\TransmissionTypeController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
@@ -28,14 +26,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/criteria', CriteriaController::class);
     Route::resource('/alternative', AlternativeController::class);
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
-});
 
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::name('admin.')->middleware(['admin'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::resource('/user', UserController::class);
-    Route::resource('/transmission_type', TransmissionTypeController::class);
-    Route::resource('/fuel_type', FuelTypeController::class);
-    Route::resource('/car_type', CarTypeController::class);
-    Route::resource('/car_brand', CarBrandController::class);
+        Route::resource('/user', UserController::class)->names('user');
+        Route::resource('/transmission', TransmissionTypeController::class)->names('transmission_type');
+        Route::resource('/fuel', FuelTypeController::class)->names('fuel_type');
+        Route::resource('/type', CarTypeController::class)->names('car_type');
+        Route::resource('/brand', CarBrandController::class)->names('car_brand');
+    });
 });

@@ -1,143 +1,60 @@
 @extends('layouts.navbar')
 
 @section('content')
-    <div class="row">
-        <style>
-            nav svg {
-                height: 20px;
-            }
+    <style>
+        nav svg {
+            height: 20px;
+        }
 
-            nav.hidden {
-                display: block;
-            }
+        nav.hidden {
+            display: block;
+        }
 
-            th {
-                font-size: 0.875em;
-            }
-            
-            .modal-content {
-                transform: scale(0.8);
-                transition: transform 0.3s ease-in-out;
-            }
+        th {
+            font-size: 0.875em;
+        }
 
-            .modal.show .modal-content {
-                transform: scale(1);
-            }
-        </style>
-        <div class="col-md">
-            <div class="card">
-                <div class="card-header py-3">
-                    @if(auth()->user()->is_admin == 1)
-                        <a href="{{route('car.create')}}" class="btn btn-primary float-right">
-                            <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
-                        </a>
-                    @endif
-                    <h5 class="m-0 font-weight-bold text-primary">Daftar Mobil Bekas</h5>
+        .modal-content {
+            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+    </style>
+    <x-table title="Daftar Mobil Bekas" createRoute="car.create" showRoute="car.show" editRoute="car.edit"
+        deleteRoute="car.destroy" :data="$cars" :columns="[
+            ['label' => 'Foto', 'field' => 'image', 'html' => true],
+            ['label' => 'Nomor Polisi', 'field' => 'license_plate'],
+            ['label' => 'Nama Mobil', 'field' => 'name'],
+            ['label' => 'Harga (Rp)', 'field' => 'price'],
+            ['label' => 'Tahun Produksi', 'field' => 'manufacture_year'],
+            ['label' => 'Jarak Tempuh (km)', 'field' => 'mileage'],
+            ['label' => 'Bahan Bakar', 'field' => 'fuel_type'],
+            ['label' => 'Kapasitas Mesin (cc)', 'field' => 'engine_capacity'],
+            ['label' => 'Jumlah Kursi', 'field' => 'seat_count'],
+            ['label' => 'Transmisi', 'field' => 'transmission_type'],
+            ['label' => 'Warna', 'field' => 'color'],
+            ['label' => 'Status Ketersediaan', 'field' => 'is_available'],
+        ]" />
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel"></h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nomor Polisi</th>
-                                <th>Nama Mobil</th>
-                                <th>Harga (Rp)</th>
-                                <th>Tahun Produksi</th>
-                                <th>Jarak Tempuh (km)</th>
-                                <th>Bahan Bakar</th>
-                                <th>Kapasitas Mesin (cc)</th>
-                                <th>Jumlah Kursi</th>
-                                <th>Transmisi</th>
-                                <th>Warna</th>
-                                <th>Status Ketersediaan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($cars as $car)
-                                <tr>
-                                    <td>
-                                        <a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage('{{ $car->name }}', '{{ $car->image_path ? asset('storage/car/'.$car->image_path) : asset('img/default-image.png') }}')">
-                                            <img class="default-img" 
-                                                src="{{ $car->image_path ? asset('storage/car/'.$car->image_path) : asset('img/default-image.png') }}" 
-                                                alt="{{ $car->name }}" width="60">
-                                        </a>
-                                    </td>
-                                    <td>{{ $car->license_plate }}</td>
-                                    <td>{{ $car->name }}</td>
-                                    <td>Rp {{ number_format($car->price, 0, ',', '.') }}</td>
-                                    <td>{{ $car->manufacture_year }}</td>
-                                    <td>{{ number_format($car->mileage, 0, ',', '.') }} Kilometer</td>
-                                    <td>{{ $car->fuelType?->name ?? 'N/A' }}</td>
-                                    <td>{{ $car->kapasitas_mesin }} cc</td>
-                                    <td>{{ $car->seat_count }}</td>
-                                    <td>{{ $car->transmissionType?->name ?? 'N/A' }}</td>
-                                    <td>{{ $car->color }}</td>
-                                    <td>{{ $car->is_available }}</td>
-                                    <td class="d-flex gap-1">
-                                        <a href="{{ route('car.show', $car->id) }}" class="btn btn-sm btn-info m-1">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    
-                                        @if(auth()->user()->is_admin == 1)
-                                            <a href="{{ route('car.edit', $car->id) }}" class="btn btn-sm btn-primary m-1">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm m-1" 
-                                                onclick="confirmDelete('{{ route('car.destroy', $car->id) }}', '{{ $car->name }}')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        @endif
-                                    </td>                                    
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="14" class="text-center">Data Kosong</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                    <!-- Modal Bootstrap -->
-                    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="imageModalLabel"></h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <img id="modalImage" src="" class="img-fluid rounded shadow-lg" style="max-height: 80vh; transition: 0.3s;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal Konfirmasi Hapus -->
-                    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header bg-danger text-white">
-                                    <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Apakah Anda yakin ingin menghapus <strong id="carName"></strong>?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                    <form id="deleteForm" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid rounded shadow-lg"
+                        style="max-height: 80vh; transition: 0.3s;">
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         function showImage(namaMobil, src) {
             document.getElementById('imageModalLabel').innerText = namaMobil;
@@ -160,14 +77,5 @@
                 modalInstance.hide();
             });
         });
-
-        function confirmDelete(url, namaMobil) {
-            document.getElementById('carName').innerText = namaMobil;
-            document.getElementById('deleteForm').action = url;
-
-            // Tampilkan modal konfirmasi
-            var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-            confirmModal.show();
-        }
     </script>
 @endsection
