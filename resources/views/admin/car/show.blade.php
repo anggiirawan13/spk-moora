@@ -25,7 +25,6 @@
                 @if (auth()->user()->is_admin == 1)
                     <x-button_edit route="car.edit" :id="$car->id" />
                 @endif
-                <a href="{{ route('car.compare', $car->id) }}" class="btn btn-warning">Bandingkan dengan Mobil Lain</a>
             </div>
         </div>
     </div>
