@@ -17,8 +17,9 @@
 
                 <div class="form-group">
                     <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+
                     <label for="image_name">Foto Profil</label>
-                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*" required
+                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*"
                         onchange="previewImage(event)" />
                 </div>
 
@@ -54,6 +55,17 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var imgElement = document.getElementById('imagePreview');
+            var existingImage =
+            "{{ asset('storage/user/' . auth()->user()->image_name) }}"; // Sesuaikan path dengan storage
+
+            if (existingImage && "{{ auth()->user()->image_name }}") {
+                imgElement.src = existingImage;
+                imgElement.style.display = 'block'; // Tampilkan gambar jika ada
+            }
+        });
+
         function previewImage(event) {
             var input = event.target;
             var reader = new FileReader();
