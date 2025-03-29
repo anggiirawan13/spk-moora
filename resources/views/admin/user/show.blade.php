@@ -10,6 +10,9 @@
                 <h5 class="m-0 font-weight-bold text-primary">Detail Akun: {{ $user->name }}</h5>
             </div>
             <div class="card-body">
+                <div class="form-group">
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+                </div>
                 <table class="table table-bordered">
                     <tr>
                         <th>Nama</th>
@@ -40,13 +43,26 @@
                 </table>
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"><i
-                        class="fas fa-arrow-left"></i> Kembali</a>
+                <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                    Kembali</a>
                 @if (auth()->user()->is_admin == 1)
                     <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary">Edit</a>
                 @endif
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var imgElement = document.getElementById('imagePreview');
+            var existingImage =
+                "{{ asset('storage/user/' . auth()->user()->image_name) }}"; // Sesuaikan path dengan storage
+
+            if (existingImage && "{{ auth()->user()->image_name }}") {
+                imgElement.src = existingImage;
+                imgElement.style.display = 'block'; // Tampilkan gambar jika ada
+            }
+        });
+    </script>
 
 @endsection
