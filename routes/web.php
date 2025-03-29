@@ -16,6 +16,10 @@ use App\Http\Controllers\Admin\TransmissionTypeController;
 
 Auth::routes();
 
+Route::get('/404', function () {
+    return response()->view('admin.errors.404', [], 404);
+})->name('error.custom.404');
+
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
 Route::post('/register', [UserController::class, 'register'])->name('register');
 

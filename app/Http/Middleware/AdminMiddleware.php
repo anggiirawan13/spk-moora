@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->is_admin != 1) {
-            abort(404);
+            return redirect()->route('error.custom.404');
         }
 
         return $next($request);
