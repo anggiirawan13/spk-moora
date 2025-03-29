@@ -14,11 +14,11 @@ class CalculationController extends Controller
         $criteria = Criteria::all();
         $alternative = Alternative::with('values')->get();
 
-        $totalBobot = $criteria->sum('weight') ?: 1;
+        $totalWeight = $criteria->sum('weight') ?: 1;
 
         $weight = [];
         foreach ($criteria as $k) {
-            $weight[$k->id] = $k->weight / $totalBobot;
+            $weight[$k->id] = $k->weight / $totalWeight;
         }
 
         $normalization = [];
