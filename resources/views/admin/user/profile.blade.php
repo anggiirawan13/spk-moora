@@ -11,14 +11,21 @@
             <h5 class="m-0 font-weight-bold text-primary">Ubah Profil</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('profile.update') }}" method="post">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('put')
+                @method('PUT')
+
+                <div class="form-group">
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+                    <label for="image_name">Foto Mobil</label>
+                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*" required
+                        onchange="previewImage(event)" />
+                </div>
 
                 <div class="form-group">
                     <label for="name">Nama</label>
-                    <input type="text" name="name" class="form-control" value="{{ old('name', auth()->user()->name) }}"
-                        required>
+                    <input type="text" name="name" class="form-control"
+                        value="{{ old('name', auth()->user()->name) }}" required>
                 </div>
 
                 <div class="form-group">
@@ -45,5 +52,22 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Tampilkan preview image
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @endsection

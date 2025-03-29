@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="{{ $car->image_path ? asset('storage/car/' . $car->image_path) : asset('img/default-image.png') }}"
+                        <img src="{{ $car->image_name ? asset('storage/car/' . $car->image_name) : asset('img/default-image.png') }}"
                             class="img-fluid rounded shadow" alt="{{ $car->name }}">
                     </div>
                     <div class="col-md-8">

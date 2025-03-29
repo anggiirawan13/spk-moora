@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -25,6 +26,9 @@ class UserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $image = $request->file('image_name')->store('user', 'public');
+        $imageName = basename($image);
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -39,6 +43,7 @@ class UserController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'is_admin' => $roleValue,
+            'image_name' => $imageName,
         ]);
 
         return redirect()->route('admin.user.index')->with('success', 'User berhasil ditambahkan.');
@@ -49,7 +54,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('admin.user.show', compact('user'));
     }
-    
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -76,6 +81,17 @@ class UserController extends Controller
             unset($validatedData['password']);
         }
 
+        if ($request->hasFile('image_name')) {
+            if ($user->image_name) {
+                Storage::delete('public/user/' . $user->image_name);
+            }
+
+            $image = $request->file('image_name')->store('user', 'public');
+            $imageName = basename($image);
+
+            $user['image_name'] = $imageName;
+        }
+
         $user->update($validatedData);
 
         return redirect()->route('admin.user.index')->with('success', 'User berhasil diperbarui.');
@@ -85,7 +101,7 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->back()->with([
-            'message'=> 'Data Berhasil DiHapus',
+            'message' => 'Data Berhasil DiHapus',
             'alert-type' => 'danger'
         ]);
     }
@@ -102,12 +118,23 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
-        ]);        
+        ]);
 
         $user->name = $validatedData['name'];
 
         if (!empty($validatedData['password'])) {
             $user->password = Hash::make($validatedData['password']);
+        }
+
+        if ($request->hasFile('image_name')) {
+            if ($user->image_name) {
+                Storage::delete('public/user/' . $user->image_name);
+            }
+
+            $image = $request->file('image_name')->store('user', 'public');
+            $imageName = basename($image);
+
+            $user['image_name'] = $imageName;
         }
 
         $user->save();

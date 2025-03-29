@@ -18,7 +18,13 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 font-weight-bold text-uppercase">
                     {{ auth()->check() ? auth()->user()->name : 'Guest' }}
                 </span>
-                <img class="img-profile rounded-circle" src="{{ asset('img/showroom.jpeg') }}" alt="Profile Picture">
+                @if (Auth::user()->image_name)
+                    <img class="img-profile rounded-circle" src="{{ asset('storage/user/' . Auth::user()->image_name) }}"
+                        alt="Profile Picture">
+                @else
+                    <i class="fas fa-user fa-2x"></i>
+                @endif
+
             </a>
 
             <!-- Dropdown Menu -->
@@ -44,8 +50,8 @@
 
 <!-- JavaScript for Logout -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector(".logout-trigger").addEventListener("click", function (e) {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".logout-trigger").addEventListener("click", function(e) {
             e.preventDefault();
             document.getElementById("logout-form").submit();
         });
