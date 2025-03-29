@@ -21,11 +21,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('car.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                <x-button_back route="car.index" />
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('car.edit', $car->id) }}" class="btn btn-primary">Edit</a>
+                    <x-button_edit route="car.edit" :id="$car->id" />
                 @endif
-                <a href="{{ route('car.compare', $car->id) }}" class="btn btn-warning">Bandingkan dengan Mobil Lain</a>
             </div>
         </div>
     </div>

@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="slug">Slug Mobil</label>
                     <input type="text" name="slug" class="form-control"
-                        placeholder="Masukkan slug car (Otomotais atau Manual)" value="{{ old('slug') }}" required />
+                        placeholder="Masukkan slug car (Otomatis atau Manual)" value="{{ old('slug') }}" required />
                 </div>
                 <div class="form-group">
                     <label for="image_name">Foto Mobil</label>
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <a href="{{ route('car.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                         Kembali</a>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                    <x-button_save />
                 </div>
             </form>
         </div>

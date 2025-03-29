@@ -32,7 +32,7 @@
                 <a href="{{ route('admin.car_type.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                     Kembali</a>
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('admin.car_type.edit', $carType->id) }}" class="btn btn-primary">Edit</a>
+                    <x-button_edit route="admin.car_type.edit" :id="$carType->id" />
                 @endif
             </div>
         </div>
