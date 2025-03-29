@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
     Route::resource('/car', CarController::class)->names('car');
+    Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
+    Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
+
     Route::resource('/criteria', CriteriaController::class)->names('criteria');
     Route::resource('/alternative', AlternativeController::class)->names('alternative');
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
