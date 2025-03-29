@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('license_plate')->unique();
             $table->string('name')->unique();
             $table->string('slug')->unique()->index();
-            $table->string('image_path');
+            $table->text('image_name');
             $table->unsignedInteger('price');
             $table->year('manufacture_year');
             $table->foreignId('brand_id')->constrained('car_brands')->onUpdate('cascade')->onDelete('cascade');
