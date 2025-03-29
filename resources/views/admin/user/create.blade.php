@@ -15,7 +15,7 @@
                 @csrf
                 <div class="form-group">
                     <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
-                    <label for="image_name">Foto Mobil</label>
+                    <label for="image_name">Foto Profil</label>
                     <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*" required
                         onchange="previewImage(event)" />
                 </div>

@@ -36,27 +36,48 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method="post" accept="{{ route('register') }}">
+                            <x-alert />
+                            <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                        placeholder="Name" name="name" required autofocus>
+                                    <img id="imagePreview" class="img-fluid mt-2"
+                                        style="max-width: 300px; display: none;" />
+                                    <label for="image_name">Foto Profil</label>
+                                    <input type="file" name="image_name" id="image_name" class="form-control"
+                                        accept="image/*" required onchange="previewImage(event)" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address" name="email" required>
+                                    <label for="name">Nama Lengkap</label>
+                                    <input type="text" name="name" class="form-control"
+                                        placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password" name="password" required>
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="Masukkan email" value="{{ old('email') }}" required />
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="exampleRepeatPassword" placeholder="Repeat Password" name="password_confirmation" required>
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Masukkan password" required />
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block" name="login">
-                                    Register Account
-                                </button>
+                                <div class="form-group">
+                                    <label for="password_confirmation">Konfirmasi Password</label>
+                                    <input type="password" name="password_confirmation"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                                        placeholder="Ulangi password" required />
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
+                                        Simpan</button>
+                                </div>
                             </form>
                             <hr>
                             <div class="text-center">
@@ -83,6 +104,22 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Tampilkan preview image
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>

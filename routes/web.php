@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\TransmissionTypeController;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::post('/register', [UserController::class, 'register'])->name('register');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
