@@ -15,7 +15,7 @@
                     </a>
                 @endif
             @endauth
-            <h5 class="m-0 font-weight-bold text-primary">Dala Alternative</h5>
+            <h5 class="m-0 font-weight-bold text-primary">Daftar Alternative</h5>
         </div>
 
         <div class="card-body">
