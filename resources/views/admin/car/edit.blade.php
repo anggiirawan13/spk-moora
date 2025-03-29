@@ -1,18 +1,24 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
+
+@section('title', 'Mobil Bekas')
 
 @section('content')
+
+    <x-alert />
+
     <div class="card">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">Ubah Data Mobil Bekas</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('car.update', $car->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('car.update', $car->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method("put")
+                @method('PUT')
+
                 <div class="form-group">
                     <label for="license_plate">Nomor Polisi</label>
-                    <input required type="text" name="license_plate" class="form-control" placeholder="Masukkan nomor polisi"
-                        value="{{ old('license_plate', $car->license_plate) }}" />
+                    <input required type="text" name="license_plate" class="form-control"
+                        placeholder="Masukkan nomor polisi" value="{{ old('license_plate', $car->license_plate) }}" />
                 </div>
                 <div class="form-group">
                     <label for="name">Nama Mobil</label>
@@ -21,13 +27,13 @@
                 </div>
                 <div class="form-group">
                     <label for="slug">Slug Mobil</label>
-                    <input required type="text" name="slug" class="form-control" placeholder="Masukkan slug car (Otomotais atau Manual)"
-                        value="{{ old('slug', $car->slug) }}" />
+                    <input required type="text" name="slug" class="form-control"
+                        placeholder="Masukkan slug car (Otomotais atau Manual)" value="{{ old('slug', $car->slug) }}" />
                 </div>
                 <div class="form-group">
                     <label for="image_path">Foto Mobil</label>
-                    <img src="{{asset('storage/car/'.$car->image_path)}}" width="100" alt="" class="mb-2 ml-2">
-                    <input required type="file" name="image_path" class="form-control" wire:model="image_path" />
+                    <img src="{{ asset('storage/car/' . $car->image_path) }}" width="100" alt="" class="mb-2 ml-2">
+                    <input type="file" name="image_path" class="form-control" wire:model="image_path" />
                 </div>
                 <div class="form-group">
                     <label for="price">Harga (Rp)</label>
@@ -36,7 +42,8 @@
                 </div>
                 <div class="form-group">
                     <label for="manufacture_year">Tahun Produksi</label>
-                    <input required ="number" name="manufacture_year" class="form-control" placeholder="Masukkan manufacture_year produksi"
+                    <input required ="number" name="manufacture_year" class="form-control"
+                        placeholder="Masukkan manufacture_year produksi"
                         value="{{ old('manufacture_year', $car->manufacture_year) }}" />
                 </div>
                 <div class="form-group">
@@ -49,18 +56,19 @@
                             </option>
                         @endforeach
                     </select>
-                </div>                
+                </div>
                 <div class="form-group">
                     <label for="mileage">Jarak Tempuh (km)</label>
-                    <input required type="text" name="mileage" class="form-control" placeholder="Masukkan jarak tempuh dalam km"
-                        value="{{ old('mileage', $car->mileage) }}" />
+                    <input required type="text" name="mileage" class="form-control"
+                        placeholder="Masukkan jarak tempuh dalam km" value="{{ old('mileage', $car->mileage) }}" />
                 </div>
                 <div class="form-group">
                     <label for="fuel_type_id">Bahan Bakar</label>
                     <select required class="form-control" name="fuel_type_id" id="fuel_type_id">
                         <option hidden>Pilih bahan bakar</option>
                         @foreach ($fuelTypes as $fuelType)
-                            <option value="{{ $fuelType->id }}" {{ $car->fuel_type_id == $fuelType->id ? 'selected' : '' }}>
+                            <option value="{{ $fuelType->id }}"
+                                {{ $car->fuel_type_id == $fuelType->id ? 'selected' : '' }}>
                                 {{ $fuelType->name }}
                             </option>
                         @endforeach
@@ -68,7 +76,8 @@
                 </div>
                 <div class="form-group">
                     <label for="engine_capacity">Kapasitas Mesin (cc)</label>
-                    <input required type="text" name="engine_capacity" class="form-control" placeholder="Masukkan kapasitas mesin dalam cc"
+                    <input required type="text" name="engine_capacity" class="form-control"
+                        placeholder="Masukkan kapasitas mesin dalam cc"
                         value="{{ old('engine_capacity', $car->engine_capacity) }}" />
                 </div>
                 <div class="form-group">
@@ -84,15 +93,16 @@
                 </div>
                 <div class="form-group">
                     <label for="seat_count">Jumlah Kursi</label>
-                    <input required type="text" name="seat_count" class="form-control" placeholder="Masukkan jumlah kursi"
-                        value="{{ old('seat_count', $car->seat_count) }}" />
+                    <input required type="text" name="seat_count" class="form-control"
+                        placeholder="Masukkan jumlah kursi" value="{{ old('seat_count', $car->seat_count) }}" />
                 </div>
                 <div class="form-group">
                     <label for="transmission_type_id">Transmisi</label>
                     <select required class="form-control" name="transmission_type_id" id="transmission_type_id">
                         <option hidden>Pilih transmisi</option>
                         @foreach ($transmissionTypes as $transmissionType)
-                            <option value="{{ $transmissionType->id }}" {{ $car->transmission_type_id == $transmissionType->id ? 'selected' : '' }}>
+                            <option value="{{ $transmissionType->id }}"
+                                {{ $car->transmission_type_id == $transmissionType->id ? 'selected' : '' }}>
                                 {{ $transmissionType->name }}
                             </option>
                         @endforeach
@@ -104,13 +114,15 @@
                         value="{{ old('color', $car->color) }}" />
                 </div>
                 <div class="form-group">
-                    <label for="owner">Nama Pemilik</label>
-                    <input required type="text" name="owner" class="form-control" placeholder="Masukkan nama owner car"
-                        value="{{ old('owner_name', $car->owner_name) }}" wire:model="owner" />
+                    <label for="owner_name">Nama Pemilik</label>
+                    <input required type="text" name="owner_name" class="form-control"
+                        placeholder="Masukkan nama owner car" value="{{ old('owner_name', $car->owner_name) }}"
+                        wire:model="owner_name" />
                 </div>
                 <div class="form-group">
                     <label for="owner_address">Alamat Pemilik</label>
-                    <textarea required class="form-control" name="owner_address" placeholder="Masukkan alamat lengkap owner" id="owner_address">{{ old('owner_address', $car->owner_address) }}</textarea>
+                    <textarea required class="form-control" name="owner_address" placeholder="Masukkan alamat lengkap owner"
+                        id="owner_address">{{ old('owner_address', $car->owner_address) }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="description">Deskripsi Mobil</label>
@@ -120,15 +132,17 @@
                     <label for="is_available">Ketersediaan</label>
                     <select required class="form-control" name="is_available" id="is_available">
                         <option hidden>Pilih status is_available</option>
-                        <option {{ $car->is_available == 0 ? "selected" : "" }} value="0">Tidak Tersedia</option>
-                        <option {{ $car->is_available == 1 ? "selected" : "" }} value="1">Tersedia</option>
+                        <option {{ $car->is_available == 0 ? 'selected' : '' }} value="0">Tidak Tersedia</option>
+                        <option {{ $car->is_available == 1 ? 'selected' : '' }} value="1">Tersedia</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('car.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <a href="{{ route('car.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                        Kembali</a>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </form>
         </div>
     </div>
+
 @endsection

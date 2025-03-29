@@ -1,11 +1,14 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
+
+@section('title', 'Merek Mobil')
+
 @section('content')
 
-@if($errors->any())
-    @foreach($errors->all() as $error)
-        <div class="alert alert-danger">{{ $error }}</div>
-    @endforeach
-@endif
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+    @endif
 
     <div class="card">
         <div class="card-header py-3">
@@ -22,7 +25,8 @@
                 </div>
 
                 <div class="form-group">
-                    <a href="{{ route('admin.car_brand.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <a href="{{ route('admin.car_brand.index') }}" class="btn btn-secondary"><i
+                            class="fas fa-arrow-left"></i> Kembali</a>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </form>

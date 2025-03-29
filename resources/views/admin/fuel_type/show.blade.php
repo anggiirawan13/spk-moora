@@ -1,6 +1,9 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
+
+@section('title', 'Bahan Bakar')
 
 @section('content')
+
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -8,17 +11,31 @@
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
-                    <tr><th>Nama</th><td>{{ $fuelType->name }}</p></td></tr>
-                    <tr><th>Dibuat Pada</th><td>{{ $fuelType->created_at->format('d-m-Y H:i') }}</p></td></tr>
-                    <tr><th>Diperbarui Pada</th><td>{{ $fuelType->updated_at->format('d-m-Y H:i') }}</p></td></tr>
+                    <tr>
+                        <th>Nama</th>
+                        <td>{{ $fuelType->name }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Dibuat Pada</th>
+                        <td>{{ $fuelType->created_at->format('d-m-Y H:i') }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Diperbarui Pada</th>
+                        <td>{{ $fuelType->updated_at->format('d-m-Y H:i') }}</p>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.fuel_type.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
-                @if(auth()->user()->is_admin == 1)
+                <a href="{{ route('admin.fuel_type.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                    Kembali</a>
+                @if (auth()->user()->is_admin == 1)
                     <a href="{{ route('admin.fuel_type.edit', $fuelType->id) }}" class="btn btn-primary">Edit</a>
                 @endif
             </div>
         </div>
     </div>
+
 @endsection

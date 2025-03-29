@@ -22,9 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
-    Route::resource('/car', CarController::class);
-    Route::resource('/criteria', CriteriaController::class);
-    Route::resource('/alternative', AlternativeController::class);
+    Route::resource('/car', CarController::class)->names('car');
+    Route::resource('/criteria', CriteriaController::class)->names('criteria');
+    Route::resource('/alternative', AlternativeController::class)->names('alternative');
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
 
     Route::name('admin.')->middleware(['admin'])->group(function () {

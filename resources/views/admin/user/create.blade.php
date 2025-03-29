@@ -1,6 +1,9 @@
-@extends('layouts.navbar')
+@extends('layouts.app')
+
+@section('title', 'User')
 
 @section('content')
+
     <div class="card">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h5>
@@ -20,18 +23,21 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan password" required />
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                        placeholder="Masukkan password" required />
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">Konfirmasi Password</label>
-                    <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Ulangi password" required />
+                    <input type="password" name="password_confirmation"
+                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                        placeholder="Ulangi password" required />
                     @error('password_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>                                
+                </div>
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" name="role" required>
@@ -41,10 +47,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</a>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                        Kembali</a>
                     <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </form>
         </div>
     </div>
+
 @endsection

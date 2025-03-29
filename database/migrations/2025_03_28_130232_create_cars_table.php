@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('engine_capacity');
             $table->foreignId('car_type_id')->constrained('car_types')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedTinyInteger('seat_count');
-            $table->foreignId('transmission_type_id')->constrained('car_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('transmission_type_id')->constrained('transmission_types')->onUpdate('cascade')->onDelete('cascade');
             $table->string('color')->nullable();
             $table->string('owner_name')->nullable();
             $table->text('owner_address')->nullable();

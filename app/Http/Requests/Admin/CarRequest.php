@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CarStoreRequest extends FormRequest
+class CarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class CarStoreRequest extends FormRequest
             'license_plate'=> 'required',
             'name'=> 'required',
             'slug'=>'required',
-            'image_path'=>'required|image',
             'price'=>'required',
             'manufacture_year'=>'required',
             'brand_id'=>'required',
@@ -38,7 +37,7 @@ class CarStoreRequest extends FormRequest
             'seat_count'=>'required',
             'transmission_type_id'=>'required',
             'color'=>'required',
-            'owner'=>'required',
+            'owner_name'=>'required',
             'owner_address'=>'required',
             'description'=>'required',
             'is_available'=>'required',

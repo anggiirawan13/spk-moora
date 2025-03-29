@@ -14,9 +14,9 @@ class AlternativeController extends Controller
 {
     public function index(): View
     {
-        $criterias = Criteria::orderBy('id', 'asc')->get();
+        $criterias = Criteria::orderBy('created_at', 'asc')->get(); // Getting the criterias
         $alternatives = Alternative::with('values')->orderBy('created_at', 'asc')->get();
-        
+
         return view('admin.alternative.index', compact('criterias', 'alternatives'));
     }
 
@@ -24,6 +24,21 @@ class AlternativeController extends Controller
     {
         $criteria = Criteria::orderBy('id', 'asc')->get();
         return view('admin.alternative.create', compact('criteria'));
+    }
+
+    public function show($id)
+    {
+        $alternative = Alternative::with('values.criteria')->findOrFail($id);
+        return view('admin.alternative.show', compact('alternative'));
+    }
+
+    public function edit($id): View
+    {
+        $alternative = Alternative::findOrFail($id);
+        $criteria = Criteria::orderBy('id', 'asc')->get();
+        $valueAlternatif = AlternativeValue::where('alternative_id', $id)->pluck('value', 'criteria_id');
+
+        return view('admin.alternative.edit', compact('alternative', 'criteria', 'valueAlternatif'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -50,21 +65,6 @@ class AlternativeController extends Controller
         }
 
         return redirect()->route('alternative.index')->with('success', 'Data berhasil disimpan');
-    }
-
-    public function show($id)
-    {
-        $alternative = Alternative::with('values.criteria')->findOrFail($id);
-        return view('admin.alternative.show', compact('alternative'));
-    }
-
-    public function edit($id): View
-    {
-        $alternative = Alternative::findOrFail($id);
-        $criteria = Criteria::orderBy('id', 'asc')->get();
-        $valueAlternatif = AlternativeValue::where('alternative_id', $id)->pluck('value', 'criteria_id');
-
-        return view('admin.alternative.edit', compact('alternative', 'criteria', 'valueAlternatif'));
     }
 
     public function update(Request $request, $id): RedirectResponse
