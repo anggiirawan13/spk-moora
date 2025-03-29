@@ -61,4 +61,16 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var imgElement = document.getElementById('imagePreview');
+            var existingImage =
+                "{{ asset('storage/user/' . auth()->user()->image_name) }}"; // Sesuaikan path dengan storage
+
+            if (existingImage && "{{ auth()->user()->image_name }}") {
+                imgElement.src = existingImage;
+                imgElement.style.display = 'block'; // Tampilkan gambar jika ada
+            }
+        });
+    </script>
 @endsection
