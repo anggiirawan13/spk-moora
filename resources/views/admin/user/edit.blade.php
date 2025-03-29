@@ -16,8 +16,16 @@
                 @method('put')
 
                 <div class="form-group">
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+                    <label for="image_name">Foto Profil</label>
+                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*"
+                        onchange="previewImage(event)" />
+                </div>
+
+                <div class="form-group">
                     <label for="name">Nama</label>
-                    <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                    <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}"
+                        required>
                 </div>
 
                 <div class="form-group">

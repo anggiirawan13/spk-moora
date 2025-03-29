@@ -49,21 +49,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Jaya Raharja Motor</h1>
                                     </div>
                                     
-                                    @if (session('error'))
-                                        <div class="alert alert-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
+                                    <x-alert />
 
                                     <form class="user" method="post" action="{{ route('login') }}">
                                         @csrf
