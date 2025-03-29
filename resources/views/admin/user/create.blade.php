@@ -14,6 +14,12 @@
             <form action="{{ route('admin.user.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+                    <label for="image_name">Foto Mobil</label>
+                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*" required
+                        onchange="previewImage(event)" />
+                </div>
+                <div class="form-group">
                     <label for="name">Nama Lengkap</label>
                     <input type="text" name="name" class="form-control" placeholder="Masukkan nama lengkap"
                         value="{{ old('name') }}" required />
@@ -56,5 +62,22 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Tampilkan preview image
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @endsection

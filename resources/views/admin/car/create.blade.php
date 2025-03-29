@@ -30,8 +30,10 @@
                         placeholder="Masukkan slug car (Otomotais atau Manual)" value="{{ old('slug') }}" required />
                 </div>
                 <div class="form-group">
-                    <label for="image_path">Foto Mobil</label>
-                    <input type="file" name="image_path" class="form-control" wire:model="image_path" required />
+                    <label for="image_name">Foto Mobil</label>
+                    <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*" required
+                        onchange="previewImage(event)" />
+                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
                 </div>
                 <div class="form-group">
                     <label for="price">Harga (Rp)</label>
@@ -130,5 +132,22 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Tampilkan preview image
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @endsection
