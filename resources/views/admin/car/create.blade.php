@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <label for="slug">Slug Mobil</label>
                     <input type="text" name="slug" class="form-control"
-                        placeholder="Masukkan slug car (Otomotais atau Manual)" value="{{ old('slug') }}" required />
+                        placeholder="Masukkan slug car (Otomotatis atau Manual)" value="{{ old('slug') }}" required />
                 </div>
                 <div class="form-group">
                     <label for="image_name">Foto Mobil</label>
