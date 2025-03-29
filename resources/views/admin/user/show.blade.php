@@ -11,7 +11,9 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <img id="imagePreview" class="img-fluid mt-2" style="max-width: 300px; display: none;" />
+                    <img id="imagePreview" class="img-fluid"
+                        style="max-width: 300px; {{ $user->image_name ? 'display: block;' : 'display: none;' }}"
+                        src="{{ $user->image_name ? asset('storage/user/' . $user->image_name) : '' }}" />
                 </div>
                 <table class="table table-bordered">
                     <tr>
@@ -51,18 +53,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var imgElement = document.getElementById('imagePreview');
-            var existingImage =
-                "{{ asset('storage/user/' . auth()->user()->image_name) }}"; // Sesuaikan path dengan storage
-
-            if (existingImage && "{{ auth()->user()->image_name }}") {
-                imgElement.src = existingImage;
-                imgElement.style.display = 'block'; // Tampilkan gambar jika ada
-            }
-        });
-    </script>
 
 @endsection
