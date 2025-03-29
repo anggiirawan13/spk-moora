@@ -55,16 +55,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
-            'role' => 'required|in:admin,user',
+            'role' => 'required|in:0,1',
         ]);
-
-        $roleValue = strtolower($validatedData['role']) === strtolower('admin') ? 1 : 0;
 
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'is_admin' => $roleValue,
+            'is_admin' => $validatedData['role'],
             'image_name' => $imageName,
         ]);
 
@@ -89,13 +87,12 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
-            'role' => 'required|in:admin,user',
+            'role' => 'required|in:0,1',
         ]);
 
         $user = User::findOrFail($id);
 
-        $validatedData['is_admin'] = $validatedData['role'] === 'admin' ? 1 : 0;
-        unset($validatedData['role']);
+        $validatedData['is_admin'] = $validatedData['role'];
 
         if (!empty($validatedData['password'])) {
             $validatedData['password'] = Hash::make($validatedData['password']);

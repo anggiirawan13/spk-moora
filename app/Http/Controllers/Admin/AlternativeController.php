@@ -14,8 +14,23 @@ class AlternativeController extends Controller
 {
     public function index(): View
     {
-        $criterias = Criteria::orderBy('created_at', 'asc')->get(); // Getting the criterias
-        $alternatives = Alternative::with('values')->orderBy('created_at', 'asc')->get();
+        $criterias = Criteria::orderBy('created_at', 'asc')->get();
+
+        $alternatives = Alternative::with(['values' => function ($query) {
+            $query->select('alternative_id', 'criteria_id', 'value'); // Ambil hanya kolom yang diperlukan
+        }])->get()->map(function ($alt) use ($criterias) {
+            $data = [
+                'id' => $alt->id,
+                'name' => $alt->name
+            ];
+
+            foreach ($criterias as $criteria) {
+                $value = $alt->values->firstWhere('criteria_id', $criteria->id);
+                $data[$criteria->id] = $value ? $value->value : '-';
+            }
+
+            return $data;
+        });
 
         return view('admin.alternative.index', compact('criterias', 'alternatives'));
     }

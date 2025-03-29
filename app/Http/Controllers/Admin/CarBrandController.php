@@ -35,7 +35,7 @@ class CarBrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:car_s,name',
+            'name' => 'required|unique:cars,name',
         ]);
 
         try {
@@ -43,7 +43,7 @@ class CarBrandController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->route('admin.car_.index')->with('success', 'Data Berhasil Disimpan');
+            return redirect()->route('admin.car_brand.index')->with('success', 'Data Berhasil Disimpan');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -67,7 +67,7 @@ class CarBrandController extends Controller
 
             CarBrand::whereId($id)->update($carBrand);
 
-            return redirect()->route('admin.car_.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.car_brand.index')->with('success', 'Data Berhasil Diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
