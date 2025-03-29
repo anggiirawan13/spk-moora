@@ -24,6 +24,28 @@ class UserController extends Controller
         return view('admin.user.create');
     }
 
+    public function register(Request $request): RedirectResponse
+    {
+        $image = $request->file('image_name')->store('user', 'public');
+        $imageName = basename($image);
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
+        ]);
+
+        User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'is_admin' => 0,
+            'image_name' => $imageName,
+        ]);
+
+        return redirect()->route('login')->with('success', 'Berhasil membuat akun.');
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $image = $request->file('image_name')->store('user', 'public');
