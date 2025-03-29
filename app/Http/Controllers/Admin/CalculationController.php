@@ -46,7 +46,7 @@ class CalculationController extends Controller
             foreach ($criteria as $k) {
                 $normalizedValue = $normalization[$a->id][$k->id] ?? 0;
 
-                if (strtolower(trim($k->atribut)) === 'benefit') {
+                if (strtolower(trim($k->attribute_type)) === 'benefit') {
                     $benefit += $weight[$k->id] * $normalizedValue;
                 } else {
                     $cost += $weight[$k->id] * $normalizedValue;
