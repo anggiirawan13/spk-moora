@@ -27,32 +27,34 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Data Master (Dropdown) -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMaster"
-           aria-expanded="false" aria-controls="dataMaster">
-            <i class="fas fa-database"></i>
-            <span>Data Master</span>
-        </a>
-        <div id="dataMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @can('admin')
-                    <a class="collapse-item" href="{{ route('admin.transmission_type.index') }}">
-                        <i class="fas fa-cogs"></i> Tipe Transmisi
-                    </a>
-                    <a class="collapse-item" href="{{ route('admin.fuel_type.index') }}">
-                        <i class="fas fa-gas-pump"></i> Bahan Bakar
-                    </a>
-                    <a class="collapse-item" href="{{ route('admin.car_type.index') }}">
-                        <i class="fas fa-truck-pickup"></i> Jenis Mobil
-                    </a>
-                    <a class="collapse-item" href="{{ route('admin.car_brand.index') }}">
-                        <i class="fas fa-warehouse"></i> Merek Mobil
-                    </a>
-                @endcan
-            </div>
-        </div>
-    </li>
+    @auth
+        @can('admin')
+            <!-- Data Master (Dropdown) -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMaster"
+                    aria-expanded="false" aria-controls="dataMaster">
+                    <i class="fas fa-database"></i>
+                    <span>Data Master</span>
+                </a>
+                <div id="dataMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.transmission_type.index') }}">
+                            <i class="fas fa-cogs"></i> Tipe Transmisi
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.fuel_type.index') }}">
+                            <i class="fas fa-gas-pump"></i> Bahan Bakar
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.car_type.index') }}">
+                            <i class="fas fa-truck-pickup"></i> Jenis Mobil
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.car_brand.index') }}">
+                            <i class="fas fa-warehouse"></i> Merek Mobil
+                        </a>
+                    </div>
+                </div>
+            </li>
+        @endcan
+    @endauth
 
     <!-- Mobil -->
     <li class="nav-item">
@@ -73,7 +75,7 @@
     <!-- Data Penunjang Keputusan (Dropdown) -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPenunjang"
-           aria-expanded="false" aria-controls="dataPenunjang">
+            aria-expanded="false" aria-controls="dataPenunjang">
             <i class="fas fa-list-alt"></i>
             <span>Data Penunjang</span>
         </a>
@@ -101,7 +103,7 @@
     @can('admin')
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManagement"
-               aria-expanded="false" aria-controls="userManagement">
+                aria-expanded="false" aria-controls="userManagement">
                 <i class="fas fa-users"></i>
                 <span>Manajemen Pengguna</span>
             </a>
