@@ -26,7 +26,7 @@ class AlternativeController extends Controller
 
             foreach ($criterias as $criteria) {
                 $value = $alt->values->firstWhere('criteria_id', $criteria->id);
-                $data[$criteria->name] = $value ? $value->value : '-';
+                $data[$criteria->id] = $value ? $value->value : '-';
             }
 
             return $data;

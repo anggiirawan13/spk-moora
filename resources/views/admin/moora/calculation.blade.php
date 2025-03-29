@@ -21,7 +21,7 @@
                 <tbody>
                     <tr>
                         @foreach ($criteria as $k)
-                            <td>{{ number_format($weight[$k->id], 4) }}</td>
+                            <td>{{ number_format($weight[$k->id], 2) }}</td>
                         @endforeach
                     </tr>
                 </tbody>
