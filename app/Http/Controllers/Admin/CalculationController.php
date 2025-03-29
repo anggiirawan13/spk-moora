@@ -14,26 +14,26 @@ class CalculationController extends Controller
         $criteria = Criteria::all();
         $alternative = Alternative::with('values')->get();
 
-        $totalBobot = $criteria->sum('weight') ?: 1;
+        $totalWeight = $criteria->sum('weight') ?: 1;
 
         $weight = [];
         foreach ($criteria as $k) {
-            $weight[$k->id] = $k->weight / $totalBobot;
+            $weight[$k->id] = $k->weight / $totalWeight;
         }
 
         $normalization = [];
         $sumSquared = [];
 
         foreach ($criteria as $k) {
-            $sumSquared[$k->id] = $alternative->sum(function ($a) use ($k) {
-                $value = optional($a->values->where('criteria_id', $k->id)->first())->value ?? 0;
+            $sumSquared[$k->id] = max($alternative->sum(function ($a) use ($k) {
+                $value = optional($a->values->firstWhere('criteria_id', $k->id))->value ?? 0;
                 return pow($value, 2);
-            });
+            }), 1);
 
-            $sqrtSumSquared = sqrt($sumSquared[$k->id]) ?: 1;
+            $sqrtSumSquared = sqrt($sumSquared[$k->id]);
 
             foreach ($alternative as $a) {
-                $value = optional($a->values->where('criteria_id', $k->id)->first())->value ?? 0;
+                $value = optional($a->values->firstWhere('criteria_id', $k->id))->value ?? 0;
                 $normalization[$a->id][$k->id] = $value / $sqrtSumSquared;
             }
         }
@@ -46,7 +46,7 @@ class CalculationController extends Controller
             foreach ($criteria as $k) {
                 $normalizedValue = $normalization[$a->id][$k->id] ?? 0;
 
-                if (strtolower($k->atribut) == 'benefit') {
+                if (strtolower(trim($k->attribute_type)) === 'benefit') {
                     $benefit += $weight[$k->id] * $normalizedValue;
                 } else {
                     $cost += $weight[$k->id] * $normalizedValue;

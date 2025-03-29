@@ -139,7 +139,7 @@
                 <div class="form-group">
                     <a href="{{ route('car.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                         Kembali</a>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                    <x-button_save />
                 </div>
             </form>
         </div>

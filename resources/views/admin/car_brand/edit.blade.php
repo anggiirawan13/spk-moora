@@ -25,9 +25,8 @@
                 </div>
 
                 <div class="form-group">
-                    <a href="{{ route('admin.car_brand.index') }}" class="btn btn-secondary"><i
-                            class="fas fa-arrow-left"></i> Kembali</a>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                    <x-button_back route="admin.car_brand.index" />
+                    <x-button_save />
                 </div>
             </form>
         </div>

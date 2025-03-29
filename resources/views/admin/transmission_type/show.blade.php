@@ -29,11 +29,9 @@
                 </table>
             </div>
             <div class="card-footer">
-                <a href="{{ route('admin.transmission_type.index') }}" class="btn btn-secondary"><i
-                        class="fas fa-arrow-left"></i> Kembali</a>
+                <x-button_back route="admin.transmission_type.index" />
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('admin.transmission_type.edit', $transmissionType->id) }}"
-                        class="btn btn-primary">Edit</a>
+                    <x-button_edit route="admin.transmission_type.edit" :id="$transmissionType->id" />
                 @endif
             </div>
         </div>
