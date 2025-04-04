@@ -13,21 +13,11 @@
         <div class="card-body">
             <form action="{{ route('car.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
-                <div class="form-group">
-                    <label for="license_plate">Nomor Polisi</label>
-                    <input type="text" name="license_plate" class="form-control" placeholder="Masukkan nomor polisi"
-                        value="{{ old('license_plate') }}" required />
-                </div>
+ 
                 <div class="form-group">
                     <label for="name">Nama Mobil</label>
                     <input type="text" name="name" class="form-control" placeholder="Masukkan nama mobil"
                         value="{{ old('name') }}" wire:model="name" wire:keyup="generateSlug" required />
-                </div>
-                <div class="form-group">
-                    <label for="slug">Slug Mobil</label>
-                    <input type="text" name="slug" class="form-control"
-                        placeholder="Masukkan slug car (Otomatis atau Manual)" value="{{ old('slug') }}" required />
                 </div>
                 <div class="form-group">
                     <label for="image_name">Foto Mobil</label>
@@ -100,17 +90,6 @@
                     <label for="color">Warna Mobil</label>
                     <input type="text" name="color" class="form-control" placeholder="Masukkan color car"
                         value="{{ old('color') }}" required />
-                </div>
-                <div class="form-group">
-                    <label for="owner_name">Nama Pemilik</label>
-                    <input type="text" name="owner_name" class="form-control"
-                        placeholder="Masukkan nama pemilik mobil" value="{{ old('owner_name') }}"
-                        wire:model="owner_name" required />
-                </div>
-                <div class="form-group">
-                    <label for="owner_address">Alamat Pemilik</label>
-                    <textarea class="form-control" name="owner_address" placeholder="Masukkan alamat lengkap pemilik mobil"
-                        id="owner_address" required>{{ old('owner_address') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="description">Deskripsi Mobil</label>

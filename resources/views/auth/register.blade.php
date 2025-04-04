@@ -46,7 +46,7 @@
                                         style="max-width: 300px; display: none;" />
                                     <label for="image_name">Foto Profil</label>
                                     <input type="file" name="image_name" id="image_name" class="form-control"
-                                        accept="image/*" required onchange="previewImage(event)" />
+                                        accept="image/*" onchange="previewImage(event)" />
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Nama Lengkap</label>
