@@ -24,9 +24,7 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'license_plate'=> 'required',
             'name'=> 'required',
-            'slug'=>'required',
             'price'=>'required',
             'manufacture_year'=>'required',
             'brand_id'=>'required',
@@ -37,8 +35,6 @@ class CarRequest extends FormRequest
             'seat_count'=>'required',
             'transmission_type_id'=>'required',
             'color'=>'required',
-            'owner_name'=>'required',
-            'owner_address'=>'required',
             'description'=>'required',
             'is_available'=>'required',
         ];
