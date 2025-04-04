@@ -13,7 +13,6 @@ class Car extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'image_name',
         'price',
         'manufacture_year',
