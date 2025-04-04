@@ -27,7 +27,6 @@ class CarController extends Controller
                 'image' => '<a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage(\'' . $car->name . '\', \'' . asset('storage/car/' . ($car->image_name ?? 'img/default-image.png')) . '\')">
                                 <img class="default-img" src="' . asset('storage/car/' . ($car->image_name ?? 'img/default-image.png')) . '" width="60">
                             </a>',
-                'license_plate' => $car->license_plate,
                 'name' => $car->name,
                 'price' => 'Rp ' . number_format($car->price, 0, ',', '.'),
                 'manufacture_year' => $car->manufacture_year,
@@ -60,9 +59,7 @@ class CarController extends Controller
             $image = $request->file('image_name')->store('car', 'public');
             $imageName = basename($image);
 
-            $slug = Str::slug($request->name, '-');
-
-            Car::create($request->except('image_name') + ['image_name' => $imageName, 'slug' => $slug]);
+            Car::create($request->except('image_name') + ['image_name' => $imageName]);
         }
 
         return redirect()->route('car.index')->with([
@@ -111,8 +108,7 @@ class CarController extends Controller
     public function update(CarRequest $request, Car $car): RedirectResponse
     {
         if ($request->validated()) {
-            $slug = Str::slug($request->name, '-');
-            $dataUpdate = $request->except('image_name') + ['slug' => $slug];
+            $dataUpdate = $request->except('image_name');
 
             if ($request->hasFile('image_name')) {
                 if ($car->image_name) {

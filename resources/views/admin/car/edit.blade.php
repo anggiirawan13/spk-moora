@@ -26,11 +26,6 @@
                         value="{{ old('name', $car->name) }}" wire:model="name" wire:keyup="generateSlug" />
                 </div>
                 <div class="form-group">
-                    <label for="slug">Slug Mobil</label>
-                    <input required type="text" name="slug" class="form-control"
-                        placeholder="Masukkan slug car (Otomotais atau Manual)" value="{{ old('slug', $car->slug) }}" />
-                </div>
-                <div class="form-group">
                     <label for="image_name">Foto Mobil</label>
                     <img src="{{ asset('storage/car/' . $car->image_name) }}" width="100" alt="" class="mb-2 ml-2">
                     <input type="file" name="image_name" class="form-control" wire:model="image_name" />
