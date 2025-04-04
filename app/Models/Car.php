@@ -12,7 +12,6 @@ class Car extends Model
     protected $table = 'cars';
 
     protected $fillable = [
-        'license_plate',
         'name',
         'slug',
         'image_name',
@@ -26,8 +25,6 @@ class Car extends Model
         'seat_count',
         'transmission_type_id',
         'color',
-        'owner_name',
-        'owner_address',
         'description',
         'is_available',
     ];
