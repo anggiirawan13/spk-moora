@@ -4,6 +4,12 @@
 
 @section('content')
 
+    @auth
+        @can('admin')
+            <a href="{{ route('moora.download_pdf') }}" class="btn btn-success mb-2">Download Laporan PDF</a>
+        @endcan
+    @endauth
+
     <!-- Card Bobot Kriteria -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
