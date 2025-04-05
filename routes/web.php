@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/criteria', CriteriaController::class)->names('criteria');
     Route::resource('/alternative', AlternativeController::class)->names('alternative');
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
+    Route::get('/admin/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
+
 
     Route::name('admin.')->middleware('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
