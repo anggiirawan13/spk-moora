@@ -6,7 +6,7 @@
 
     @auth
         @can('admin')
-            <a href="{{ route('moora.download_pdf') }}" class="btn btn-success">Download Laporan PDF</a>
+            <a href="{{ route('moora.download_pdf') }}" class="btn btn-success mb-2">Download Laporan PDF</a>
         @endcan
     @endauth
 
