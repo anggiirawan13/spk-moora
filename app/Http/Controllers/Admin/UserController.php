@@ -26,8 +26,12 @@ class UserController extends Controller
 
     public function register(Request $request): RedirectResponse
     {
-        $image = $request->file('image_name')->store('user', 'public');
-        $imageName = basename($image);
+        $imageName = "";
+
+        if ($request->hasFile('image_name')) {
+            $image = $request->file('image_name')->store('user', 'public');
+            $imageName = basename($image);
+        }
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',

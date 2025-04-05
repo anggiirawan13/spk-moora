@@ -16,11 +16,6 @@
                 @method('PUT')
 
                 <div class="form-group">
-                    <label for="license_plate">Nomor Polisi</label>
-                    <input required type="text" name="license_plate" class="form-control"
-                        placeholder="Masukkan nomor polisi" value="{{ old('license_plate', $car->license_plate) }}" />
-                </div>
-                <div class="form-group">
                     <label for="name">Nama Mobil</label>
                     <input required type="text" name="name" class="form-control" placeholder="Masukkan nama car"
                         value="{{ old('name', $car->name) }}" wire:model="name" wire:keyup="generateSlug" />
@@ -107,17 +102,6 @@
                     <label for="color">Warna Mobil</label>
                     <input required type="text" name="color" class="form-control" placeholder="Masukkan color car"
                         value="{{ old('color', $car->color) }}" />
-                </div>
-                <div class="form-group">
-                    <label for="owner_name">Nama Pemilik</label>
-                    <input required type="text" name="owner_name" class="form-control"
-                        placeholder="Masukkan nama owner car" value="{{ old('owner_name', $car->owner_name) }}"
-                        wire:model="owner_name" />
-                </div>
-                <div class="form-group">
-                    <label for="owner_address">Alamat Pemilik</label>
-                    <textarea required class="form-control" name="owner_address" placeholder="Masukkan alamat lengkap owner"
-                        id="owner_address">{{ old('owner_address', $car->owner_address) }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="description">Deskripsi Mobil</label>
