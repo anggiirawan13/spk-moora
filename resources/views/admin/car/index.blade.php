@@ -26,7 +26,6 @@
     <x-table title="Daftar Mobil Bekas" createRoute="car.create" showRoute="car.show" editRoute="car.edit"
         deleteRoute="car.destroy" :data="$cars" :columns="[
             ['label' => 'Foto', 'field' => 'image', 'html' => true],
-            ['label' => 'Nomor Polisi', 'field' => 'license_plate'],
             ['label' => 'Nama Mobil', 'field' => 'name'],
             ['label' => 'Harga (Rp)', 'field' => 'price'],
             ['label' => 'Tahun Produksi', 'field' => 'manufacture_year'],

@@ -1,9 +1,5 @@
 <table class="table table-bordered">
     <tr>
-        <th>Nomor Polisi</th>
-        <td>{{ $car->license_plate }}</td>
-    </tr>
-    <tr>
         <th>Nama Mobil</th>
         <td>{{ $car->name }}</td>
     </tr>
@@ -46,14 +42,6 @@
     <tr>
         <th>Jenis Mobil</th>
         <td>{{ $car->carBrand?->name ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <th>Nama Pemilik</th>
-        <td>{{ $car->owner_name }}</td>
-    </tr>
-    <tr>
-        <th>Alamat Pemilik</th>
-        <td>{{ $car->owner_address }}</td>
     </tr>
     <tr>
         <th>Deskripsi Mobil</th>

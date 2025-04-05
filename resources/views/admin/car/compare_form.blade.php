@@ -17,7 +17,7 @@
                         <select name="car1" id="car1" class="form-control">
                             <option value="">Pilih Mobil</option>
                             @foreach($cars as $car)
-                                <option value="{{ $car->id }}">{{ $car->name }} - {{ $car->license_plate }}</option>
+                                <option value="{{ $car->id }}">{{ $car->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,7 +27,7 @@
                         <select name="car2" id="car2" class="form-control">
                             <option value="">Pilih Mobil</option>
                             @foreach($cars as $car)
-                                <option value="{{ $car->id }}">{{ $car->name }} - {{ $car->license_plate }}</option>
+                                <option value="{{ $car->id }}">{{ $car->name }}</option>
                             @endforeach
                         </select>
                     </div>
