@@ -37,11 +37,11 @@
     </tr>
     <tr>
         <th>Merek Mobil</th>
-        <td>{{ $car->carType?->name ?? 'N/A' }}</td>
+        <td>{{ $car->carBrand?->name ?? 'N/A' }}</td>
     </tr>
     <tr>
         <th>Jenis Mobil</th>
-        <td>{{ $car->carBrand?->name ?? 'N/A' }}</td>
+        <td>{{ $car->carType?->name ?? 'N/A' }}</td>
     </tr>
     <tr>
         <th>Deskripsi Mobil</th>
