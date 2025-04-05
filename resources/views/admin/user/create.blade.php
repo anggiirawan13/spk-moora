@@ -12,7 +12,8 @@
         </div>
         <div class="card-body">
             <x-user_form route="admin.user.store" :imageRequired="true" :isReadOnly="false" method="POST" :withRole="true"
-                name="" email="" :withBack="true" routeBack="admin.user.index" image="" role="" />
+                name="" email="" :withBack="true" routeBack="admin.user.index" image="" role=""
+                :deletePhotoProfile="false" />
         </div>
     </div>
 

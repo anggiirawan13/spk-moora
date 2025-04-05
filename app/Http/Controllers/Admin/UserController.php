@@ -164,4 +164,18 @@ class UserController extends Controller
 
         return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
     }
+
+    public function deleteProfileImage(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->image_name) {
+            Storage::delete('public/user/' . $user->image_name);
+
+            $user->image_name = "";
+            $user->save();
+        }
+
+        return redirect()->route('profile.edit')->with('success', 'Foto profil berhasil dihapus.');
+    }
 }
