@@ -12,6 +12,7 @@
     'email' => '',
     'image' => '',
     'role' => 0,
+    'deletePhotoProfile' => false,
 ])
 
 <x-alert />
@@ -28,6 +29,13 @@
         <label for="image_name">Foto Profil</label>
         <input type="file" name="image_name" id="image_name" class="form-control" accept="image/*"
             {{ $imageRequired ? 'required' : '' }} onchange="previewImage(event)" />
+
+        @if ($image && $deletePhotoProfile)
+            <button type="button" class="btn btn-danger btn-sm m-1"
+                onclick="confirmDelete('{{ route('profile.delete_image', $id) }}')">
+                <i class="fas fa-trash"></i> Hapus Foto Profil
+            </button>
+        @endif
     </div>
     <div class="form-group">
         <label for="name">Nama Lengkap</label>
@@ -76,6 +84,28 @@
     </div>
 </form>
 
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus foto profil?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Modal -->
+
 <script>
     function previewImage(event) {
         var input = event.target;
@@ -90,5 +120,12 @@
         if (input.files && input.files[0]) {
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    function confirmDelete(url) {
+        document.getElementById('deleteForm').action = url;
+
+        var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+        confirmModal.show();
     }
 </script>

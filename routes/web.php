@@ -26,6 +26,7 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/delete-image', [UserController::class, 'deleteProfileImage'])->name('profile.delete_image');
 
     Route::resource('/car', CarController::class)->names('car');
     Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
