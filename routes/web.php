@@ -24,6 +24,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('gue
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/delete-image', [UserController::class, 'deleteProfileImage'])->name('profile.delete_image');
@@ -38,8 +40,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
 
     Route::name('admin.')->middleware('admin')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
         Route::resource('/user', UserController::class)->names('user');
         Route::resource('/transmission', TransmissionTypeController::class)->names('transmission_type');
         Route::resource('/fuel', FuelTypeController::class)->names('fuel_type');
