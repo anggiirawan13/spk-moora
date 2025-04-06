@@ -9,20 +9,16 @@
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
     </a>
 
-    @auth
-        @can('admin')
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-        @endcan
-    @endauth
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('dashboard.index') }}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
