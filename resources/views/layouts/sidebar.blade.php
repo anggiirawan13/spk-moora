@@ -80,6 +80,9 @@
                 <a class="collapse-item" href="{{ route('criteria.index') }}">
                     <i class="fas fa-list"></i> Kriteria
                 </a>
+                <a class="collapse-item" href="{{ route('subcriteria.index') }}">
+                    <i class="fas fa-stream"></i> Sub Kriteria
+                </a>                
                 <a class="collapse-item" href="{{ route('alternative.index') }}">
                     <i class="fas fa-th"></i> Alternatif
                 </a>

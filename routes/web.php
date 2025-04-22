@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CriteriaController;
+use App\Http\Controllers\Admin\SubCriteriaController;
 use App\Http\Controllers\Admin\AlternativeController;
 use App\Http\Controllers\Admin\CalculationController;
 use App\Http\Controllers\Admin\CarBrandController;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
 
     Route::resource('/criteria', CriteriaController::class)->names('criteria');
+    Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
     Route::resource('/alternative', AlternativeController::class)->names('alternative');
     Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
     Route::get('/admin/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
