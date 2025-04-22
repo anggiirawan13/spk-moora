@@ -68,12 +68,12 @@
         </a>
     </li>
 
-    <!-- Data Penunjang Keputusan (Dropdown) -->
+    <!-- Rekomendasi Mobil (Dropdown) -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPenunjang"
             aria-expanded="false" aria-controls="dataPenunjang">
-            <i class="fas fa-list-alt"></i>
-            <span>Data Penunjang</span>
+            <i class="fas fa-bullseye"></i>
+            <span>Rekomendasi Mobil</span>
         </a>
         <div id="dataPenunjang" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">

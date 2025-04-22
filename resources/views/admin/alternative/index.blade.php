@@ -55,14 +55,14 @@
                                                 onclick="confirmDelete('{{ route('alternative.destroy', $item['id']) }}', '{{ $item['name'] }}')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                    </td>
-                            @endif
-                        @endauth
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="{{ count($item) + 2 }}" class="text-center">Data Kosong</td>
-                        </tr>
+                                        @endif
+                                    @endauth
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="{{ count($criterias) + 3 }}" class="text-center">Data Kosong</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -104,7 +104,5 @@
             confirmModal.show();
         }
     </script>
-
-
 
 @endsection

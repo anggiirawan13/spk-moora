@@ -23,7 +23,7 @@
                         <tr>
                             <th>Kode</th>
                             <th>Kriteria</th>
-                            <th>Nilai</th>
+                            <th>Sub-Kriteria Terpilih</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>{{ $value->criteria->code }}</td>
                                 <td>{{ $value->criteria->name }}</td>
-                                <td>{{ $value->value }}</td>
+                                <td>{{ $value->subCriteria->name ?? '-' }}</td>
                             </tr>
                         @endforeach
                     </tbody>
