@@ -4,19 +4,7 @@
 
 @section('content')
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <div class="alert alert-danger" role="alert">
-                {{ $error }}
-            </div>
-        @endforeach
-    @endif
-
-    @if (Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session('success') }}
-        </div>
-    @endif
+    <x-alert />
 
     <div class="col-lg-12 order-lg-1">
         <div class="card shadow mb-4">
@@ -33,15 +21,20 @@
                         <input type="text" class="form-control" name="name" value="{{ $alternative->name }}" required>
                     </div>
 
-                    {{-- Looping criteria untuk mengisi value --}}
+                    {{-- Looping kriteria dan tampilkan dropdown sub-kriteria --}}
                     @foreach ($criteria as $k)
-                        @php
-                            $value = $alternative->values->where('criteria_id', $k->id)->first();
-                        @endphp
                         <div class="form-group">
-                            <label>{{ $k->name }} ({{ $k->code }})</label>
-                            <input type="number" class="form-control" name="value_{{ $k->id }}"
-                                value="{{ $value ? $value->value : '' }}" required>
+                            <label for="criteria_{{ $k->id }}">{{ $k->name }} ({{ $k->code }})</label>
+                            <select class="form-control" name="criteria[{{ $k->id }}]"
+                                id="criteria_{{ $k->id }}" required>
+                                <option disabled selected>-- Pilih Sub-Kriteria --</option>
+                                @foreach ($k->subCriteria as $sub)
+                                    <option value="{{ $sub->id }}"
+                                        {{ ($selectedSubs[$k->id] ?? null) == $sub->id ? 'selected' : '' }}>
+                                        {{ $sub->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     @endforeach
 

@@ -71,14 +71,14 @@
                                             onclick="confirmDelete('{{ route($deleteRoute, $item['id']) }}', '{{ $item[$columns[0]['field']] }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                </td>
-                        @endif
-                    @endauth
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="{{ count($columns) + 2 }}" class="text-center">Data Kosong</td>
-                    </tr>
+                                    @endif
+                                @endauth
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="{{ count($columns) + 2 }}" class="text-center">Data Kosong</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
