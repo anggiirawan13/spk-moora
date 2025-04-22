@@ -16,9 +16,7 @@ class AlternativeController extends Controller
     {
         $criterias = Criteria::orderBy('created_at', 'asc')->get();
 
-        $alternatives = Alternative::with(['values' => function ($query) {
-            $query->select('alternative_id', 'criteria_id', 'value'); // Ambil hanya kolom yang diperlukan
-        }])->get()->map(function ($alt) use ($criterias) {
+        $alternatives = Alternative::with(['values.subCriteria'])->get()->map(function ($alt) use ($criterias) {
             $data = [
                 'id' => $alt->id,
                 'name' => $alt->name
@@ -26,7 +24,9 @@ class AlternativeController extends Controller
 
             foreach ($criterias as $criteria) {
                 $value = $alt->values->firstWhere('criteria_id', $criteria->id);
-                $data[$criteria->id] = $value ? $value->value : '-';
+                $data[$criteria->id] = $value && $value->subCriteria
+                    ? $value->subCriteria->name
+                    : '-';
             }
 
             return $data;
@@ -37,45 +37,49 @@ class AlternativeController extends Controller
 
     public function create(): View
     {
-        $criteria = Criteria::orderBy('id', 'asc')->get();
+        $criteria = Criteria::with('subCriteria')->orderBy('id', 'asc')->get();
         return view('admin.alternative.create', compact('criteria'));
     }
 
     public function show($id)
     {
-        $alternative = Alternative::with('values.criteria')->findOrFail($id);
+        $alternative = Alternative::with([
+            'values.criteria',
+            'values.subCriteria'
+        ])->findOrFail($id);
+
         return view('admin.alternative.show', compact('alternative'));
     }
 
     public function edit($id): View
     {
         $alternative = Alternative::findOrFail($id);
-        $criteria = Criteria::orderBy('id', 'asc')->get();
-        $valueAlternatif = AlternativeValue::where('alternative_id', $id)->pluck('value', 'criteria_id');
 
-        return view('admin.alternative.edit', compact('alternative', 'criteria', 'valueAlternatif'));
+        $criteria = Criteria::with('subCriteria')->orderBy('id', 'asc')->get();
+
+        $selectedSubs = AlternativeValue::where('alternative_id', $id)
+            ->pluck('sub_criteria_id', 'criteria_id');
+
+        return view('admin.alternative.edit', compact('alternative', 'criteria', 'selectedSubs'));
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $criteria = Criteria::all();
-
-        $rules = ['name' => 'required'];
-        foreach ($criteria as $k) {
-            $rules["value_{$k->id}"] = 'required|numeric';
-        }
-
-        $request->validate($rules);
+        $request->validate([
+            'name' => 'required',
+            'criteria' => 'required|array',
+            'criteria.*' => 'required|numeric|exists:sub_criterias,id',
+        ]);
 
         $alternative = Alternative::create([
             'name' => $request->name,
         ]);
 
-        foreach ($criteria as $k) {
+        foreach ($request->criteria as $criteriaId => $subCriteriaId) {
             AlternativeValue::create([
-                'alternative_id' => $alternative->id,
-                'criteria_id' => $k->id,
-                'value' => $request->input("value_{$k->id}"),
+                'alternative_id'   => $alternative->id,
+                'criteria_id'      => $criteriaId,
+                'sub_criteria_id'  => $subCriteriaId,
             ]);
         }
 
@@ -85,23 +89,24 @@ class AlternativeController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $alternative = Alternative::findOrFail($id);
-        $criteria = Criteria::all();
 
-        $rules = ['name' => 'required'];
-        foreach ($criteria as $k) {
-            $rules["value_{$k->id}"] = 'required|numeric';
-        }
-        $request->validate($rules);
+        $request->validate([
+            'name' => 'required',
+            'criteria' => 'required|array',
+            'criteria.*' => 'required|numeric|exists:sub_criterias,id',
+        ]);
 
         $alternative->update(['name' => $request->name]);
 
-        foreach ($criteria as $k) {
+        foreach ($request->criteria as $criteriaId => $subCriteriaId) {
             AlternativeValue::updateOrCreate(
                 [
                     'alternative_id' => $alternative->id,
-                    'criteria_id' => $k->id,
+                    'criteria_id' => $criteriaId,
                 ],
-                ['value' => $request->input("value_{$k->id}")]
+                [
+                    'sub_criteria_id' => $subCriteriaId,
+                ]
             );
         }
 
