@@ -9,20 +9,16 @@
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
     </a>
 
-    @auth
-        @can('admin')
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-        @endcan
-    @endauth
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('dashboard.index') }}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -72,18 +68,21 @@
         </a>
     </li>
 
-    <!-- Data Penunjang Keputusan (Dropdown) -->
+    <!-- Rekomendasi Mobil (Dropdown) -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataPenunjang"
             aria-expanded="false" aria-controls="dataPenunjang">
-            <i class="fas fa-list-alt"></i>
-            <span>Data Penunjang</span>
+            <i class="fas fa-bullseye"></i>
+            <span>Rekomendasi Mobil</span>
         </a>
         <div id="dataPenunjang" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('criteria.index') }}">
                     <i class="fas fa-list"></i> Kriteria
                 </a>
+                <a class="collapse-item" href="{{ route('subcriteria.index') }}">
+                    <i class="fas fa-stream"></i> Sub Kriteria
+                </a>                
                 <a class="collapse-item" href="{{ route('alternative.index') }}">
                     <i class="fas fa-th"></i> Alternatif
                 </a>
