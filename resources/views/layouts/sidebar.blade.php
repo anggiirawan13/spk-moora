@@ -82,7 +82,7 @@
                 </a>
                 <a class="collapse-item" href="{{ route('subcriteria.index') }}">
                     <i class="fas fa-stream"></i> Sub Kriteria
-                </a>                
+                </a>
                 <a class="collapse-item" href="{{ route('alternative.index') }}">
                     <i class="fas fa-th"></i> Alternatif
                 </a>
@@ -101,18 +101,10 @@
     <!-- Manajemen Pengguna (Dropdown untuk Admin) -->
     @can('admin')
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManagement"
-                aria-expanded="false" aria-controls="userManagement">
+            <a class="nav-link" href="{{ route('admin.user.index') }}">
                 <i class="fas fa-users"></i>
-                <span>Manajemen Pengguna</span>
+                <span>Data User</span>
             </a>
-            <div id="userManagement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('admin.user.index') }}">
-                        <i class="fas fa-user"></i> Data User
-                    </a>
-                </div>
-            </div>
         </li>
     @endcan
 
