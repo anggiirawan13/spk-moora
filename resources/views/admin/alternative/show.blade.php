@@ -13,7 +13,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Nama Alternatif</th>
-                        <td>{{ $alternative->name }}</td>
+                        <td>{{ $alternative->car?->name }}</td>
                     </tr>
                 </table>
 

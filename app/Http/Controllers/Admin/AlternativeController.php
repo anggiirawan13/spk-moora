@@ -6,6 +6,7 @@ use App\Models\Criteria;
 use App\Models\Alternative;
 use App\Models\AlternativeValue;
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,10 +17,10 @@ class AlternativeController extends Controller
     {
         $criterias = Criteria::orderBy('created_at', 'asc')->get();
 
-        $alternatives = Alternative::with(['values.subCriteria'])->get()->map(function ($alt) use ($criterias) {
+        $alternatives = Alternative::with(['values.subCriteria', 'car'])->get()->map(function ($alt) use ($criterias) {
             $data = [
                 'id' => $alt->id,
-                'name' => $alt->name
+                'name' => $alt->car?->name
             ];
 
             foreach ($criterias as $criteria) {
@@ -37,15 +38,17 @@ class AlternativeController extends Controller
 
     public function create(): View
     {
+        $cars = Car::all();
         $criteria = Criteria::with('subCriteria')->orderBy('id', 'asc')->get();
-        return view('admin.alternative.create', compact('criteria'));
+        return view('admin.alternative.create', compact('criteria', 'cars'));
     }
 
     public function show($id)
     {
         $alternative = Alternative::with([
             'values.criteria',
-            'values.subCriteria'
+            'values.subCriteria',
+            'car'
         ])->findOrFail($id);
 
         return view('admin.alternative.show', compact('alternative'));
@@ -53,6 +56,7 @@ class AlternativeController extends Controller
 
     public function edit($id): View
     {
+        $cars = Car::all();
         $alternative = Alternative::findOrFail($id);
 
         $criteria = Criteria::with('subCriteria')->orderBy('id', 'asc')->get();
@@ -60,19 +64,19 @@ class AlternativeController extends Controller
         $selectedSubs = AlternativeValue::where('alternative_id', $id)
             ->pluck('sub_criteria_id', 'criteria_id');
 
-        return view('admin.alternative.edit', compact('alternative', 'criteria', 'selectedSubs'));
+        return view('admin.alternative.edit', compact('alternative', 'criteria', 'selectedSubs', 'cars'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
+            'car_id' => 'required|numeric|exists:cars,id',
             'criteria' => 'required|array',
             'criteria.*' => 'required|numeric|exists:sub_criterias,id',
         ]);
 
         $alternative = Alternative::create([
-            'name' => $request->name,
+            'car_id' => $request->car_id,
         ]);
 
         foreach ($request->criteria as $criteriaId => $subCriteriaId) {
@@ -91,12 +95,12 @@ class AlternativeController extends Controller
         $alternative = Alternative::findOrFail($id);
 
         $request->validate([
-            'name' => 'required',
+            'car_id' => 'required|numeric|exists:cars,id',
             'criteria' => 'required|array',
             'criteria.*' => 'required|numeric|exists:sub_criterias,id',
         ]);
 
-        $alternative->update(['name' => $request->name]);
+        $alternative->update(['car_id' => $request->car_id]);
 
         foreach ($request->criteria as $criteriaId => $subCriteriaId) {
             AlternativeValue::updateOrCreate(

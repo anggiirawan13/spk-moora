@@ -11,11 +11,16 @@ class Alternative extends Model
 
     protected $table = 'alternatives';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['car_id'];
 
     public function values()
     {
         return $this->hasMany(AlternativeValue::class, 'alternative_id');
+    }
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class, 'car_id');
     }
 }
 

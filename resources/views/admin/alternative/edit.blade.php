@@ -17,8 +17,16 @@
                     @method('PUT')
 
                     <div class="form-group">
-                        <label>Nama Alternatif</label>
-                        <input type="text" class="form-control" name="name" value="{{ $alternative->name }}" required>
+                        <label for="car_id">Mobil</label>
+                        <select required class="form-control" name="car_id" id="car_id">
+                            <option hidden>Pilih mobil</option>
+                            @foreach ($cars as $car)
+                                <option value="{{ $car->id }}"
+                                    {{ $car->id == $alternative->car_id ? 'selected' : '' }}>
+                                    {{ $car->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     {{-- Looping kriteria dan tampilkan dropdown sub-kriteria --}}

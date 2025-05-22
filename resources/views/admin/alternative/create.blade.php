@@ -15,8 +15,13 @@
                 <form action="{{ route('alternative.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Nama Alternatif</label>
-                        <input type="text" class="form-control" name="name" required>
+                        <label for="car_id">Mobil</label>
+                        <select class="form-control" name="car_id" id="car_id" required>
+                            <option value="" hidden>Pilih mobil</option>
+                            @foreach ($cars as $car)
+                                <option value="{{ $car->id }}">{{ $car->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     @foreach ($criteria as $k)

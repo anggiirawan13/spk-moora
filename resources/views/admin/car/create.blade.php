@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <label for="name">Nama Mobil</label>
                     <input type="text" name="name" class="form-control" placeholder="Masukkan nama mobil"
-                        value="{{ old('name') }}" wire:model="name" wire:keyup="generateSlug" required />
+                        value="{{ old('name') }}" wire:model="name" wire:keyup="name" required />
                 </div>
                 <div class="form-group">
                     <label for="image_name">Foto Mobil</label>
