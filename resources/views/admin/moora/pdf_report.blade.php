@@ -90,7 +90,7 @@
         <tbody>
             <tr>
                 @foreach ($criteria as $c)
-                    <td>{{ number_format($weight[$c->id], 4) }}</td>
+                    <td>{{ number_format($weight[$c->id], 5) }}</td>
                 @endforeach
             </tr>
         </tbody>
@@ -132,7 +132,7 @@
                 <tr>
                     <td>{{ $a->car->name ?? '—' }}</td>
                     @foreach ($criteria as $c)
-                        <td>{{ number_format($normalization[$a->id][$c->id] ?? 0, 4) }}</td>
+                        <td>{{ number_format($normalization[$a->id][$c->id] ?? 0, 5) }}</td>
                     @endforeach
                 </tr>
             @endforeach
@@ -155,7 +155,7 @@
                 <tr>
                     <td>{{ $rank++ }}</td>
                     <td>{{ $alt->car->name ?? '—' }}</td>
-                    <td>{{ number_format($score, 4) }}</td>
+                    <td>{{ number_format($score, 5) }}</td>
                 </tr>
             @endforeach
         </tbody>
