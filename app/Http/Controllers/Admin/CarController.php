@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Car;
 use App\Http\Controllers\Controller;
 use App\Models\TransmissionType;
-use Illuminate\Support\Str;
 use App\Http\Requests\Admin\CarRequest;
 use App\Models\CarBrand;
 use App\Models\CarType;
@@ -24,8 +23,8 @@ class CarController extends Controller
         $cars->transform(function ($car) {
             return [
                 'id' => $car->id,
-                'image' => '<a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage(\'' . $car->name . '\', \'' . asset('storage/car/' . ($car->image_name ?? 'img/default-image.png')) . '\')">
-                                <img class="default-img" src="' . asset('storage/car/' . ($car->image_name ?? 'img/default-image.png')) . '" width="60">
+                'image' => '<a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImage(\'' . $car->name . '\', \'' . asset('storage/car/' . ($car->image_name ?? 'default-image.png')) . '\')">
+                                <img class="default-img" src="' . asset('storage/car/' . ($car->image_name ?? 'default-image.png')) . '" width="60">
                             </a>',
                 'name' => $car->name,
                 'price' => 'Rp ' . number_format($car->price, 0, ',', '.'),

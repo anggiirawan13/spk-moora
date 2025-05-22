@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SubCriteria;
 use App\Models\Criteria;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SubCriteriaController extends Controller
@@ -46,18 +48,30 @@ class SubCriteriaController extends Controller
         return view('admin.sub_criteria.edit', compact('subCriteria'));
     }
 
-
-    public function update(Request $request, SubCriteria $subCriteria)
+     public function update(Request $request, $id): RedirectResponse
     {
-        $request->validate([
+        $this->validate($request, [
             'criteria_id' => 'required|exists:criterias,id',
             'name' => 'required|string|max:255',
             'value' => 'required|integer|min:1',
         ]);
 
-        $subCriteria->update($request->all());
+        try {
+            $subCriteria = [
+                'name' => $request->name,
+                'value' => $request->value
+            ];
 
-        return redirect()->route('subcriteria.index')->with('success', 'Sub Kriteria berhasil diperbarui.');
+            SubCriteria::whereId($id)->update($subCriteria);
+
+            return redirect()->route('subcriteria.index')->with('success', 'Data Berhasil Diubah');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 10062) {
+                return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
+            }
+
+            return back()->withInput()->with('error', 'Terjadi kesalahan, coba lagi.');
+        }
     }
 
     public function destroy($id)
