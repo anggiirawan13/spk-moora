@@ -80,12 +80,16 @@ class AlternativeController extends Controller
         ]);
 
         foreach ($request->criteria as $criteriaId => $subCriteriaId) {
+            $sub = \App\Models\SubCriteria::find($subCriteriaId);
+
             AlternativeValue::create([
                 'alternative_id'   => $alternative->id,
                 'criteria_id'      => $criteriaId,
                 'sub_criteria_id'  => $subCriteriaId,
+                'value'            => $sub->value ?? 0,
             ]);
         }
+
 
         return redirect()->route('alternative.index')->with('success', 'Data berhasil disimpan');
     }

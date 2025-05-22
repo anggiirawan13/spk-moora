@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <title>Laporan MOORA</title>
@@ -9,62 +8,66 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 12px;
             color: #222;
+            margin: 20px;
         }
 
-        h1,
-        h2,
-        h3,
-        h4 {
-            margin-top: 30px;
+        h1 {
+            font-size: 22px;
             margin-bottom: 10px;
         }
 
         .meta {
             font-size: 11px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        .meta strong {
-            display: inline-block;
-            width: 100px;
+        .meta p {
+            margin: 2px 0;
+        }
+
+        .section-title {
+            background-color: #3f51b5;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 30px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 10px 0 20px;
             font-size: 11px;
         }
 
-        th,
-        td {
-            border: 1px solid #555;
+        th, td {
+            border: 1px solid #777;
             padding: 6px 8px;
             text-align: center;
         }
 
         th {
-            background-color: #eaeaea;
+            background-color: #e0e0e0;
         }
 
-        .section-title {
-            background-color: #f5f5f5;
-            padding: 8px;
-            font-weight: bold;
-            border-left: 5px solid #007BFF;
-            margin-top: 30px;
-            font-size: 14px;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        h4 {
+            margin-top: 15px;
+            font-size: 13px;
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 50px;
             font-size: 11px;
             text-align: center;
             color: #777;
         }
     </style>
 </head>
-
 <body>
 
     <h1>Laporan Perhitungan MOORA</h1>
@@ -93,7 +96,7 @@
         </tbody>
     </table>
 
-    <div class="section-title">Bobot Global Sub-Kriteria</div>
+    <div class="section-title">Bobot Sub-Kriteria</div>
     @foreach ($criteria as $c)
         <h4>{{ $c->name }}</h4>
         <table>
@@ -101,7 +104,6 @@
                 <tr>
                     <th>Sub-Kriteria</th>
                     <th>Nilai Mentah</th>
-                    <th>Bobot Global</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,7 +111,6 @@
                     <tr>
                         <td>{{ $sub->name }}</td>
                         <td>{{ $sub->value }}</td>
-                        <td>{{ number_format($subCriteriaGlobalWeights[$sub->id] ?? 0, 5) }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -129,7 +130,7 @@
         <tbody>
             @foreach ($alternatives as $a)
                 <tr>
-                    <td>{{ $a->name }}</td>
+                    <td>{{ $a->car->name ?? '—' }}</td>
                     @foreach ($criteria as $c)
                         <td>{{ number_format($normalization[$a->id][$c->id] ?? 0, 4) }}</td>
                     @endforeach
@@ -148,11 +149,12 @@
             </tr>
         </thead>
         <tbody>
-            @php $ranking = 1; @endphp
+            @php $rank = 1; @endphp
             @foreach ($valueMoora as $id => $score)
+                @php $alt = $alternatives->firstWhere('id', $id); @endphp
                 <tr>
-                    <td>{{ $ranking++ }}</td>
-                    <td>{{ $alternatives->find($id)->name }}</td>
+                    <td>{{ $rank++ }}</td>
+                    <td>{{ $alt->car->name ?? '—' }}</td>
                     <td>{{ number_format($score, 4) }}</td>
                 </tr>
             @endforeach
@@ -164,5 +166,4 @@
     </div>
 
 </body>
-
 </html>
