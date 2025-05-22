@@ -103,7 +103,7 @@
             <thead>
                 <tr>
                     <th>Sub-Kriteria</th>
-                    <th>Nilai Mentah</th>
+                    <th>Nilai</th>
                 </tr>
             </thead>
             <tbody>
