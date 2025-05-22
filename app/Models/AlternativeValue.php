@@ -15,6 +15,7 @@ class AlternativeValue extends Model
         'alternative_id',
         'criteria_id',
         'sub_criteria_id',
+        'value'
     ];
 
     public function alternative()

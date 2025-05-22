@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('alternative_id')->constrained('alternatives')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('sub_criteria_id')->nullable();
             $table->decimal('value', 15, 2);
             $table->timestamps();
         });
