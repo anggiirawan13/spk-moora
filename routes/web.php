@@ -17,20 +17,53 @@ use App\Http\Controllers\Admin\TransmissionTypeController;
 
 Auth::routes();
 
+// Custom 404 route
 Route::get('/404', function () {
     return response()->view('admin.errors.404', [], 404);
 })->name('error.custom.404');
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+// Guest only homepage
+Route::get('/', [HomeController::class, 'index'])->middleware('guest')->name('home');
+
+// Override registration route to use custom controller
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
+// Authenticated users
 Route::middleware(['auth'])->group(function () {
+
+    // Dashboard for all roles
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    // Profile management
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/delete-image', [UserController::class, 'deleteProfileImage'])->name('profile.delete_image');
 
+    // ==============================
+    // USER-ONLY FEATURES (not admin)
+    // ==============================
+    Route::middleware(['not_admin'])->group(function () {
+        Route::get('/calculation', [CalculationController::class, 'calculationUser'])->name('calculation.user');
+        Route::get('/moora/report', [CalculationController::class, 'downloadPDFUser'])->name('moora.download_pdf_user');
+    });
+
+    // ============================
+    // ADMIN-ONLY FEATURES (admin)
+    // ============================
+    Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {
+        Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
+        Route::get('/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
+
+        Route::resource('/user', UserController::class)->names('user');
+        Route::resource('/transmission', TransmissionTypeController::class)->names('transmission_type');
+        Route::resource('/fuel', FuelTypeController::class)->names('fuel_type');
+        Route::resource('/type', CarTypeController::class)->names('car_type');
+        Route::resource('/brand', CarBrandController::class)->names('car_brand');
+    });
+
+    // ===================================
+    // Shared Resources (optional checks)
+    // ===================================
     Route::resource('/car', CarController::class)->names('car');
     Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
     Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
@@ -38,14 +71,4 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/criteria', CriteriaController::class)->names('criteria');
     Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
     Route::resource('/alternative', AlternativeController::class)->names('alternative');
-    Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
-    Route::get('/admin/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
-
-    Route::name('admin.')->middleware('admin')->group(function () {
-        Route::resource('/user', UserController::class)->names('user');
-        Route::resource('/transmission', TransmissionTypeController::class)->names('transmission_type');
-        Route::resource('/fuel', FuelTypeController::class)->names('fuel_type');
-        Route::resource('/type', CarTypeController::class)->names('car_type');
-        Route::resource('/brand', CarBrandController::class)->names('car_brand');
-    });
 });

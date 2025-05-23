@@ -6,7 +6,7 @@
 
     <div class="container-fluid">
 
-        <a href="{{ route('moora.download_pdf') }}" class="btn btn-success mb-3">
+        <a href="{{ route('admin.moora.download_pdf') }}" class="btn btn-success mb-3">
             <i class="fas fa-download"></i> Download Laporan PDF
         </a>
 

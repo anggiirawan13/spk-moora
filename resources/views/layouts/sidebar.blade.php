@@ -91,15 +91,25 @@
     </li>
 
     <!-- Proses Perhitungan -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('calculation') }}">
-            <i class="fas fa-calculator"></i>
-            <span>Hitung</span>
-        </a>
-    </li>
+    @cannot('admin')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('calculation.user') }}">
+                <i class="fas fa-calculator"></i>
+                <span>Hitung</span>
+            </a>
+        </li>
+    @endcannot
 
-    <!-- Manajemen Pengguna (Dropdown untuk Admin) -->
     @can('admin')
+        <!-- Proses Perhitungan -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.calculation') }}">
+                <i class="fas fa-calculator"></i>
+                <span>Hitung</span>
+            </a>
+        </li>
+
+        <!-- Manajemen Pengguna (Dropdown untuk Admin) -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.user.index') }}">
                 <i class="fas fa-users"></i>
