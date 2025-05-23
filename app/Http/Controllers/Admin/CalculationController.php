@@ -13,7 +13,7 @@ class CalculationController extends Controller
     public function calculation(Request $request)
     {
         $criteria = Criteria::with(['subCriteria'])->get();
-        $alternatives = Alternative::with(['values.subCriteria'])->get();
+        $alternatives = Alternative::with(['values.subCriteria', 'car'])->get();
 
         // Normalisasi bobot kriteria
         $totalWeight = $criteria->sum('weight') ?: 1;
@@ -72,14 +72,15 @@ class CalculationController extends Controller
             'criteria',
             'normalization',
             'weight',
-            'valueMoora'
+            'valueMoora',
+            'normDivisor'
         ));
     }
 
     public function downloadPDF()
     {
-        $criteria = Criteria::with('subCriteria')->get();
-        $alternatives = Alternative::with(['car', 'values.subCriteria'])->get();
+        $criteria = Criteria::with(['subCriteria'])->get();
+        $alternatives = Alternative::with(['values.subCriteria', 'car'])->get();
 
         // Normalisasi bobot kriteria
         $totalWeight = $criteria->sum('weight') ?: 1;
@@ -87,6 +88,7 @@ class CalculationController extends Controller
 
         // Ambil semua nilai alternatif berdasarkan sub_criterias.value
         $altValues = [];
+
         foreach ($alternatives as $alt) {
             foreach ($criteria as $c) {
                 $sub = optional($alt->values->firstWhere('criteria_id', $c->id))->subCriteria;
@@ -132,15 +134,6 @@ class CalculationController extends Controller
 
         arsort($valueMoora);
 
-        // Hitung bobot global sub-kriteria (opsional ditampilkan di laporan)
-        $subCriteriaGlobalWeights = [];
-        foreach ($criteria as $c) {
-            $totalSub = $c->subCriteria->sum('value') ?: 1;
-            foreach ($c->subCriteria as $sub) {
-                $subCriteriaGlobalWeights[$sub->id] = ($sub->value / $totalSub) * $weight[$c->id];
-            }
-        }
-
         // Generate PDF
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('admin.moora.pdf_report', compact(
@@ -148,8 +141,8 @@ class CalculationController extends Controller
             'criteria',
             'normalization',
             'weight',
-            'subCriteriaGlobalWeights',
-            'valueMoora'
+            'valueMoora',
+            'normDivisor'
         ));
 
         return $pdf->download('laporan_moora.pdf');
