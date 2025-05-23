@@ -81,6 +81,27 @@
         <p><strong>Waktu:</strong> {{ \Carbon\Carbon::now()->format('H:i:s') }}</p>
     </div>
 
+    @if ($originalAlternativeCount === 0)
+        <div class="alert alert-warning">
+            <strong>Data tidak ditemukan sesuai filter.</strong><br>
+            Menampilkan alternatif yang mendekati kriteria Anda.
+        </div>
+    @endif
+
+    @if (!empty(request()->input('criteria')))
+        <div class="section-title">Filter Kriteria yang Dipilih</div>
+        <ul>
+            @foreach ($criteria as $c)
+                @php $chosen = request()->input("criteria.{$c->id}"); @endphp
+                @if ($chosen)
+                    <li>{{ $c->name }}:
+                        {{ optional($c->subCriteria->firstWhere('id', $chosen))->name ?? '-' }}
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+    @endif
+
     {{-- Step 1: Nilai Alternatif --}}
     <div class="section-title">Step 1: Nilai Alternatif & Kuadrat</div>
     <p class="small">Rumus: ∑(x<sub>ij</sub>)² = x<sub>1j</sub>² + x<sub>2j</sub>² + ...</p>

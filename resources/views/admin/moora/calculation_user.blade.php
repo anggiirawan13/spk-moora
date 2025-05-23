@@ -12,7 +12,11 @@
             </button>
 
             {{-- Tombol PDF di Kanan --}}
-            <a href="{{ route('moora.download_pdf_user') }}" class="btn btn-info">
+            @php
+                $queryString = http_build_query(request()->query());
+            @endphp
+
+            <a href="{{ route('moora.download_pdf_user') . '?' . $queryString }}" class="btn btn-info">
                 <i class="fas fa-download"></i> Download Laporan PDF
             </a>
         </div>

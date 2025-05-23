@@ -251,10 +251,41 @@ class CalculationController extends Controller
         return $pdf->download('laporan_moora.pdf');
     }
 
-    public function downloadPDFUser()
+    public function downloadPDFUser(Request $request)
     {
-        $criteria = Criteria::with(['subCriteria'])->get();
+        $criteria = Criteria::with('subCriteria')->get();
+        $selectedSubCriteria = $request->input('criteria', []);
         $alternatives = Alternative::with(['values.subCriteria', 'car'])->get();
+
+        $filteredAlternatives = $alternatives;
+        $suggestions = collect();
+
+        if (!empty($selectedSubCriteria)) {
+            $filteredAlternatives = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
+                foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
+                    if (!$sub_id) continue;
+                    $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
+                    if (!$match) return false;
+                }
+                return true;
+            })->values();
+
+            if ($filteredAlternatives->isEmpty()) {
+                $suggestions = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
+                    foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
+                        if (!$sub_id) continue;
+                        $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
+                        if ($match) return true;
+                    }
+                    return false;
+                })->values();
+            }
+        }
+
+        $originalAlternativeCount = $filteredAlternatives->count();
+
+        // Gunakan suggestions jika AND logic kosong
+        $alternatives = $originalAlternativeCount > 0 ? $filteredAlternatives : $suggestions;
 
         // Normalisasi bobot kriteria
         $totalWeight = $criteria->sum('weight') ?: 1;
@@ -270,7 +301,7 @@ class CalculationController extends Controller
             }
         }
 
-        // Normalisasi nilai alternatif per kriteria (sqrt(sum^2))
+        // Normalisasi akar
         $normDivisor = [];
         foreach ($criteria as $c) {
             $sumSquares = 0;
@@ -281,7 +312,7 @@ class CalculationController extends Controller
             $normDivisor[$c->id] = sqrt($sumSquares) ?: 1;
         }
 
-        // Normalisasi dan perhitungan MOORA
+        // MOORA
         $normalization = [];
         $valueMoora = [];
 
@@ -291,7 +322,7 @@ class CalculationController extends Controller
 
             foreach ($criteria as $c) {
                 $raw = $altValues[$alt->id][$c->id] ?? 0;
-                $norm = $raw / $normDivisor[$c->id];
+                $norm = $raw / ($normDivisor[$c->id] ?: 1);
                 $weighted = $norm * $weight[$c->id];
 
                 $normalization[$alt->id][$c->id] = $weighted;
@@ -311,12 +342,15 @@ class CalculationController extends Controller
         // Generate PDF
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('admin.moora.pdf_report_user', compact(
-            'alternatives',
             'criteria',
+            'alternatives',
             'normalization',
             'weight',
             'valueMoora',
-            'normDivisor'
+            'normDivisor',
+            'suggestions',
+            'originalAlternativeCount',
+            'selectedSubCriteria'
         ));
 
         return $pdf->download('laporan_moora.pdf');
