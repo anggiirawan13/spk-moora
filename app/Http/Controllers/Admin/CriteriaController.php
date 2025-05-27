@@ -64,7 +64,7 @@ class CriteriaController extends Controller
                 'attribute_type' => $request->attribute_type,
             ]);
 
-            return redirect()->route('criteria.index')->with('success', 'Data Berhasil Disimpan');
+            return redirect()->route('admin.criteria.index')->with('success', 'Data Berhasil Disimpan');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 10062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -93,7 +93,7 @@ class CriteriaController extends Controller
 
             Criteria::whereId($id)->update($criteria);
 
-            return redirect()->route('criteria.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.criteria.index')->with('success', 'Data Berhasil Diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 10062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -108,6 +108,6 @@ class CriteriaController extends Controller
         $criteria = Criteria::findorfail($id);
         $criteria->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.criteria.index')->with('success', 'Data Berhasil dihapus');
     }
 }

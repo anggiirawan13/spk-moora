@@ -61,10 +61,7 @@ class CarController extends Controller
             Car::create($request->except('image_name') + ['image_name' => $imageName]);
         }
 
-        return redirect()->route('car.index')->with([
-            'message' => 'Data Berhasil Ditambahkan',
-            'alert-type' => 'success'
-        ]);
+        return redirect()->route('car.index')->with('success', 'Data Berhasil disimpan');
     }
 
     public function show($id)
@@ -123,10 +120,7 @@ class CarController extends Controller
             $car->update($dataUpdate);
         }
 
-        return redirect()->route('car.index')->with([
-            'message' => 'Data Berhasil Diubah',
-            'alert-type' => 'info'
-        ]);
+        return redirect()->route('car.index')->with('success', 'Data Berhasil diubah');
     }
 
     public function destroy(Car $car): RedirectResponse
@@ -135,9 +129,6 @@ class CarController extends Controller
             unlink('storage/' . $car->image_name);
         }
         $car->delete();
-        return redirect()->back()->with([
-            'message' => 'Data Berhasil DiHapus',
-            'alert-type' => 'danger'
-        ]);
+        return redirect()->route('car.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

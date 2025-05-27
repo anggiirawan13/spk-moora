@@ -82,6 +82,6 @@ class CarTypeController extends Controller
         $carType = CarType::findorfail($id);
         $carType->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.car_type.index')->with('success', 'Data Berhasil dihapus');
     }
 }

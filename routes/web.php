@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
     Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
     Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 
     // ==============================
     // USER-ONLY FEATURES (not admin)
@@ -71,7 +72,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/criteria', CriteriaController::class)->names('criteria');
         Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
         Route::resource('/alternative', AlternativeController::class)->names('alternative');
-        Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
         Route::patch('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
     });
 });

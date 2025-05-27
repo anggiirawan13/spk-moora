@@ -33,7 +33,7 @@ class SubCriteriaController extends Controller
 
         SubCriteria::create($request->all());
 
-        return redirect()->route('subcriteria.index')->with('success', 'Sub Kriteria berhasil ditambahkan.');
+        return redirect()->route('admin.subcriteria.index')->with('success', 'Sub Kriteria berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -64,7 +64,7 @@ class SubCriteriaController extends Controller
 
             SubCriteria::whereId($id)->update($subCriteria);
 
-            return redirect()->route('subcriteria.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.subcriteria.index')->with('success', 'Data Berhasil Diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 10062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -79,6 +79,6 @@ class SubCriteriaController extends Controller
         $criteria = SubCriteria::findorfail($id);
         $criteria->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.subcriteria.index')->with('success', 'Data Berhasil dihapus');
     }
 }

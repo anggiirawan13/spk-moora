@@ -43,7 +43,7 @@ class CarBrandController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->route('admin.car_brand.index')->with('success', 'Data Berhasil Disimpan');
+            return redirect()->route('admin.car_brand.index')->with('success', 'Data berhasil disimpan');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -67,7 +67,7 @@ class CarBrandController extends Controller
 
             CarBrand::whereId($id)->update($carBrand);
 
-            return redirect()->route('admin.car_brand.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.car_brand.index')->with('success', 'Data berhasil diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -82,6 +82,6 @@ class CarBrandController extends Controller
         $carBrand = CarBrand::findorfail($id);
         $carBrand->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.car_brand.index')->with('success', 'Data berhasil dihapus');
     }
 }

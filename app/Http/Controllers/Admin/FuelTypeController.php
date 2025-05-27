@@ -82,6 +82,6 @@ class FuelTypeController extends Controller
         $fuelType = FuelType::findorfail($id);
         $fuelType->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.fuel_type.index')->with('success', 'Data Berhasil dihapus');
     }
 }

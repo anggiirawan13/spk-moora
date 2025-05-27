@@ -82,6 +82,6 @@ class TransmissionTypeController extends Controller
         $transmissionType = TransmissionType::findorfail($id);
         $transmissionType->delete();
 
-        return redirect()->back()->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.transmission_type.index')->with('success', 'Data Berhasil dihapus');
     }
 }

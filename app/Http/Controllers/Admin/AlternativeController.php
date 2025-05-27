@@ -91,7 +91,7 @@ class AlternativeController extends Controller
         }
 
 
-        return redirect()->route('alternative.index')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function update(Request $request, $id): RedirectResponse
@@ -118,7 +118,7 @@ class AlternativeController extends Controller
             );
         }
 
-        return redirect()->route('alternative.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil diubah');
     }
 
     public function destroy($id): RedirectResponse
@@ -129,6 +129,6 @@ class AlternativeController extends Controller
 
         $alternative->delete();
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+        return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -65,7 +65,7 @@ class BookingController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->back()->with('success', 'Booking berhasil dikirim!');
+        return redirect()->route('booking.index')->with('success', 'Booking berhasil dikirim');
     }
 
     public function updateStatus(Request $request, $id)
@@ -78,6 +78,6 @@ class BookingController extends Controller
         $booking->status = $request->status;
         $booking->save();
 
-        return redirect()->back()->with('success', 'Status booking diperbarui.');
+        return redirect()->route('booking.index')->with('success', 'Status booking berhasil diubah');
     }
 }
