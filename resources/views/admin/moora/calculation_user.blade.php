@@ -113,7 +113,7 @@
                                         @foreach ($c->subCriteria as $sub)
                                             <option value="{{ $sub->id }}"
                                                 {{ request()->input("criteria.{$c->id}") == $sub->id ? 'selected' : '' }}>
-                                                {{ $sub->name }} ({{ $sub->value }})
+                                                {{ $sub->name }}
                                             </option>
                                         @endforeach
                                     </select>

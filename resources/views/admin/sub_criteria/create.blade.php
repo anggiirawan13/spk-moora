@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Tambah Data Kriteria</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('subcriteria.store') }}" method="POST">
+                <form action="{{ route('admin.subcriteria.store') }}" method="POST">
                     @csrf
 
                     <input type="hidden" name="criteria_id" value="{{ $criteria->id }}">
@@ -42,7 +42,7 @@
                         @enderror
                     </div>
 
-                    <a href="{{ route('subcriteria.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.subcriteria.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Batal
                     </a>
                     <button type="submit" class="btn btn-primary">

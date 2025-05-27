@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/car', CarController::class)->names('car');
     Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
     Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
-    Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 
     // ==============================
@@ -72,6 +72,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/criteria', CriteriaController::class)->names('criteria');
         Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
         Route::resource('/alternative', AlternativeController::class)->names('alternative');
-        Route::patch('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
+        Route::patch('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
     });
 });

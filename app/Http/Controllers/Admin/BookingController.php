@@ -55,6 +55,21 @@ class BookingController extends Controller
             return redirect()->route('calculation.user')->with('error', 'Mobil ini sudah dibooking pada tanggal dan jam tersebut')->withInput();
         }
 
+        // Hitung waktu 1 jam sebelum dan sesudah
+        $startRange = $datetime->copy()->subHour()->format('H:i');
+        $endRange = $datetime->copy()->addHour()->format('H:i');
+
+        // Cek apakah ada booking dalam rentang waktu tersebut
+        $exists = Booking::where('car_id', $request->alternative_id)
+            ->where('date', $request->date)
+            ->where('status', '!=', 'rejected')
+            ->whereIn('time', [$startRange, $request->time, $endRange])
+            ->exists();
+
+        if ($exists) {
+            return redirect()->route('calculation.user')->with('error', 'Mobil ini sudah dibooking pada waktu tersebut atau dalam waktu 1 jam sebelum/sesudah')->withInput();
+        }
+
         Booking::create([
             'user_id' => Auth::id(),
             'car_id' => $request->alternative_id,
