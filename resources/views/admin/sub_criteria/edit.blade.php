@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Ubah Data Sub Kriteria</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('subcriteria.update', $subCriteria->id) }}" method="POST">
+                <form action="{{ route('admin.subcriteria.update', $subCriteria->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
 
-                    <a href="{{ route('subcriteria.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.subcriteria.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Batal
                     </a>
                     <button type="submit" class="btn btn-primary">

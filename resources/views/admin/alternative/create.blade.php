@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Tambah Data Alternatif</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('alternative.store') }}" method="POST">
+                <form action="{{ route('admin.alternative.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="car_id">Mobil</label>
@@ -38,7 +38,7 @@
                     @endforeach
 
                     <div class="form-group">
-                        <x-button_back route="alternative.index" />
+                        <x-button_back route="admin.alternative.index" />
                         <x-button_save />
                     </div>
                 </form>

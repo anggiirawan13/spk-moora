@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Ubah Data Alternatif</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('alternative.update', $alternative->id) }}" method="POST">
+                <form action="{{ route('admin.alternative.update', $alternative->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -47,7 +47,7 @@
                     @endforeach
 
                     <div class="form-group">
-                        <x-button_back route="alternative.index" />
+                        <x-button_back route="admin.alternative.index" />
                         <x-button_save />
                     </div>
                 </form>

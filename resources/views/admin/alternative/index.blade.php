@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             @auth
                 @if (auth()->user()->is_admin == 1)
-                    <a href="{{ route('alternative.create') }}" class="btn btn-primary float-right">
+                    <a href="{{ route('admin.alternative.create') }}" class="btn btn-primary float-right">
                         <i class="fas fa-fw fa-plus-circle"></i> Tambah Data
                     </a>
                 @endif
@@ -40,19 +40,20 @@
                                     <td>{{ $item[$criteria->id] }}</td>
                                 @endforeach
                                 <td class="d-flex gap-1">
-                                    <a href="{{ route('alternative.show', $item['id']) }}" class="btn btn-sm btn-info m-1">
+                                    <a href="{{ route('admin.alternative.show', $item['id']) }}"
+                                        class="btn btn-sm btn-info m-1">
                                         <i class="fas fa-eye"></i>
                                     </a>
 
                                     @auth
                                         @if (auth()->user()->is_admin == 1)
-                                            <a href="{{ route('alternative.edit', $item['id']) }}"
+                                            <a href="{{ route('admin.alternative.edit', $item['id']) }}"
                                                 class="btn btn-sm btn-primary m-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
                                             <button type="button" class="btn btn-danger btn-sm m-1"
-                                                onclick="confirmDelete('{{ route('alternative.destroy', $item['id']) }}', '{{ $item['name'] }}')">
+                                                onclick="confirmDelete('{{ route('admin.alternative.destroy', $item['id']) }}', '{{ $item['name'] }}')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         @endif
@@ -67,29 +68,10 @@
                     </tbody>
                 </table>
 
-                <!-- Modal Konfirmasi Hapus -->
-                <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-danger text-white">
-                                <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
-                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Apakah Anda yakin ingin menghapus <strong id="dataName"></strong>?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <form id="deleteForm" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- End Modal -->
+                <form id="deleteForm" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
 
             </div>
         </div>
@@ -97,11 +79,22 @@
 
     <script>
         function confirmDelete(url, name) {
-            document.getElementById('dataName').innerText = name;
-            document.getElementById('deleteForm').action = url;
-
-            var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-            confirmModal.show();
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                html: `Apakah Anda yakin ingin menghapus <strong>${name}</strong>?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('deleteForm');
+                    form.action = url;
+                    form.submit();
+                }
+            });
         }
     </script>
 

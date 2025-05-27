@@ -38,9 +38,9 @@
                 </table>
 
                 <div class="mt-3">
-                    <x-button_back route="alternative.index" />
+                    <x-button_back route="admin.alternative.index" />
                     @if (auth()->user()->is_admin == 1)
-                        <x-button_edit route="alternative.edit" :id="$alternative->id" />
+                        <x-button_edit route="admin.alternative.edit" :id="$alternative->id" />
                     @endif
                 </div>
             </div>
