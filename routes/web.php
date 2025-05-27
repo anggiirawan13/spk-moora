@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CriteriaController;
 use App\Http\Controllers\Admin\SubCriteriaController;
 use App\Http\Controllers\Admin\AlternativeController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CalculationController;
 use App\Http\Controllers\Admin\CarBrandController;
 use App\Http\Controllers\Admin\CarTypeController;
@@ -39,6 +40,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/delete-image', [UserController::class, 'deleteProfileImage'])->name('profile.delete_image');
 
+    // ===================================
+    // Shared Resources
+    // ===================================
+    Route::resource('/car', CarController::class)->names('car');
+    Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
+    Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
+    Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+    Route::patch('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('booking.updateStatus');
+
     // ==============================
     // USER-ONLY FEATURES (not admin)
     // ==============================
@@ -59,16 +70,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/fuel', FuelTypeController::class)->names('fuel_type');
         Route::resource('/type', CarTypeController::class)->names('car_type');
         Route::resource('/brand', CarBrandController::class)->names('car_brand');
+        Route::resource('/criteria', CriteriaController::class)->names('criteria');
+        Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
+        Route::resource('/alternative', AlternativeController::class)->names('alternative');
     });
-
-    // ===================================
-    // Shared Resources (optional checks)
-    // ===================================
-    Route::resource('/car', CarController::class)->names('car');
-    Route::get('/car/compare/form', [CarController::class, 'showComparisonForm'])->name('car.compare.form');
-    Route::post('/car/compare', [CarController::class, 'compare'])->name('car.compare');
-
-    Route::resource('/criteria', CriteriaController::class)->names('criteria');
-    Route::resource('/sub-criteria', SubCriteriaController::class)->names('subcriteria');
-    Route::resource('/alternative', AlternativeController::class)->names('alternative');
 });

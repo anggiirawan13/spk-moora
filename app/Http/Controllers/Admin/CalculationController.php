@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Criteria;
 use App\Models\Alternative;
-use Barryvdh\DomPDF\PDF as PDF;
 
 class CalculationController extends Controller
 {

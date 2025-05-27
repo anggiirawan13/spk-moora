@@ -17,7 +17,7 @@
             <table class="table table-bordered" width="100%" id="dataTable" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th>No.</th>
                         @foreach ($columns as $column)
                             <th>{{ $column['label'] }}</th>
                         @endforeach
