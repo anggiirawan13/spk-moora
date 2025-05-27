@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Ubah Data Kriteria</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('criteria.update', $criteria->id) }}" method="POST">
+                <form action="{{ route('admin.criteria.update', $criteria->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="{{ route('criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                        <a href="{{ route('admin.criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                             Kembali</a>
                         <x-button_save />
                     </div>

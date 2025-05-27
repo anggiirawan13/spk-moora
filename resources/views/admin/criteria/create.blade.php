@@ -12,7 +12,7 @@
                 <h5 class="m-0 font-weight-bold text-primary">Tambah Data Kriteria</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('criteria.store') }}" method="POST">
+                <form action="{{ route('admin.criteria.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label>Kode</label>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a href="{{ route('criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                        <a href="{{ route('admin.criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                             Kembali</a>
                         <x-button_save />
                     </div>

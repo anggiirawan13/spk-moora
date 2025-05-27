@@ -30,10 +30,10 @@
                 </table>
 
                 <div class="mt-3">
-                    <a href="{{ route('criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
+                    <a href="{{ route('admin.criteria.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>
                         Kembali</a>
                     @if (auth()->user()->is_admin == 1)
-                        <x-button_edit route="criteria.edit" :id="$criteria->id" />
+                        <x-button_edit route="admin.criteria.edit" :id="$criteria->id" />
                     @endif
                 </div>
             </div>
