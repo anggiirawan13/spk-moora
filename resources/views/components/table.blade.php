@@ -83,40 +83,45 @@
                 </tbody>
             </table>
 
-            <!-- Modal Konfirmasi Hapus -->
-            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header bg-danger text-white">
-                            <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus <strong id="dataName"></strong>?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <form id="deleteForm" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- End Modal -->
-
         </div>
     </div>
 </div>
 
 <script>
     function confirmDelete(url, name) {
-        document.getElementById('dataName').innerText = name;
-        document.getElementById('deleteForm').action = url;
+        Swal.fire({
+            title: 'Konfirmasi Hapus',
+            html: `Apakah Anda yakin ingin menghapus <strong>${name}</strong>?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Buat dan submit form delete secara dinamis
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
 
-        var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-        confirmModal.show();
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = csrfToken;
+
+                const methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                methodInput.value = 'DELETE';
+
+                form.appendChild(csrfInput);
+                form.appendChild(methodInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
     }
 </script>
