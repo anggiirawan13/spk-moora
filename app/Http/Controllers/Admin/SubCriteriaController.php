@@ -64,7 +64,7 @@ class SubCriteriaController extends Controller
 
             SubCriteria::whereId($id)->update($subCriteria);
 
-            return redirect()->route('admin.subcriteria.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.subcriteria.index')->with('success', 'Data berhasil diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 10062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -79,6 +79,6 @@ class SubCriteriaController extends Controller
         $criteria = SubCriteria::findorfail($id);
         $criteria->delete();
 
-        return redirect()->route('admin.subcriteria.index')->with('success', 'Data Berhasil dihapus');
+        return redirect()->route('admin.subcriteria.index')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -43,7 +43,7 @@ class TransmissionTypeController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->route('admin.transmission_type.index')->with('success', 'Data Berhasil Disimpan');
+            return redirect()->route('admin.transmission_type.index')->with('success', 'Data berhasil disimpan');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -67,7 +67,7 @@ class TransmissionTypeController extends Controller
 
             TransmissionType::whereId($id)->update($transmissionType);
 
-            return redirect()->route('admin.transmission_type.index')->with('success', 'Data Berhasil Diubah');
+            return redirect()->route('admin.transmission_type.index')->with('success', 'Data berhasil diubah');
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return back()->withInput()->with('error', 'Kode sudah digunakan, gunakan kode lain.');
@@ -82,6 +82,6 @@ class TransmissionTypeController extends Controller
         $transmissionType = TransmissionType::findorfail($id);
         $transmissionType->delete();
 
-        return redirect()->route('admin.transmission_type.index')->with('success', 'Data Berhasil dihapus');
+        return redirect()->route('admin.transmission_type.index')->with('success', 'Data berhasil dihapus');
     }
 }

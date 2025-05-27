@@ -124,7 +124,7 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->back()->with([
-            'message' => 'Data Berhasil DiHapus',
+            'message' => 'Data berhasil diHapus',
             'alert-type' => 'danger'
         ]);
     }

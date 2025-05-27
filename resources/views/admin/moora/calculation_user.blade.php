@@ -5,6 +5,8 @@
 @section('content')
     <div class="container-fluid">
 
+        <x-alert />
+
         <div class="d-flex justify-content-between mb-3">
             {{-- Tombol Filter di Kiri --}}
             <button class="btn btn-outline-info" data-toggle="modal" data-target="#filterModal">

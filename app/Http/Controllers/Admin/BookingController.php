@@ -38,11 +38,11 @@ class BookingController extends Controller
         $now = Carbon::now();
 
         if ($datetime->lessThan($now)) {
-            return back()->withErrors(['time' => 'Tanggal dan jam booking tidak boleh di masa lalu.'])->withInput();
+            return redirect()->route('calculation.user')->with('error', 'Tanggal dan jam booking tidak boleh kurang dari waktu sekarang')->withInput();
         }
 
         if ($datetime->hour < 8 || $datetime->hour > 17) {
-            return back()->withErrors(['time' => 'Booking hanya diperbolehkan antara jam 08:00 sampai 17:00.'])->withInput();
+            return redirect()->route('calculation.user')->with('error', 'Booking hanya diperbolehkan antara jam 08:00 sampai 17:00')->withInput();
         }
 
         $exists = Booking::where('car_id', $request->alternative_id)
@@ -52,7 +52,7 @@ class BookingController extends Controller
             ->exists();
 
         if ($exists) {
-            return back()->withErrors(['time' => 'Mobil ini sudah dibooking pada tanggal dan jam tersebut.'])->withInput();
+            return redirect()->route('calculation.user')->with('error', 'Mobil ini sudah dibooking pada tanggal dan jam tersebut')->withInput();
         }
 
         Booking::create([
@@ -65,7 +65,7 @@ class BookingController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('booking.index')->with('success', 'Booking berhasil dikirim');
+        return redirect()->route('calculation.user')->with('success', 'Booking berhasil dikirim');
     }
 
     public function updateStatus(Request $request, $id)
