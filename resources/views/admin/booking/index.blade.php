@@ -83,7 +83,7 @@
                                 @if (Auth::user()->is_admin === 1)
                                     <td>
                                         @if ($booking->status === 'pending')
-                                            <form action="{{ route('booking.updateStatus', $booking->id) }}" method="POST"
+                                            <form action="{{ route('admin.booking.updateStatus', $booking->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('PATCH')
@@ -94,7 +94,7 @@
                                                 </button>
                                             </form>
 
-                                            <form action="{{ route('booking.updateStatus', $booking->id) }}" method="POST"
+                                            <form action="{{ route('admin.booking.updateStatus', $booking->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('PATCH')

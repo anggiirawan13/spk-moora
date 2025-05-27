@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -29,9 +30,34 @@ class BookingController extends Controller
             'alternative_id' => 'required|exists:cars,id',
             'phone' => 'required|string|max:20',
             'date' => 'required|date',
-            'time' => 'required',
+            'time' => 'required|date_format:H:i',
             'type' => 'required|in:test_drive,reservasi',
         ]);
+
+        $datetime = Carbon::parse("{$request->date} {$request->time}");
+        $now = Carbon::now();
+
+        if ($datetime->lessThan($now)) {
+            return back()->withErrors(['time' => 'Tanggal dan jam booking tidak boleh di masa lalu.'])->withInput();
+        }
+
+        if ($datetime->hour < 8 || $datetime->hour > 17) {
+            return back()->withErrors(['time' => 'Booking hanya diperbolehkan antara jam 08:00 sampai 17:00.'])->withInput();
+        }
+
+        if ($datetime->isSunday()) {
+            return back()->withErrors(['date' => 'Booking tidak tersedia pada hari Minggu.'])->withInput();
+        }
+
+        $exists = Booking::where('car_id', $request->alternative_id)
+            ->where('date', $request->date)
+            ->where('time', $request->time)
+            ->where('status', '!=', 'rejected')
+            ->exists();
+
+        if ($exists) {
+            return back()->withErrors(['time' => 'Mobil ini sudah dibooking pada tanggal dan jam tersebut.'])->withInput();
+        }
 
         Booking::create([
             'user_id' => Auth::id(),
