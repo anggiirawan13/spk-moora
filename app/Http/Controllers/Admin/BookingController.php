@@ -45,10 +45,6 @@ class BookingController extends Controller
             return back()->withErrors(['time' => 'Booking hanya diperbolehkan antara jam 08:00 sampai 17:00.'])->withInput();
         }
 
-        if ($datetime->isSunday()) {
-            return back()->withErrors(['date' => 'Booking tidak tersedia pada hari Minggu.'])->withInput();
-        }
-
         $exists = Booking::where('car_id', $request->alternative_id)
             ->where('date', $request->date)
             ->where('time', $request->time)
