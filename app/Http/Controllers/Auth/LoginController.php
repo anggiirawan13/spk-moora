@@ -36,7 +36,7 @@ class LoginController extends Controller
         }
 
         if (Auth::user()->is_admin === 1) {
-            return '/dashboard';
+            return '/admin/dashboard';
         }
 
         return '/car';
