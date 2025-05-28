@@ -24,8 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label>Bobot</label>
-                        <input required type="number" class="form-control" name="weight" min="{{ $maxWeight > 1 ? 0.01 : 0 }}"
-                            max="{{ $maxWeight }}" step="0.01">
+                        <input required type="number" class="form-control" name="weight" min="0.01" step="0.01">
                     </div>
                     <div class="form-group">
                         <label for="attribute_type">Atribut</label>

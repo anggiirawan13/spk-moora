@@ -30,8 +30,7 @@ class CriteriaController extends Controller
 
     public function create(): View
     {
-        $maxWeight = 1 - Criteria::sum('weight');
-        return view('admin.criteria.create', compact('maxWeight'));
+        return view('admin.criteria.create');
     }
 
     public function show($id)
@@ -43,8 +42,7 @@ class CriteriaController extends Controller
     public function edit($id)
     {
         $criteria = Criteria::findorfail($id);
-        $maxWeight = 1 - (Criteria::sum('weight') - $criteria->weight);
-        return view('admin.criteria.edit', compact('criteria', 'maxWeight'));
+        return view('admin.criteria.edit', compact('criteria'));
     }
 
     public function store(Request $request)
