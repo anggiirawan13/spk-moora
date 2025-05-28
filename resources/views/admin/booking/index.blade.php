@@ -151,7 +151,7 @@
                                 cancelButtonText: 'Batal'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    form.action = `/admin/bookings/${bookingId}/status`;
+                                    form.action = `/admin/booking/${bookingId}/status`;
                                     statusInput.value = statusValue;
                                     form.submit();
                                 }
