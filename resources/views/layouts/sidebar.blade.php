@@ -12,19 +12,19 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ route('dashboard.index') }}">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
     @auth
         @can('admin')
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
             <!-- Data Master (Dropdown) -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataMaster"
@@ -121,7 +121,7 @@
     <!-- Daftar Booking -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('booking.index') }}">
-        <i class="fas fa-calendar-plus"></i>
+            <i class="fas fa-calendar-plus"></i>
             <span>Daftar Booking</span>
         </a>
     </li>

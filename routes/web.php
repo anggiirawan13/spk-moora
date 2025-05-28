@@ -31,10 +31,6 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 
 // Authenticated users
 Route::middleware(['auth'])->group(function () {
-
-    // Dashboard for all roles
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
     // Profile management
     Route::get('/profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
@@ -61,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     // ADMIN-ONLY FEATURES (admin)
     // ============================
     Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/calculation', [CalculationController::class, 'calculation'])->name('calculation');
         Route::get('/moora/report', [CalculationController::class, 'downloadPDF'])->name('moora.download_pdf');
 

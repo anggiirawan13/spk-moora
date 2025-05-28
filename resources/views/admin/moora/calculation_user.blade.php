@@ -23,18 +23,17 @@
             </a>
         </div>
 
-        @if ($originalAlternativeCount === 0)
-            <div class="alert alert-warning">
-                <strong>Data tidak ditemukan sesuai filter.</strong><br>
-                Menampilkan alternatif yang mendekati kriteria Anda.
-            </div>
-        @endif
-
         {{-- Tabel Hasil Ringkas --}}
         <div class="card shadow mb-4">
             <div class="card-header bg-primary text-white">
                 <h4 class="font-weight-bold text-white">Hasil Rekomendasi MOORA</h4>
             </div>
+
+            @if ($originalAlternativeCount === 0)
+                <div class="alert alert-warning">
+                    Menampilkan alternatif yang mendekati kriteria Anda.
+                </div>
+            @endif
 
             <div class="card-body">
                 <p>Dibawah ini adalah hasil akhir perhitungan menggunakan metode MOORA.</p>
