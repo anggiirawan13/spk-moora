@@ -17,7 +17,7 @@ class RedirectIfAuthenticated
                 if (Auth::user()->is_admin != 1) {
                     return redirect()->route('car.index');
                 } else {
-                    return redirect()->route('dashboard.index');
+                    return redirect()->route('admin.dashboard.index');
                 }
             }
         }
