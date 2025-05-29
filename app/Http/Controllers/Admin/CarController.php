@@ -126,7 +126,7 @@ class CarController extends Controller
     public function destroy(Car $car): RedirectResponse
     {
         if ($car->image_name) {
-            unlink('storage/' . $car->image_name);
+            unlink('storage/car/' . $car->image_name);
         }
         $car->delete();
         return redirect()->route('car.index')->with('success', 'Data berhasil dihapus');
