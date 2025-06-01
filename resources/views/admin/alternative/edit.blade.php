@@ -29,7 +29,6 @@
                         </select>
                     </div>
 
-                    {{-- Looping kriteria dan tampilkan dropdown sub-kriteria --}}
                     @foreach ($criteria as $k)
                         <div class="form-group">
                             <label for="criteria_{{ $k->id }}">{{ $k->name }} ({{ $k->code }})</label>

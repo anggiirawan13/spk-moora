@@ -24,23 +24,21 @@ class AlternativeSeeder extends Seeder
             $criteriaList = DB::table('criterias')->get();
 
             foreach ($criteriaList as $criteria) {
-                $subCriteriaIds = DB::table('sub_criterias')
+                $subCriteria = DB::table('sub_criterias')
                     ->where('criteria_id', $criteria->id)
-                    ->pluck('id');
+                    ->inRandomOrder()
+                    ->first();
 
-                if ($subCriteriaIds->isEmpty()) {
+                if (!$subCriteria) {
                     continue;
                 }
 
-                $subCriteriaId = $faker->randomElement($subCriteriaIds->toArray());
-
                 DB::table('alternative_values')->insert([
-                    'alternative_id' => $alternativeId,
-                    'criteria_id' => $criteria->id,
-                    'sub_criteria_id' => $subCriteriaId,
-                    'value' => $faker->numberBetween(1, 5),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'alternative_id'   => $alternativeId,
+                    'sub_criteria_id'  => $subCriteria->id,
+                    'value'            => $subCriteria->value ?? $faker->numberBetween(1, 5),
+                    'created_at'       => now(),
+                    'updated_at'       => now(),
                 ]);
             }
         }

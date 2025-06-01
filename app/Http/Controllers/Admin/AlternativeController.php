@@ -7,6 +7,7 @@ use App\Models\Alternative;
 use App\Models\AlternativeValue;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\SubCriteria;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,16 +16,23 @@ class AlternativeController extends Controller
 {
     public function index(): View
     {
-        $criterias = Criteria::orderBy('created_at', 'asc')->get();
+        $criterias = Criteria::with('subCriteria')->orderBy('id')->get(); // Ambil semua kriteria
 
-        $alternatives = Alternative::with(['values.subCriteria', 'car'])->get()->map(function ($alt) use ($criterias) {
+        $alternatives = Alternative::with(['values.subCriteria.criteria', 'car'])->get();
+
+        // Susun data alternatif
+        $dataAlternatives = $alternatives->map(function ($alt) use ($criterias) {
             $data = [
                 'id' => $alt->id,
                 'name' => $alt->car?->name
             ];
 
             foreach ($criterias as $criteria) {
-                $value = $alt->values->firstWhere('criteria_id', $criteria->id);
+                // Cari nilai berdasarkan sub_kriteria yang punya criteria_id yang cocok
+                $value = $alt->values->first(function ($val) use ($criteria) {
+                    return $val->subCriteria && $val->subCriteria->criteria_id === $criteria->id;
+                });
+
                 $data[$criteria->id] = $value && $value->subCriteria
                     ? $value->subCriteria->name
                     : '-';
@@ -33,7 +41,10 @@ class AlternativeController extends Controller
             return $data;
         });
 
-        return view('admin.alternative.index', compact('criterias', 'alternatives'));
+        return view('admin.alternative.index', [
+            'criterias' => $criterias,
+            'alternatives' => $dataAlternatives,
+        ]);
     }
 
     public function create(): View
@@ -46,8 +57,7 @@ class AlternativeController extends Controller
     public function show($id)
     {
         $alternative = Alternative::with([
-            'values.criteria',
-            'values.subCriteria',
+            'values.subCriteria.criteria',
             'car'
         ])->findOrFail($id);
 
@@ -61,8 +71,12 @@ class AlternativeController extends Controller
 
         $criteria = Criteria::with('subCriteria')->orderBy('id', 'asc')->get();
 
-        $selectedSubs = AlternativeValue::where('alternative_id', $id)
-            ->pluck('sub_criteria_id', 'criteria_id');
+        $selectedSubs = AlternativeValue::with('subCriteria')
+            ->where('alternative_id', $id)
+            ->get()
+            ->mapWithKeys(function ($val) {
+                return [$val->subCriteria->criteria_id => $val->sub_criteria_id];
+            });
 
         return view('admin.alternative.edit', compact('alternative', 'criteria', 'selectedSubs', 'cars'));
     }
@@ -79,17 +93,15 @@ class AlternativeController extends Controller
             'car_id' => $request->car_id,
         ]);
 
-        foreach ($request->criteria as $criteriaId => $subCriteriaId) {
-            $sub = \App\Models\SubCriteria::find($subCriteriaId);
+        foreach ($request->criteria as $subCriteriaId) {
+            $sub = SubCriteria::with('criteria')->find($subCriteriaId);
 
             AlternativeValue::create([
                 'alternative_id'   => $alternative->id,
-                'criteria_id'      => $criteriaId,
                 'sub_criteria_id'  => $subCriteriaId,
                 'value'            => $sub->value ?? 0,
             ]);
         }
-
 
         return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil disimpan');
     }
@@ -106,16 +118,16 @@ class AlternativeController extends Controller
 
         $alternative->update(['car_id' => $request->car_id]);
 
-        foreach ($request->criteria as $criteriaId => $subCriteriaId) {
-            AlternativeValue::updateOrCreate(
-                [
-                    'alternative_id' => $alternative->id,
-                    'criteria_id' => $criteriaId,
-                ],
-                [
-                    'sub_criteria_id' => $subCriteriaId,
-                ]
-            );
+        AlternativeValue::where('alternative_id', $id)->delete();
+
+        foreach ($request->criteria as $subCriteriaId) {
+            $sub = SubCriteria::with('criteria')->find($subCriteriaId);
+
+            AlternativeValue::create([
+                'alternative_id'   => $alternative->id,
+                'sub_criteria_id'  => $subCriteriaId,
+                'value'            => $sub->value ?? 0,
+            ]);
         }
 
         return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil diubah');
@@ -126,7 +138,6 @@ class AlternativeController extends Controller
         $alternative = Alternative::findOrFail($id);
 
         AlternativeValue::where('alternative_id', $id)->delete();
-
         $alternative->delete();
 
         return redirect()->route('admin.alternative.index')->with('success', 'Data berhasil dihapus');

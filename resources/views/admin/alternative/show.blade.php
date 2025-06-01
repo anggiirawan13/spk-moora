@@ -29,8 +29,8 @@
                     <tbody>
                         @foreach ($alternative->values as $value)
                             <tr>
-                                <td>{{ $value->criteria->code }}</td>
-                                <td>{{ $value->criteria->name }}</td>
+                                <td>{{ $value->subCriteria->criteria->code ?? '-' }}</td>
+                                <td>{{ $value->subCriteria->criteria->name ?? '-' }}</td>
                                 <td>{{ $value->subCriteria->name ?? '-' }}</td>
                             </tr>
                         @endforeach

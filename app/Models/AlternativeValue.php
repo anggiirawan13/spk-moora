@@ -13,7 +13,6 @@ class AlternativeValue extends Model
 
     protected $fillable = [
         'alternative_id',
-        'criteria_id',
         'sub_criteria_id',
         'value'
     ];
@@ -21,11 +20,6 @@ class AlternativeValue extends Model
     public function alternative()
     {
         return $this->belongsTo(Alternative::class, 'alternative_id');
-    }
-
-    public function criteria()
-    {
-        return $this->belongsTo(Criteria::class, 'criteria_id');
     }
 
     public function subCriteria()

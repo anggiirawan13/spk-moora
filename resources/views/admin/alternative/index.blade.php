@@ -37,7 +37,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item['name'] }}</td>
                                 @foreach ($criterias as $criteria)
-                                    <td>{{ $item[$criteria->id] }}</td>
+                                    <td>{{ $item[$criteria->id] ?? '-' }}</td>
                                 @endforeach
                                 <td class="d-flex gap-1">
                                     <a href="{{ route('admin.alternative.show', $item['id']) }}"

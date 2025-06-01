@@ -14,6 +14,7 @@
             <div class="card-body">
                 <form action="{{ route('admin.alternative.store') }}" method="POST">
                     @csrf
+
                     <div class="form-group">
                         <label for="car_id">Mobil</label>
                         <select class="form-control" name="car_id" id="car_id" required>
