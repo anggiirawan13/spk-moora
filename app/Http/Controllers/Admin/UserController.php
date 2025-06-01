@@ -15,7 +15,11 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        $users = User::where('id', '!=', Auth::id())->latest()->get();
+        $users = User::where('id', '!=', 1)
+            ->where('id', '!=', Auth::id())
+            ->latest()
+            ->get();
+
         return view('admin.user.index', compact('users'));
     }
 
@@ -75,18 +79,30 @@ class UserController extends Controller
 
     public function show($id)
     {
+        if ((int)$id === 1) {
+            return redirect()->route('admin.user.index')->with('error', 'User tidak ditemukan');
+        }
+
         $user = User::findOrFail($id);
         return view('admin.user.show', compact('user'));
     }
 
     public function edit($id)
     {
+        if ((int)$id === 1) {
+            return redirect()->route('admin.user.index')->with('error', 'User tidak ditemukan');
+        }
+
         $user = User::findOrFail($id);
         return view('admin.user.edit', compact('user'));
     }
 
     public function update(Request $request, $id): RedirectResponse
     {
+        if ((int)$id === 1) {
+            return redirect()->route('admin.user.index')->with('error', 'User tidak ditemukan');
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
@@ -111,7 +127,6 @@ class UserController extends Controller
 
             $image = $request->file('image_name')->store('user', 'public');
             $imageName = basename($image);
-
             $user['image_name'] = $imageName;
         }
 
@@ -122,9 +137,18 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
+        if ($user->id === 1) {
+            return redirect()->route('admin.user.index')->with('error', 'User tidak ditemukan');
+        }
+
+        if ($user->image_name) {
+            Storage::delete('public/user/' . $user->image_name);
+        }
+
         $user->delete();
+
         return redirect()->back()->with([
-            'message' => 'Data berhasil diHapus',
+            'message' => 'Data berhasil dihapus',
             'alert-type' => 'danger'
         ]);
     }
@@ -156,7 +180,6 @@ class UserController extends Controller
 
             $image = $request->file('image_name')->store('user', 'public');
             $imageName = basename($image);
-
             $user['image_name'] = $imageName;
         }
 
@@ -171,7 +194,6 @@ class UserController extends Controller
 
         if ($user->image_name) {
             Storage::delete('public/user/' . $user->image_name);
-
             $user->image_name = "";
             $user->save();
         }

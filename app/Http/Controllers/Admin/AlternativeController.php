@@ -20,7 +20,6 @@ class AlternativeController extends Controller
 
         $alternatives = Alternative::with(['values.subCriteria.criteria', 'car'])->get();
 
-        // Susun data alternatif
         $dataAlternatives = $alternatives->map(function ($alt) use ($criterias) {
             $data = [
                 'id' => $alt->id,
@@ -28,7 +27,6 @@ class AlternativeController extends Controller
             ];
 
             foreach ($criterias as $criteria) {
-                // Cari nilai berdasarkan sub_kriteria yang punya criteria_id yang cocok
                 $value = $alt->values->first(function ($val) use ($criteria) {
                     return $val->subCriteria && $val->subCriteria->criteria_id === $criteria->id;
                 });

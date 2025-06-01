@@ -10,6 +10,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         User::create([
+            'id' => 1,
             'name' => 'aldi',
             'email' => 'aldi@gmail.com',
             'image_name' => '',
