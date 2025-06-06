@@ -23,8 +23,14 @@ class CalculationController extends Controller
 
         foreach ($alternatives as $alt) {
             foreach ($criteria as $c) {
-                $sub = optional($alt->values->firstWhere('criteria_id', $c->id))->subCriteria;
-                $altValues[$alt->id][$c->id] = $sub->value ?? 0;
+                $altValues[$alt->id][$c->id] = 0;
+                foreach ($alt->values as $val) {
+                    $sub = $val->subCriteria;
+                    if ($sub && $sub->criteria_id === $c->id) {
+                        $altValues[$alt->id][$c->id] = $sub->value;
+                        break;
+                    }
+                }
             }
         }
 
@@ -123,8 +129,14 @@ class CalculationController extends Controller
 
         foreach ($alternatives as $alt) {
             foreach ($criteria as $c) {
-                $sub = optional($alt->values->firstWhere('criteria_id', $c->id))->subCriteria;
-                $altValues[$alt->id][$c->id] = $sub->value ?? 0;
+                $altValues[$alt->id][$c->id] = 0;
+                foreach ($alt->values as $val) {
+                    $sub = $val->subCriteria;
+                    if ($sub && $sub->criteria_id === $c->id) {
+                        $altValues[$alt->id][$c->id] = $sub->value;
+                        break;
+                    }
+                }
             }
         }
 
@@ -193,8 +205,14 @@ class CalculationController extends Controller
 
         foreach ($alternatives as $alt) {
             foreach ($criteria as $c) {
-                $sub = optional($alt->values->firstWhere('criteria_id', $c->id))->subCriteria;
-                $altValues[$alt->id][$c->id] = $sub->value ?? 0;
+                $altValues[$alt->id][$c->id] = 0;
+                foreach ($alt->values as $val) {
+                    $sub = $val->subCriteria;
+                    if ($sub && $sub->criteria_id === $c->id) {
+                        $altValues[$alt->id][$c->id] = $sub->value;
+                        break;
+                    }
+                }
             }
         }
 
@@ -295,8 +313,14 @@ class CalculationController extends Controller
 
         foreach ($alternatives as $alt) {
             foreach ($criteria as $c) {
-                $sub = optional($alt->values->firstWhere('criteria_id', $c->id))->subCriteria;
-                $altValues[$alt->id][$c->id] = $sub->value ?? 0;
+                $altValues[$alt->id][$c->id] = 0;
+                foreach ($alt->values as $val) {
+                    $sub = $val->subCriteria;
+                    if ($sub && $sub->criteria_id === $c->id) {
+                        $altValues[$alt->id][$c->id] = $sub->value;
+                        break;
+                    }
+                }
             }
         }
 

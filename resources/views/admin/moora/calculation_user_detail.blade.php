@@ -1,4 +1,15 @@
 {{-- Step 1: Masukkan Data Alternatif --}}
+@php
+    $getValue = function ($alternative, $criteriaId) {
+        foreach ($alternative->values as $val) {
+            if ($val->subCriteria && $val->subCriteria->criteria_id === $criteriaId) {
+                return $val->subCriteria->value;
+            }
+        }
+        return 0;
+    };
+@endphp
+
 <div class="card shadow mb-4">
     <div class="card-header bg-primary text-white">
         <strong>Step 1: Masukkan Data Alternatif</strong>
@@ -22,10 +33,9 @@
                         <td>{{ optional($a->car)->name ?? ($a->name ?? '—') }}</td>
                         @foreach ($criteria as $c)
                             @php
-                                $val =
-                                    optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                                $val = $getValue($a, $c->id);
                             @endphp
-                            <td>{{ number_format($val, 5) }}</td>
+                            <td>{{ number_format($getValue($a, $c->id), 5) }}</td>
                         @endforeach
                     </tr>
                 @endforeach
@@ -35,8 +45,8 @@
                     <td>∑(x<sub>ij</sub>)²</td>
                     @foreach ($criteria as $c)
                         @php
-                            $sumSquare = $alternatives->sum(function ($a) use ($c) {
-                                $v = optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                            $sumSquare = $alternatives->sum(function ($a) use ($c, $getValue) {
+                                $v = $getValue($a, $c->id);
                                 return pow($v, 2);
                             });
                         @endphp
@@ -72,9 +82,8 @@
                 <tr>
                     @foreach ($criteria as $c)
                         @php
-                            $sumSquares = $alternatives->sum(function ($a) use ($c) {
-                                $val =
-                                    optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                            $sumSquares = $alternatives->sum(function ($a) use ($c, $getValue) {
+                                $val = $getValue($a, $c->id);
                                 return pow($val, 2);
                             });
                         @endphp
@@ -120,8 +129,7 @@
                         <td>{{ optional($a->car)->name ?? ($a->name ?? '—') }}</td>
                         @foreach ($criteria as $c)
                             @php
-                                $raw =
-                                    optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                                $raw = $getValue($a, $c->id);
                                 $norm = $raw / ($normDivisor[$c->id] ?: 1);
                             @endphp
                             <td>{{ number_format($norm, 5) }}</td>

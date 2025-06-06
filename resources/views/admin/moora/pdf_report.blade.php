@@ -1,3 +1,14 @@
+@php
+    $getValue = function ($alternative, $criteriaId) {
+        foreach ($alternative->values as $val) {
+            if ($val->subCriteria && $val->subCriteria->criteria_id === $criteriaId) {
+                return $val->subCriteria->value;
+            }
+        }
+        return 0;
+    };
+@endphp
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -99,9 +110,9 @@
                     <td>{{ optional($a->car)->name ?? $a->name }}</td>
                     @foreach ($criteria as $c)
                         @php
-                            $val = optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                            $val = $getValue($a, $c->id);
                         @endphp
-                        <td>{{ number_format($val, 5) }}</td>
+                        <td>{{ number_format($getValue($a, $c->id), 5) }}</td>
                     @endforeach
                 </tr>
             @endforeach
@@ -111,8 +122,8 @@
                 <td><strong>∑x<sub>ij</sub>²</strong></td>
                 @foreach ($criteria as $c)
                     @php
-                        $sumSquare = $alternatives->sum(function ($a) use ($c) {
-                            $v = optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                        $sumSquare = $alternatives->sum(function ($a) use ($c, $getValue) {
+                            $v = $getValue($a, $c->id);
                             return pow($v, 2);
                         });
                     @endphp
@@ -160,7 +171,7 @@
                     <td>{{ optional($a->car)->name ?? $a->name }}</td>
                     @foreach ($criteria as $c)
                         @php
-                            $raw = optional($a->values->firstWhere('criteria_id', $c->id)?->subCriteria)->value ?? 0;
+                            $raw = $getValue($a, $c->id);
                             $norm = $raw / ($normDivisor[$c->id] ?: 1);
                         @endphp
                         <td>{{ number_format($norm, 5) }}</td>
