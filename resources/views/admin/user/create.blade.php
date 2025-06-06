@@ -11,9 +11,9 @@
             <h5 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h5>
         </div>
         <div class="card-body">
-            <x-user_form route="admin.user.store" :imageRequired="true" :isReadOnly="false" method="POST" :withRole="true"
+            <x-user_form route="admin.user.store" :imageRequired="false" :isReadOnly="false" method="POST" :withRole="true"
                 name="" email="" :withBack="true" routeBack="admin.user.index" image="" role=""
-                :deletePhotoProfile="false" />
+                :deletePhotoProfile="false" :passwordRequired="true" />
         </div>
     </div>
 

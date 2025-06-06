@@ -119,14 +119,11 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
@@ -156,7 +153,6 @@
             passwordInput.addEventListener('input', function() {
                 const val = passwordInput.value;
 
-                // Panjang minimal
                 if (val.length >= 8) {
                     minChar.textContent = '✅ Minimal 8 karakter';
                     minChar.classList.remove('text-danger');
@@ -167,7 +163,6 @@
                     minChar.classList.add('text-danger');
                 }
 
-                // Huruf besar
                 if (/[A-Z]/.test(val)) {
                     hasUpper.textContent = '✅ Minimal 1 huruf besar';
                     hasUpper.classList.remove('text-danger');
@@ -178,7 +173,6 @@
                     hasUpper.classList.add('text-danger');
                 }
 
-                // Huruf kecil
                 if (/[a-z]/.test(val)) {
                     hasLower.textContent = '✅ Minimal 1 huruf kecil';
                     hasLower.classList.remove('text-danger');
@@ -189,7 +183,6 @@
                     hasLower.classList.add('text-danger');
                 }
 
-                // Angka
                 if (/\d/.test(val)) {
                     hasNumber.textContent = '✅ Minimal 1 angka';
                     hasNumber.classList.remove('text-danger');
@@ -200,7 +193,6 @@
                     hasNumber.classList.add('text-danger');
                 }
 
-                // Karakter spesial
                 if (/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
                     hasSpecial.textContent = '✅ Minimal 1 karakter spesial';
                     hasSpecial.classList.replace('text-danger', 'text-success');
@@ -213,7 +205,6 @@
             const confirmInput = document.querySelector('input[name="password_confirmation"]');
             const matchText = document.getElementById('passwordMatch');
 
-            // Fungsi cek password match
             function checkPasswordMatch() {
                 const passwordVal = passwordInput.value;
                 const confirmVal = confirmInput.value;
@@ -234,7 +225,6 @@
                 }
             }
 
-            // Jalankan saat salah satu field diketik
             passwordInput.addEventListener('input', checkPasswordMatch);
             confirmInput.addEventListener('input', checkPasswordMatch);
         });

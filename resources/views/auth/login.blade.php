@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>SPK Moora - Login</title>
-    <link rel="icon" type="image/png" href="{{ asset('img/logo.jpeg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.jpg') }}">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <style>
         .bg-login-image {
-            background: url("/img/logo.jpeg") no-repeat center;
+            background: url("/img/logo.jpg") no-repeat center;
             background-size: cover;
             min-height: 400px;
         }

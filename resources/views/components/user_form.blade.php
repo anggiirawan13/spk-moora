@@ -38,17 +38,17 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="name">Nama Lengkap</label>
+        <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
         <input type="text" name="name" class="form-control" placeholder="Masukkan nama lengkap"
             value="{{ old('name', $name) }}" required />
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Email <span class="text-danger">*</span></label>
         <input type="email" name="email" class="form-control" placeholder="Masukkan email"
             value="{{ old('email', $email) }}" required {{ $isReadOnly ? 'readOnly' : '' }} />
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Password {!! $passwordRequired ? '<span class="text-danger">*</span>' : '' !!}</label>
         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
             placeholder="Masukkan password" {{ $passwordRequired ? 'required' : '' }} />
         @error('password')
@@ -56,13 +56,28 @@
         @enderror
     </div>
     <div class="form-group">
-        <label for="password_confirmation">Konfirmasi Password</label>
+        <label for="password_confirmation">Konfirmasi Password
+            {!! $passwordRequired ? '<span class="text-danger">*</span>' : '' !!}</label>
         <input type="password" name="password_confirmation"
             class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Ulangi password"
             {{ $passwordRequired ? 'required' : '' }} />
         @error('password_confirmation')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
+    </div>
+    <div id="passwordMatch" class="mt-2 font-weight-bold text-danger">
+        ❌ Password tidak cocok
+    </div>
+
+    <div class="form-group">
+        <label><strong>Syarat Password:</strong></label>
+        <ul id="passwordRequirements" class="text-sm pl-3">
+            <li id="char" class="text-danger">❌ Minimal 8 karakter</li>
+            <li id="upper" class="text-danger">❌ Minimal 1 huruf besar</li>
+            <li id="lower" class="text-danger">❌ Minimal 1 huruf kecil</li>
+            <li id="number" class="text-danger">❌ Minimal 1 angka</li>
+            <li id="special" class="text-danger">❌ Minimal 1 karakter spesial</li>
+        </ul>
     </div>
     @if ($withRole)
         <div class="form-group">
@@ -128,4 +143,91 @@
         var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
         confirmModal.show();
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.querySelector('input[name="password"]');
+        const minChar = document.getElementById('char');
+        const hasUpper = document.getElementById('upper');
+        const hasLower = document.getElementById('lower');
+        const hasNumber = document.getElementById('number');
+        const hasSpecial = document.getElementById('special');
+
+        passwordInput.addEventListener('input', function() {
+            const val = passwordInput.value;
+
+            if (val.length >= 8) {
+                minChar.textContent = '✅ Minimal 8 karakter';
+                minChar.classList.remove('text-danger');
+                minChar.classList.add('text-success');
+            } else {
+                minChar.textContent = '❌ Minimal 8 karakter';
+                minChar.classList.remove('text-success');
+                minChar.classList.add('text-danger');
+            }
+
+            if (/[A-Z]/.test(val)) {
+                hasUpper.textContent = '✅ Minimal 1 huruf besar';
+                hasUpper.classList.remove('text-danger');
+                hasUpper.classList.add('text-success');
+            } else {
+                hasUpper.textContent = '❌ Minimal 1 huruf besar';
+                hasUpper.classList.remove('text-success');
+                hasUpper.classList.add('text-danger');
+            }
+
+            if (/[a-z]/.test(val)) {
+                hasLower.textContent = '✅ Minimal 1 huruf kecil';
+                hasLower.classList.remove('text-danger');
+                hasLower.classList.add('text-success');
+            } else {
+                hasLower.textContent = '❌ Minimal 1 huruf kecil';
+                hasLower.classList.remove('text-success');
+                hasLower.classList.add('text-danger');
+            }
+
+            if (/\d/.test(val)) {
+                hasNumber.textContent = '✅ Minimal 1 angka';
+                hasNumber.classList.remove('text-danger');
+                hasNumber.classList.add('text-success');
+            } else {
+                hasNumber.textContent = '❌ Minimal 1 angka';
+                hasNumber.classList.remove('text-success');
+                hasNumber.classList.add('text-danger');
+            }
+
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
+                hasSpecial.textContent = '✅ Minimal 1 karakter spesial';
+                hasSpecial.classList.replace('text-danger', 'text-success');
+            } else {
+                hasSpecial.textContent = '❌ Minimal 1 karakter spesial (!@#$...)';
+                hasSpecial.classList.replace('text-success', 'text-danger');
+            }
+        });
+
+        const confirmInput = document.querySelector('input[name="password_confirmation"]');
+        const matchText = document.getElementById('passwordMatch');
+
+        function checkPasswordMatch() {
+            const passwordVal = passwordInput.value;
+            const confirmVal = confirmInput.value;
+
+            if (confirmVal === '') {
+                matchText.textContent = '';
+                return;
+            }
+
+            if (passwordVal === confirmVal) {
+                matchText.textContent = '✅ Password cocok';
+                matchText.classList.remove('text-danger');
+                matchText.classList.add('text-success');
+            } else {
+                matchText.textContent = '❌ Password tidak cocok';
+                matchText.classList.remove('text-success');
+                matchText.classList.add('text-danger');
+            }
+        }
+
+        passwordInput.addEventListener('input', checkPasswordMatch);
+        confirmInput.addEventListener('input', checkPasswordMatch);
+    });
 </script>

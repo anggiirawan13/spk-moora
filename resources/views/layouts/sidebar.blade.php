@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('login') }}">
         <div class="sidebar-brand-icon">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="logo" width="40" height="40" class="img-fluid">
+            <img src="{{ asset('img/logo.jpg') }}" alt="logo" width="40" height="40" class="img-fluid">
         </div>
         <div class="sidebar-brand-text mx-3">SPK Moora</div>
     </a>
