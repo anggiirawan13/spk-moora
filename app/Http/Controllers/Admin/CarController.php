@@ -79,6 +79,14 @@ class CarController extends Controller
 
     public function compare(Request $request)
     {
+        if (!$request->car1) {
+            return redirect()->route('car.compare.form')->with('error', 'Mobil pertama wajib dipilih');
+        }
+
+        if (!$request->car2) {
+            return redirect()->route('car.compare.form')->with('error', 'Mobil kedua wajib dipilih');
+        }
+
         $request->validate([
             'car1' => 'required|exists:cars,id',
             'car2' => 'required|exists:cars,id',
