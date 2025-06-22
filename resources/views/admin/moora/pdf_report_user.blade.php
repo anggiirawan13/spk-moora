@@ -240,12 +240,20 @@
             </tr>
         </thead>
         <tbody>
-            @php $rank = 1; @endphp
+            @php
+                $rank = 0;
+                $prevYi = null;
+            @endphp
+
             @foreach ($valueMoora as $id => $yi)
                 @php
+                    if ($yi !== $prevYi) {
+                        $rank++;
+                        $prevYi = $yi;
+                    }
+
                     $alt = $alternatives->firstWhere('id', $id);
-                    $benefit = 0;
-                    $cost = 0;
+                    $benefit = $cost = 0;
                     foreach ($criteria as $c) {
                         $value = $normalization[$id][$c->id] ?? 0;
                         if (strtolower($c->attribute_type) === 'benefit') {
@@ -255,12 +263,13 @@
                         }
                     }
                 @endphp
+
                 <tr>
-                    <td>{{ $rank++ }}</td>
-                    <td>{{ optional($alt->car)->name ?? $alt->name }}</td>
+                    <td>{{ $rank }}</td>
+                    <td>{{ optional($alt->car)->name ?? ($alt->name ?? '—') }}</td>
                     <td>{{ number_format($benefit, 5) }}</td>
                     <td>{{ number_format($cost, 5) }}</td>
-                    <td>{{ number_format($yi, 5) }}</td>
+                    <td class="font-weight-bold">{{ number_format($yi, 5) }}</td>
                 </tr>
             @endforeach
         </tbody>
