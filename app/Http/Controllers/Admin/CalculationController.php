@@ -95,23 +95,17 @@ class CalculationController extends Controller
 
         if (!empty($selectedSubCriteria)) {
             $filteredAlternatives = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
-                foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
+                foreach ($selectedSubCriteria as $sub_id) {
                     if (!$sub_id) continue;
-                    $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
+                    $match = $alt->values->firstWhere('sub_criteria_id', $sub_id);
                     if (!$match) return false;
                 }
                 return true;
             })->values();
 
+
             if ($filteredAlternatives->isEmpty()) {
-                $suggestions = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
-                    foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
-                        if (!$sub_id) continue;
-                        $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
-                        if ($match) return true;
-                    }
-                    return false;
-                })->values();
+                $suggestions = $alternatives->values();
             }
         }
 
@@ -279,23 +273,17 @@ class CalculationController extends Controller
 
         if (!empty($selectedSubCriteria)) {
             $filteredAlternatives = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
-                foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
+                foreach ($selectedSubCriteria as $sub_id) {
                     if (!$sub_id) continue;
-                    $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
+                    $match = $alt->values->firstWhere('sub_criteria_id', $sub_id);
                     if (!$match) return false;
                 }
                 return true;
             })->values();
 
+
             if ($filteredAlternatives->isEmpty()) {
-                $suggestions = $alternatives->filter(function ($alt) use ($selectedSubCriteria) {
-                    foreach ($selectedSubCriteria as $criteria_id => $sub_id) {
-                        if (!$sub_id) continue;
-                        $match = $alt->values->firstWhere('criteria_id', $criteria_id)?->sub_criteria_id == $sub_id;
-                        if ($match) return true;
-                    }
-                    return false;
-                })->values();
+                $suggestions = $alternatives->values();
             }
         }
 
