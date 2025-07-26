@@ -16,7 +16,7 @@ class CarSeeder extends Seeder
             DB::table('cars')->insert([
                 'name' => $faker->unique()->word() . ' ' . $faker->unique()->numberBetween(100, 999),
                 'image_name' => null,
-                'price' => $faker->numberBetween(100000000, 500000000),
+                'price' => $faker->numberBetween(100, 500),
                 'manufacture_year' => $faker->year(),
                 'brand_id' => $faker->numberBetween(1, 2),
                 'mileage' => $faker->numberBetween(1000, 100000),
