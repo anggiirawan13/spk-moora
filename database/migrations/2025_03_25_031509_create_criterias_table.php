@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('criterias', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedSmallInteger('id')->autoIncrement()->primary();
             $table->string('code', 50)->unique();
             $table->string('name')->index();
             $table->decimal('weight', 5, 2);

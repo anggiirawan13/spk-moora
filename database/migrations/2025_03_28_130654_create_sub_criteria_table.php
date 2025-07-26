@@ -8,9 +8,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('sub_criterias', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('criteria_id')->constrained('criterias')->onDelete('cascade');
-            $table->string('name');
+            $table->unsignedSmallInteger('id')->autoIncrement()->primary();
+            
+            $table->unsignedSmallInteger('criteria_id');
+
+            $table->foreign('criteria_id')->references('id')->on('criterias')->onDelete('cascade');
+            $table->string('name', 100);
             $table->unsignedInteger('value');
             $table->timestamps();
         });

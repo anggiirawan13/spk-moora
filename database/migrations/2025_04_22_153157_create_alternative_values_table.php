@@ -8,10 +8,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('alternative_values', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('alternative_id')->constrained('alternatives')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('sub_criteria_id')->constrained('sub_criterias')->onUpdate('cascade')->onDelete('cascade');
-            $table->decimal('value', 15, 2);
+            $table->unsignedSmallInteger('id')->autoIncrement()->primary();
+
+            $table->unsignedSmallInteger('alternative_id');
+            $table->unsignedSmallInteger('sub_criteria_id');
+
+            $table->foreign('alternative_id')->references('id')->on('alternatives')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('sub_criteria_id')->references('id')->on('sub_criterias')->onUpdate('cascade')->onDelete('cascade');
+            $table->decimal('value', 10, 2);
             $table->timestamps();
         });
     }

@@ -8,8 +8,11 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('alternatives', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('car_id')->constrained('cars')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedSmallInteger('id')->autoIncrement()->primary();
+
+            $table->unsignedSmallInteger('car_id');
+
+            $table->foreign('car_id')->references('id')->on('cars')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

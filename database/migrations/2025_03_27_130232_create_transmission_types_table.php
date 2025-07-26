@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up() {
         Schema::create('transmission_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
+            $table->unsignedSmallInteger('id')->autoIncrement()->primary();
+            $table->string('name', 100)->unique();
             $table->timestamps();
         });
     }
